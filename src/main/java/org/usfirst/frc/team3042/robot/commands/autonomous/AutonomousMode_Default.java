@@ -5,10 +5,10 @@ import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_GyroStraigh
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /** Autonomous Mode Default ******************************************************
- * Our default autonomous mode that drives forwards off the initiation line and then shoots the three pre-loaded power cells */
+ * A default autonomous mode template that simply drives forwards */
 public class AutonomousMode_Default extends CommandGroup {
 
   public AutonomousMode_Default() {
-    addSequential(new Drivetrain_GyroStraight(18.0, 120.0)); //Drive forwards off the initiation line
+    addSequential(new Drivetrain_GyroStraight(18.0, 120.0)); //Drive forwards
   }
 }

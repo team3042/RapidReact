@@ -33,7 +33,6 @@ public class Drivetrain_GyroTurn extends Command {
 	public Drivetrain_GyroTurn(double angle) {
 		log.add("Constructor", Log.Level.TRACE);
 		requires(drivetrain);
-
 		goalAngle = angle;
 	}
 	

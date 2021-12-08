@@ -8,8 +8,8 @@ import org.usfirst.frc.team3042.robot.Robot;
 import org.usfirst.frc.team3042.robot.RobotMap;
 import org.usfirst.frc.team3042.robot.subsystems.Intake;
 
-/** Intake *******************************************************************
- * Sets power to the intake */
+/** Intake_Intake *******************************************************************
+ * Sets power to the intake, either forwards or reverse */
 public class Intake_Intake extends Command {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_INTAKE;
@@ -32,7 +32,6 @@ public class Intake_Intake extends Command {
 	 * Called just before this Command runs the first time */
 	protected void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
-
 		intake.setPower(POWER * direction);
 	}
 

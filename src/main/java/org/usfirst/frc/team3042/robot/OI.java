@@ -49,9 +49,6 @@ public class OI {
 		//Intake Controls
 		gamepad.LB.whileHeld(new Intake_Intake(1)); //run intake
 		gamepad.LT.whileActive(new Intake_Intake(-1)); //reverse intake
-
-		//Spit out balls (hasn't been tested very much yet!)
-		gamepad.A.whileHeld(new Intake_Intake(-1)); //reverse intake
 	}
 	
 	/** Access to the driving axes values *****************************

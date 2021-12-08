@@ -28,7 +28,6 @@ public class Drivetrain_TankDrive extends Command {
 	 * Required subsystems will cancel commands when this command is run. */
 	public Drivetrain_TankDrive() {
 		log.add("Constructor", Log.Level.TRACE);
-		
 		requires(drivetrain);
 	}
 
@@ -85,7 +84,7 @@ public class Drivetrain_TankDrive extends Command {
 	 * Called once after isFinished returns true */
 	protected void end() {
 		log.add("End", Log.Level.TRACE);
-		terminate();
+		drivetrain.stop();
 	}
 
 	/** interrupted ***********************************************************
@@ -93,11 +92,6 @@ public class Drivetrain_TankDrive extends Command {
 	 * subsystems is scheduled to run */
 	protected void interrupted() {
 		log.add("Interrupted", Log.Level.TRACE);
-		terminate();
-	}
-	
-	/** Graceful End **********************************************************/
-	private void terminate() {
 		drivetrain.stop();
 	}
 }

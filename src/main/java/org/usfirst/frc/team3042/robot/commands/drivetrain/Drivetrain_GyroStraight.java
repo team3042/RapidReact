@@ -7,7 +7,6 @@ import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.Robot;
 import org.usfirst.frc.team3042.robot.RobotMap;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team3042.robot.subsystems.DrivetrainEncoders;
 
 /** Drivetrain Gyro Straight **************************************************
  * Command for driving straight using gyroscope feedback. */
@@ -25,7 +24,6 @@ public class Drivetrain_GyroStraight extends Command {
 	/** Instance Variables ****************************************************/
 	Drivetrain drivetrain = Robot.drivetrain;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(drivetrain));
-	DrivetrainEncoders encoders = Robot.drivetrain.getEncoders();
 	double leftPower, rightPower, lastError, integralError;
 	double goalAngle, goalDistance;
 	
@@ -43,8 +41,8 @@ public class Drivetrain_GyroStraight extends Command {
 		
 		// Find the power level for the given speed
 		double rpm = speed * 60.0 / CIRCUMFRENCE;		
-		leftPower = encoders.rpmToPower(rpm, kF_LEFT);
-		rightPower = encoders.rpmToPower(rpm, kF_RIGHT);
+		leftPower = drivetrain.rpmToPower(rpm, kF_LEFT);
+		rightPower = drivetrain.rpmToPower(rpm, kF_RIGHT);
 	}
 	
 	/** initialize ************************************************************
@@ -56,7 +54,7 @@ public class Drivetrain_GyroStraight extends Command {
 		goalAngle = drivetrain.getAngle();
 		lastError = 0.0;
 		integralError = 0.0;
-		encoders.reset();
+		drivetrain.resetEncoders();
 	}
 
 	/** execute ***************************************************************
@@ -82,8 +80,8 @@ public class Drivetrain_GyroStraight extends Command {
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
 	protected boolean isFinished() {
-		boolean leftGoalReached = Math.abs(encoders.getLeftPosition()) >= goalDistance;
-		boolean rightGoalReached = Math.abs(encoders.getRightPosition()) >= goalDistance;
+		boolean leftGoalReached = Math.abs(drivetrain.getLeftPosition()) >= goalDistance;
+		boolean rightGoalReached = Math.abs(drivetrain.getRightPosition()) >= goalDistance;
 		return leftGoalReached || rightGoalReached;
 	}
 	

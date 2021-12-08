@@ -7,12 +7,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /** GamepadTrigger ************************************************************
- * A object that monitors gamepad triggers
- */
+ * A object that monitors gamepad triggers */
 public class AxisTrigger extends Trigger {
 	/** Configuration Constants ***********************************************/
 	public static final Log.Level LOG_LEVEL = RobotMap.LOG_AXIS_TRIGGER;
-
 	public static enum Direction{UP, DOWN, LEFT, RIGHT;}
 
 	/** Instance Variables ****************************************************/
@@ -28,8 +26,7 @@ public class AxisTrigger extends Trigger {
 	 * 
 	 * Joystick		gamepad		The controller to monitor for a trigger
 	 * int			axis		The joystick axis to monitor
-	 * DIRECTION	direction	The axis direction on which to trigger.
-	 */
+	 * DIRECTION	direction	The axis direction on which to trigger. */
 	public AxisTrigger(Joystick joystick, int axis){
 		this(joystick, axis, Direction.DOWN);
 	}
@@ -41,8 +38,7 @@ public class AxisTrigger extends Trigger {
 	}
 	
 	/** get *******************************************************************
-	 * Return if the axis has been pushed to trigger the command.
-	 */
+	 * Return if the axis has been pushed to trigger the command. */
     public boolean get() {
     	reset = reset || (Math.abs(gamepad.getRawAxis(axis)) < 0.25);
 

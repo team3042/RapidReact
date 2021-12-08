@@ -2,7 +2,7 @@ package org.usfirst.frc.team3042.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.RobotMap;
@@ -21,24 +21,22 @@ public class Intake extends Subsystem {
 
 	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
-	VictorSPX motor = new VictorSPX(CAN_INTAKE);
+	TalonSRX motor = new TalonSRX(CAN_INTAKE);
 
 	/** Intake ****************************************************************/
 	public Intake() {
 		log.add("Constructor", LOG_LEVEL);
-		
 		initMotor(motor, REVERSE_MOTOR);
-  }
+  	}
 
-  private void initMotor(VictorSPX motor, boolean reverse) {
+  private void initMotor(TalonSRX motor, boolean reverse) {
 		motor.setNeutralMode(BRAKE_MODE);
 		motor.setInverted(reverse); // affects percent Vbus mode
-  }
+  	}
   
-  /** Methods for setting the motor in Percent Vbus mode **********************/
+    /** Methods for setting the motor in Percent Vbus mode **********************/
 	public void setPower(double Power) {
 		Power = safetyCheck(Power);
-				
 		motor.set(ControlMode.PercentOutput, Power);		
 	}
 	public void stop() {
