@@ -15,10 +15,10 @@ public class RobotMap {
 	public static final double ROBOT_WIDTH = 21.5; //TODO: Measure this on the actual 2022 robot!
 	
 	/** CAN ID numbers ********************************************************/
-	public static final int CAN_LEFT_MOTOR 	= 19; //TODO: Determine this CAN ID on the actual 2022 robot!
-	public static final int CAN_RIGHT_MOTOR = 17; //TODO: Determine this CAN ID on the actual 2022 robot!
-	public static final int CAN_LEFT_FOLLOWER = 2; //TODO: Determine this CAN ID on the actual 2022 robot!
-	public static final int CAN_RIGHT_FOLLOWER = 15; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_LEFT_MOTOR 	= 33; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_RIGHT_MOTOR = 29; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_LEFT_FOLLOWER = 30; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_RIGHT_FOLLOWER = 28; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_INTAKE = 13; //TODO: Determine this CAN ID on the actual 2022 robot!
 
 	/** PCM channels **********************************************************/

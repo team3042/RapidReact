@@ -1,7 +1,8 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
-
+import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_GyroStraight;
+import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_Scale_Toggle;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 
@@ -45,6 +46,9 @@ public class OI {
 		//Drivetrain Controls
 		joyLeft.button1.whenPressed(new Drivetrain_Scale_Toggle());
 		joyLeft.button1.whenReleased(new Drivetrain_Scale_Toggle());
+
+		gamepad.Y.whenPressed(new Drivetrain_GyroStraight(20, 25));
+		gamepad.X.whenPressed(new Drivetrain_GyroTurn(90));
 
 		//Intake Controls
 		gamepad.LB.whileHeld(new Intake_Intake(1)); //run intake
