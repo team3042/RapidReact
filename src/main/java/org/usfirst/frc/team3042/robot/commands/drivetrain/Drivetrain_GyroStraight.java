@@ -72,7 +72,7 @@ public class Drivetrain_GyroStraight extends Command {
 		correction = Math.min(MAX_CORRECTION, correction);
 		correction = Math.max(-MAX_CORRECTION, correction);
 		
-		drivetrain.setPower(leftPower + correction, rightPower - correction);
+		drivetrain.setPower(leftPower - correction, rightPower + correction);
 		
 		lastError = error;
 	}

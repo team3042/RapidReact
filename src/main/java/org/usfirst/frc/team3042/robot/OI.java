@@ -47,7 +47,7 @@ public class OI {
 		joyLeft.button1.whenPressed(new Drivetrain_Scale_Toggle());
 		joyLeft.button1.whenReleased(new Drivetrain_Scale_Toggle());
 
-		gamepad.Y.whenPressed(new Drivetrain_GyroStraight(20, 25));
+		gamepad.Y.whenPressed(new Drivetrain_GyroStraight(20, 50));
 		gamepad.X.whenPressed(new Drivetrain_GyroTurn(90));
 
 		//Intake Controls
