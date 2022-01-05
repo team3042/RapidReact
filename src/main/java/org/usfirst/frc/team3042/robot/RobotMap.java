@@ -40,7 +40,7 @@ public class RobotMap {
 	public static final int AUTON_PIDIDX = 0; // used for cascading PID; set to zero
 
 	/** Drivetrain Gyro Drive Settings ****************************************/
-	public static final double kP_GYRO = 0.026;
+	public static final double kP_GYRO = 0.007;
 	public static final double kI_GYRO = 0.0;
 	public static final double kD_GYRO = 0.017;
 	public static final double ANGLE_TOLERANCE = 2.0;
