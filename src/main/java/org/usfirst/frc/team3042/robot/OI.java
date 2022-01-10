@@ -3,7 +3,6 @@ package org.usfirst.frc.team3042.robot;
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_GyroStraight;
 import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_GyroTurn;
-import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_Scale_Toggle;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 
 /** OI ************************************************************************
@@ -20,14 +19,11 @@ public class OI {
 	private static final int JOYSTICK_Y_AXIS = Gamepad.JOY_Y_AXIS;
 	private static final int GAMEPAD_LEFT_TRIGGER = Gamepad.LEFT_TRIGGER;
 	private static final int GAMEPAD_RIGHT_TRIGGER = Gamepad.RIGHT_TRIGGER;
-	private static final double JOYSTICK_DRIVE_SCALE_LOW = RobotMap.JOYSTICK_DRIVE_SCALE_LOW;
 	
 	/** Instance Variables ****************************************************/
 	Log log = new Log(RobotMap.LOG_OI, "OI");
 	public Gamepad gamepad, joyLeft, joyRight;
 	int driveAxisLeft, driveAxisRight;
-	public static double CURRENT_DRIVE_SCALE = JOYSTICK_DRIVE_SCALE;
-	public static boolean isLowScale = false;
 
 	/** OI ********************************************************************
 	 * Assign commands to the buttons and triggers*/
@@ -44,9 +40,6 @@ public class OI {
 		
 		/** Controls **********************************************************/
 		//Drivetrain Controls
-		joyLeft.button1.whenPressed(new Drivetrain_Scale_Toggle());
-		joyLeft.button1.whenReleased(new Drivetrain_Scale_Toggle());
-
 		gamepad.Y.whenPressed(new Drivetrain_GyroStraight(20, 50));
 		gamepad.X.whenPressed(new Drivetrain_GyroTurn(90));
 
@@ -69,26 +62,10 @@ public class OI {
 	}
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
-		joystickValue *= CURRENT_DRIVE_SCALE;
+		joystickValue *= JOYSTICK_DRIVE_SCALE;
 		joystickValue *= -1.0;
 		return joystickValue;
 	}
-	public void setNormalScale() {
-    	CURRENT_DRIVE_SCALE = JOYSTICK_DRIVE_SCALE;
-    	isLowScale = false;
-    }
-    public void setLowScale() {
-    	CURRENT_DRIVE_SCALE = JOYSTICK_DRIVE_SCALE_LOW;
-    	isLowScale = true;
-    }
-    public void toggleScale(){
-    	if (isLowScale) {
-    		setNormalScale();
-    	}
-    	else {
-    		setLowScale();
-		}
-	}	
 	private double checkDeadZone(double joystickValue) {
 		if (Math.abs(joystickValue) < JOYSTICK_DEAD_ZONE) {
 			joystickValue = 0.0;
