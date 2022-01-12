@@ -1,8 +1,8 @@
 package org.usfirst.frc.team3042.robot;
 
-import org.usfirst.frc.team3042.lib.Log;
-
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+
+import org.usfirst.frc.team3042.lib.Log;
 
 /** RobotMap ******************************************************************
  * The robot configuration file. */

@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.PowerDistribution;
 
 /** Robot *********************************************************************
  * The VM is configured to automatically run this class, and to call the
@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
 	private Log log = new Log(LOG_LEVEL, "Robot");
 	public static final Drivetrain drivetrain 			  = new Drivetrain();
 	public static final Intake intake 			  		  = new Intake();
-	public static final PowerDistributionPanel pdp		  = new PowerDistributionPanel();
+	public static final PowerDistribution pdp		  = new PowerDistribution();
 	public static OI oi;
 	
 	Command autonomousCommand;
@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto Mode", chooser);
 
 		// Start up the webcam and configure its resolution and framerate
-		camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+		camera1 = CameraServer.startAutomaticCapture(0);
 		camera1.setResolution(640, 480);
 		camera1.setFPS(15);
 	}
