@@ -11,8 +11,8 @@ public class RobotMap {
 	 * The units of the wheel diameter determine the units of the position 
 	 * and speed closed-loop commands. For example, if the diameter is given 
 	 * in inches, position will be in inches and speed in inches per second. */
-	public static final double WHEEL_DIAMETER = 6.0; //TODO: Measure this on the actual 2022 robot!
-	public static final double ROBOT_WIDTH = 27.0; //TODO: Measure this on the actual 2022 robot!
+	public static final double WHEEL_DIAMETER = 6.0; // Measured in inches
+	public static final double ROBOT_WIDTH = 27.0; // Measured in inches
 	
 	/** CAN ID numbers ********************************************************/
 	public static final int CAN_CLIMBER 	= 0; //TODO: Determine this CAN ID on the actual 2022 robot!
