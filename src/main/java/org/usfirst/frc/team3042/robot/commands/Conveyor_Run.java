@@ -18,13 +18,13 @@ public class Conveyor_Run extends Command {
 	/** Instance Variables ****************************************************/
   Conveyor conveyor = Robot.conveyor;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(conveyor));
-  int direction;
+  	int direction;
 
 	/** Conveyor ****************************************************************
 	 * Required subsystems will cancel commands when this command is run. */
 	public Conveyor_Run(int direction) {
 		log.add("Constructor", Log.Level.TRACE);
-    this.direction = direction;
+    	this.direction = direction;
 		requires(conveyor);
 	}
 

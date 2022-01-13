@@ -16,15 +16,15 @@ public class Climber_Run extends Command {
 	private static final double POWER = RobotMap.CLIMBER_POWER;
 	
 	/** Instance Variables ****************************************************/
-  Climber climber = Robot.climber;
+  	Climber climber = Robot.climber;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(climber));
-  int direction;
+  	int direction;
 
 	/** Climber ****************************************************************
 	 * Required subsystems will cancel commands when this command is run. */
 	public Climber_Run(int direction) {
 		log.add("Constructor", Log.Level.TRACE);
-    this.direction = direction;
+    	this.direction = direction;
 		requires(climber);
 	}
 

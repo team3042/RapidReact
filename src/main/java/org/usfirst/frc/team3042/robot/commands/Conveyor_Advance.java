@@ -15,17 +15,16 @@ public class Conveyor_Advance extends Command {
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CONVEYOR;
 	private static final double POWER = RobotMap.CONVEYOR_POWER;
   
-	
 	/** Instance Variables ****************************************************/
-  Conveyor conveyor = Robot.conveyor;
+  	Conveyor conveyor = Robot.conveyor;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(conveyor));
-  int direction;
+  	int direction;
 
 	/** Conveyor ****************************************************************
 	 * Required subsystems will cancel commands when this command is run. */
 	public Conveyor_Advance(int direction) {
 		log.add("Constructor", Log.Level.TRACE);
-    this.direction = direction;
+    	this.direction = direction;
 		requires(conveyor);
 	}
 
