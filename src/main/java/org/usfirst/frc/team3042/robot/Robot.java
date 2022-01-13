@@ -2,6 +2,8 @@ package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Default;
+import org.usfirst.frc.team3042.robot.subsystems.Climber;
+import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3042.robot.subsystems.Intake;
 
@@ -25,6 +27,8 @@ public class Robot extends TimedRobot {
 
 	/** Create Subsystems *****************************************************/
 	private Log log = new Log(LOG_LEVEL, "Robot");
+	public static final Climber climber 			  = new Climber();
+	public static final Conveyor conveyor 			  = new Conveyor();
 	public static final Drivetrain drivetrain 			  = new Drivetrain();
 	public static final Intake intake 			  		  = new Intake();
 	public static final PowerDistribution pdp		  = new PowerDistribution();

@@ -10,21 +10,23 @@ import org.usfirst.frc.team3042.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
-/** Intake ********************************************************************
- * Subsystem for the Intake */
-public class Intake extends Subsystem {
+//import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+/** Climber ********************************************************************
+ * Subsystem for Climbing */
+public class Climber extends Subsystem {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_INTAKE;
-	private static final int CAN_INTAKE = RobotMap.CAN_INTAKE;
-	private static final boolean REVERSE_MOTOR = RobotMap.REVERSE_INTAKE;
-	private static final NeutralMode BRAKE_MODE = RobotMap.INTAKE_BRAKE_MODE;
+	private static final int CAN_CLIMBER = RobotMap.CAN_CLIMBER;
+	private static final boolean REVERSE_MOTOR = RobotMap.REVERSE_CLIMBER;
+	private static final NeutralMode BRAKE_MODE = RobotMap.CLIMBER_BRAKE_MODE;
 
 	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
-	TalonSRX motor = new TalonSRX(CAN_INTAKE);
+	TalonSRX motor = new TalonSRX(CAN_CLIMBER);
 
-	/** Intake ****************************************************************/
-	public Intake() {
+	/** Climber ****************************************************************/
+	public Climber() {
 		log.add("Constructor", LOG_LEVEL);
 		initMotor(motor, REVERSE_MOTOR);
 	}
@@ -34,7 +36,7 @@ public class Intake extends Subsystem {
 		motor.setInverted(reverse); // affects percent Vbus mode
   	}
   
-    /** Methods for setting the motor in Percent Vbus mode **********************/
+	/** Methods for setting the motor in Percent Vbus mode **********************/
 	public void setPower(double Power) {
 		Power = safetyCheck(Power);
 		motor.set(ControlMode.PercentOutput, Power);		
@@ -50,7 +52,7 @@ public class Intake extends Subsystem {
 	
 	/** initDefaultCommand ****************************************************
 	 * Set the default command for the subsystem. */
-	public void initDefaultCommand() {
+		public void initDefaultCommand() {
 		setDefaultCommand(null);
 	}
 }

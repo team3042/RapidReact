@@ -46,6 +46,10 @@ public class OI {
 		//Intake Controls
 		gamepad.LB.whileHeld(new Intake_Intake(1)); //run intake
 		gamepad.LT.whileActive(new Intake_Intake(-1)); //reverse intake
+
+		//Climber Controls
+
+		//Conveyor Controls
 	}
 	
 	/** Access to the driving axes values *****************************

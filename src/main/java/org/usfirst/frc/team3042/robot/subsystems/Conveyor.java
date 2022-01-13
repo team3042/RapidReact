@@ -10,31 +10,31 @@ import org.usfirst.frc.team3042.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
-/** Intake ********************************************************************
- * Subsystem for the Intake */
-public class Intake extends Subsystem {
+/** Conveyor ********************************************************************
+ * Subsystem for moving balls through the body of the robot */
+public class Conveyor extends Subsystem {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_INTAKE;
-	private static final int CAN_INTAKE = RobotMap.CAN_INTAKE;
-	private static final boolean REVERSE_MOTOR = RobotMap.REVERSE_INTAKE;
-	private static final NeutralMode BRAKE_MODE = RobotMap.INTAKE_BRAKE_MODE;
+  private static final int CAN_CONVEYOR = RobotMap.CAN_CONVEYOR;
+	private static final boolean REVERSE_MOTOR = RobotMap.REVERSE_CONVEYOR;
+	private static final NeutralMode BRAKE_MODE = RobotMap.CONVEYOR_BRAKE_MODE;
 
-	/** Instance Variables ****************************************************/
+  /** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
-	TalonSRX motor = new TalonSRX(CAN_INTAKE);
+	TalonSRX motor = new TalonSRX(CAN_CONVEYOR);
 
-	/** Intake ****************************************************************/
-	public Intake() {
-		log.add("Constructor", LOG_LEVEL);
+  /** Conveyor ****************************************************************/
+	public Conveyor() {
+	  log.add("Constructor", LOG_LEVEL);
 		initMotor(motor, REVERSE_MOTOR);
-	}
+  }
 
-	private void initMotor(TalonSRX motor, boolean reverse) {
+  private void initMotor(TalonSRX motor, boolean reverse) {
 		motor.setNeutralMode(BRAKE_MODE);
 		motor.setInverted(reverse); // affects percent Vbus mode
-  	}
+  }
   
-    /** Methods for setting the motor in Percent Vbus mode **********************/
+  /** Methods for setting the motor in Percent Vbus mode **********************/
 	public void setPower(double Power) {
 		Power = safetyCheck(Power);
 		motor.set(ControlMode.PercentOutput, Power);		

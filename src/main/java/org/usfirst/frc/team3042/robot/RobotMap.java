@@ -15,6 +15,8 @@ public class RobotMap {
 	public static final double ROBOT_WIDTH = 27.0; //TODO: Measure this on the actual 2022 robot!
 	
 	/** CAN ID numbers ********************************************************/
+	public static final int CAN_CLIMBER 	= 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_CONVEYOR 	= 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_LEFT_MOTOR 	= 33; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_RIGHT_MOTOR = 29; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_LEFT_FOLLOWER = 30; //TODO: Determine this CAN ID on the actual 2022 robot!
@@ -24,7 +26,17 @@ public class RobotMap {
 	/** PCM channels **********************************************************/
 	
 	/** DIO channels **********************************************************/
+
+	/** Climber Settings ***************************************************/
+	public static final boolean REVERSE_CLIMBER = false; //TODO: Determine this setting for the actual 2022 robot!
+	public static final NeutralMode CLIMBER_BRAKE_MODE = NeutralMode.Brake;
+	public static final double CLIMBER_POWER = 0.0; // How much power (as a %) to give the intake
 	
+	/** Conveyor Settings ***************************************************/
+	public static final boolean REVERSE_CONVEYOR = false; //TODO: Determine this setting for the actual 2022 robot!
+	public static final NeutralMode CONVEYOR_BRAKE_MODE = NeutralMode.Brake;
+	public static final double CONVEYOR_POWER = 0.0; // How much power (as a %) to give the intake
+
 	/** Drivetrain Settings ***************************************************/
 	public static final NeutralMode DRIVETRAIN_BRAKE_MODE = NeutralMode.Brake;
 	public static final boolean REVERSE_LEFT_MOTOR = false; //TODO: Determine this setting for the actual 2022 robot!
@@ -75,6 +87,8 @@ public class RobotMap {
 	public static final Log.Level	LOG_AXIS_TRIGGER 					= Log.Level.ERROR;
 	public static final Log.Level	LOG_POV_BUTTON						= Log.Level.ERROR;
 	/** Subsystems ************************************************************/
+	public static final Log.Level	LOG_CLIMBER							= Log.Level.DEBUG;
+	public static final Log.Level	LOG_CONVEYOR						= Log.Level.DEBUG;
 	public static final Log.Level	LOG_DRIVETRAIN						= Log.Level.TRACE;
 	public static final Log.Level	LOG_INTAKE							= Log.Level.DEBUG;
 }
