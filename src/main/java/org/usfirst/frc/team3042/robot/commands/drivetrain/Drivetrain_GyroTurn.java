@@ -62,7 +62,7 @@ public class Drivetrain_GyroTurn extends Command {
 		correction = Math.min(MAX_POWER, correction);
 		correction = Math.max(-MAX_POWER, correction);
 	
-		drivetrain.setPower(-correction, correction);
+		drivetrain.driveCartesian(0, 0, correction);		
 		
 		log.add("***** " + correction, Log.Level.DEBUG);
 
