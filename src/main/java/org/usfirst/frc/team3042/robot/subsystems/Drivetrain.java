@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
@@ -25,14 +26,18 @@ public class Drivetrain extends Subsystem {
 	private static final int LEFT_BACK = RobotMap.CAN_RIGHT_FRONT_MOTOR;
 	private static final int RIGHT_BACK = RobotMap.CAN_RIGHT_BACK_MOTOR;
 	private static final NeutralMode BRAKE_MODE = RobotMap.DRIVETRAIN_BRAKE_MODE;
-	private static final boolean REVERSE_LEFT_MOTOR = RobotMap.REVERSE_LEFT_MOTOR;
-	private static final boolean REVERSE_RIGHT_MOTOR = RobotMap.REVERSE_RIGHT_MOTOR;	
+	private static final boolean REVERSE_LEFT_FRONT = RobotMap.REVERSE_LEFT_FRONT_MOTOR;
+	private static final boolean REVERSE_RIGHT_FRONT = RobotMap.REVERSE_RIGHT_FRONT_MOTOR;
+	private static final boolean REVERSE_LEFT_BACK = RobotMap.REVERSE_LEFT_BACK_MOTOR;
+	private static final boolean REVERSE_RIGHT_BACK = RobotMap.REVERSE_RIGHT_BACK_MOTOR;
 	private static final int COUNTS_PER_REVOLUTION = RobotMap.COUNTS_PER_REVOLUTION;
 	private static final int FRAME_RATE = RobotMap.ENCODER_FRAME_RATE;
 	private static final int TIMEOUT = RobotMap.AUTON_TIMEOUT;
 	private static final int PIDIDX = RobotMap.AUTON_PIDIDX;
-	private static final boolean SENSOR_PHASE_LEFT = RobotMap.SENSOR_PHASE_LEFT;
-	private static final boolean SENSOR_PHASE_RIGHT = RobotMap.SENSOR_PHASE_RIGHT;
+	private static final boolean SENSOR_PHASE_LEFT_FRONT = RobotMap.SENSOR_PHASE_LEFT_FRONT;
+	private static final boolean SENSOR_PHASE_RIGHT_FRONT = RobotMap.SENSOR_PHASE_RIGHT_FRONT;
+	private static final boolean SENSOR_PHASE_LEFT_BACK = RobotMap.SENSOR_PHASE_LEFT_BACK;
+	private static final boolean SENSOR_PHASE_RIGHT_BACK = RobotMap.SENSOR_PHASE_RIGHT_BACK;
 
 	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
@@ -43,22 +48,20 @@ public class Drivetrain extends Subsystem {
 	WPI_TalonSRX rightBack = new WPI_TalonSRX(RIGHT_BACK);	
 
 	Gyro gyroscope = new ADXRS450_Gyro(); // The gyroscope sensor
+	MecanumDrive robotDrive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);;
 
-	double leftPositionZero, rightPositionZero; // Zero positions of the encoders
+	double leftFrontPositionZero, rightFrontPositionZero, leftBackPositionZero, rightBackPositionZero; // Zero positions of the encoders
 	
 	/** Drivetrain ************************************************************
 	 * Setup the motor controllers for desired behavior. */
 	public Drivetrain() {
 		log.add("Constructor", LOG_LEVEL);
 		
-		initMotor(leftFront, REVERSE_LEFT_MOTOR, SENSOR_PHASE_LEFT);
-		initMotor(rightFront, REVERSE_RIGHT_MOTOR, SENSOR_PHASE_RIGHT);
-		initMotor(leftBack, REVERSE_LEFT_MOTOR, SENSOR_PHASE_LEFT);
-		initMotor(rightBack, REVERSE_RIGHT_MOTOR, SENSOR_PHASE_RIGHT);
-
-		leftBack.set(ControlMode.Follower, LEFT_FRONT);
-		rightBack.set(ControlMode.Follower, RIGHT_FRONT);
-													
+		initMotor(leftFront, REVERSE_LEFT_FRONT, SENSOR_PHASE_LEFT_FRONT);
+		initMotor(rightFront, REVERSE_RIGHT_FRONT, SENSOR_PHASE_RIGHT_FRONT);
+		initMotor(leftBack, REVERSE_LEFT_BACK, SENSOR_PHASE_LEFT_BACK);
+		initMotor(rightBack, REVERSE_RIGHT_BACK, SENSOR_PHASE_RIGHT_BACK);
+		
 		resetEncoders();
 	}
 	private void initMotor(WPI_TalonSRX motor, boolean reverse, boolean sensorPhase) {
@@ -76,15 +79,19 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	/** Methods for setting the motors in % power mode ********************/
-	public void setPower(double leftPower, double rightPower) {
-		leftPower = safetyCheck(leftPower);
-		rightPower = safetyCheck(rightPower);
+	public void setPower(double leftFrontPower, double rightFrontPower, double leftBackPower, double rightBackPower) {
+		leftFrontPower = safetyCheck(leftFrontPower);
+		rightFrontPower = safetyCheck(rightFrontPower);
+		leftBackPower = safetyCheck(leftBackPower);
+		rightBackPower = safetyCheck(rightBackPower);
 				
-		leftFront.set(ControlMode.PercentOutput, leftPower);
-		rightFront.set(ControlMode.PercentOutput, rightPower);		
+		leftFront.set(ControlMode.PercentOutput, leftFrontPower);
+		rightFront.set(ControlMode.PercentOutput, rightFrontPower);
+		leftBack.set(ControlMode.PercentOutput, leftBackPower);
+		rightBack.set(ControlMode.PercentOutput, rightBackPower);		
 	}
 	public void stop() {
-		setPower(0.0, 0.0);
+		setPower(0.0, 0.0, 0.0, 0.0);
 	}
 	private double safetyCheck(double power) {
 		power = Math.min(1.0, power);
@@ -105,34 +112,58 @@ public class Drivetrain extends Subsystem {
 
 	/** resetEncoders ***********************************************************/
 	public void resetEncoders() {
-		int leftCounts = (int)(leftFront.getSelectedSensorPosition(PIDIDX));
-		leftPositionZero = countsToRev(leftCounts);
+		int leftFrontCounts = (int)(leftFront.getSelectedSensorPosition(PIDIDX));
+		leftFrontPositionZero = countsToRev(leftFrontCounts);
 		
-		int rightCounts = (int)(rightFront.getSelectedSensorPosition(PIDIDX));
-		rightPositionZero = countsToRev(rightCounts);
+		int rightFrontCounts = (int)(rightFront.getSelectedSensorPosition(PIDIDX));
+		rightFrontPositionZero = countsToRev(rightFrontCounts);
+
+		int leftBackCounts = (int)(leftBack.getSelectedSensorPosition(PIDIDX));
+		leftBackPositionZero = countsToRev(leftBackCounts);
+		
+		int rightBackCounts = (int)(rightBack.getSelectedSensorPosition(PIDIDX));
+		rightBackPositionZero = countsToRev(rightBackCounts);
 	}
 	
 	/** Get the encoder position or speed *************************************
 	 * Position is converted to revolutions
 	 * Speed returns counts per 100ms and is converted to RPM */
-	public double getLeftPosition() {
+	public double getLeftFrontPosition() {
 		int counts = (int)(leftFront.getSelectedSensorPosition(PIDIDX));
-		return countsToRev(counts) - leftPositionZero;
+		return countsToRev(counts) - leftFrontPositionZero;
 	}
-	public double getRightPosition() {
+	public double getRightFrontPosition() {
 		int counts = (int)(rightFront.getSelectedSensorPosition(PIDIDX));
-		return countsToRev(counts) - rightPositionZero;
+		return countsToRev(counts) - rightFrontPositionZero;
 	}
-	private double countsToRev(int counts) {
-		return (double)counts / COUNTS_PER_REVOLUTION;
+	public double getLeftBackPosition() {
+		int counts = (int)(leftBack.getSelectedSensorPosition(PIDIDX));
+		return countsToRev(counts) - leftBackPositionZero;
 	}
-	public double getLeftSpeed() {
+	public double getRightBackPosition() {
+		int counts = (int)(rightBack.getSelectedSensorPosition(PIDIDX));
+		return countsToRev(counts) - rightBackPositionZero;
+	}
+
+	public double getLeftFrontSpeed() {
 		int cp100ms = (int)(leftFront.getSelectedSensorVelocity(PIDIDX));
 		return cp100msToRPM(cp100ms);
 	}
-	public double getRightSpeed() {
+	public double getRightFrontSpeed() {
 		int cp100ms = (int)(rightFront.getSelectedSensorVelocity(PIDIDX));
 		return cp100msToRPM(cp100ms);
+	}
+	public double getLeftBackSpeed() {
+		int cp100ms = (int)(leftBack.getSelectedSensorVelocity(PIDIDX));
+		return cp100msToRPM(cp100ms);
+	}
+	public double getRightBackSpeed() {
+		int cp100ms = (int)(rightBack.getSelectedSensorVelocity(PIDIDX));
+		return cp100msToRPM(cp100ms);
+	}
+
+	private double countsToRev(int counts) {
+		return (double)counts / COUNTS_PER_REVOLUTION;
 	}
 	private double cp100msToRPM(int cp100ms) {
 		return (double)cp100ms * 10.0 * 60.0 / COUNTS_PER_REVOLUTION;

@@ -18,8 +18,8 @@ public class RobotMap {
 	public static final int CAN_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_CONVEYOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_LEFT_FRONT_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
-	public static final int CAN_LEFT_BACK_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_RIGHT_FRONT_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_LEFT_BACK_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_RIGHT_BACK_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_INTAKE = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 
@@ -39,15 +39,19 @@ public class RobotMap {
 
 	/** Drivetrain Settings ***************************************************/
 	public static final NeutralMode DRIVETRAIN_BRAKE_MODE = NeutralMode.Brake;
-	public static final boolean REVERSE_LEFT_MOTOR = false; //TODO: Determine this setting for the actual 2022 robot!
-	public static final boolean REVERSE_RIGHT_MOTOR = true; //TODO: Determine this setting for the actual 2022 robot!
+	public static final boolean REVERSE_LEFT_FRONT_MOTOR = false; //TODO: Determine this setting for the actual 2022 robot!
+	public static final boolean REVERSE_RIGHT_FRONT_MOTOR = true; //TODO: Determine this setting for the actual 2022 robot!
+	public static final boolean REVERSE_LEFT_BACK_MOTOR = false; //TODO: Determine this setting for the actual 2022 robot!
+	public static final boolean REVERSE_RIGHT_BACK_MOTOR = true; //TODO: Determine this setting for the actual 2022 robot!
 	public static final double ACCELERATION_MAX = 1.5; // Maximum Acceleration given in power(volts) per second
-	public static final double kF_DRIVE_LEFT = 0.1817180616740088;
+	public static final double kF_DRIVE_LEFT = 0.1817180616740088; //TODO: WHAT IS THIS?
 	public static final double kF_DRIVE_RIGHT = 0.16686239968682717;
 	public static final int COUNTS_PER_REVOLUTION = 1440; // In quadrature mode, actual counts will be 4x the cycles; e.g., 360 -> 1440
 	public static final int ENCODER_FRAME_RATE = 10; // How often the encoders update on the CAN, in milliseconds
-	public static final boolean SENSOR_PHASE_LEFT = false;
-	public static final boolean SENSOR_PHASE_RIGHT = false;
+	public static final boolean SENSOR_PHASE_LEFT_FRONT = false;
+	public static final boolean SENSOR_PHASE_RIGHT_FRONT = false;
+	public static final boolean SENSOR_PHASE_LEFT_BACK = false;
+	public static final boolean SENSOR_PHASE_RIGHT_BACK = false;
 	public static final int AUTON_TIMEOUT = 0; // timeout in ms; set to zero
 	public static final int AUTON_PIDIDX = 0; // used for cascading PID; set to zero
 
