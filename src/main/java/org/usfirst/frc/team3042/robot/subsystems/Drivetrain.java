@@ -124,6 +124,10 @@ public class Drivetrain extends Subsystem {
 		int rightBackCounts = (int)(rightBack.getSelectedSensorPosition(PIDIDX));
 		rightBackPositionZero = countsToRev(rightBackCounts);
 	}
+
+	public void driveCartesian(double xSpeed, double ySpeed, double zRotation) {
+		robotDrive.driveCartesian(ySpeed, xSpeed, zRotation);
+	}
 	
 	/** Get the encoder position or speed *************************************
 	 * Position is converted to revolutions

@@ -3,6 +3,7 @@ package org.usfirst.frc.team3042.robot;
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_GyroStraight;
 import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_GyroTurn;
+import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 
 /** OI ************************************************************************
@@ -15,7 +16,8 @@ public class OI {
 	private static final int USB_JOY_RIGHT = RobotMap.USB_JOYSTICK_RIGHT;
 	private static final double JOYSTICK_DRIVE_SCALE = RobotMap.JOYSTICK_DRIVE_SCALE;
 	private static final double JOYSTICK_DEAD_ZONE = RobotMap.JOYSTICK_DEAD_ZONE;
-	private static final double TRIGGER_SPINNER_SCALE = RobotMap.TRIGGER_SPINNER_SCALE;
+	private static final double TRIGGER_SPINNER_SCALE = RobotMap.TRIGGER_SPINNER_SCALE;	
+	private static final int JOYSTICK_X_AXIS = Gamepad.JOY_X_AXIS;
 	private static final int JOYSTICK_Y_AXIS = Gamepad.JOY_Y_AXIS;
 	private static final int GAMEPAD_LEFT_TRIGGER = Gamepad.LEFT_TRIGGER;
 	private static final int GAMEPAD_RIGHT_TRIGGER = Gamepad.RIGHT_TRIGGER;
@@ -23,7 +25,7 @@ public class OI {
 	/** Instance Variables ****************************************************/
 	Log log = new Log(RobotMap.LOG_OI, "OI");
 	public Gamepad gamepad, joyLeft, joyRight;
-	int driveAxisLeft, driveAxisRight;
+	int driveAxisX, driveAxisY;
 
 	/** OI ********************************************************************
 	 * Assign commands to the buttons and triggers*/
@@ -35,8 +37,8 @@ public class OI {
 		/** Setup Driving Controls ********************************************/
 		joyLeft = new Gamepad(USB_JOY_LEFT);
 		joyRight = new Gamepad(USB_JOY_RIGHT);
-		driveAxisLeft = JOYSTICK_Y_AXIS;
-		driveAxisRight = JOYSTICK_Y_AXIS;
+		driveAxisX = JOYSTICK_X_AXIS;
+		driveAxisY = JOYSTICK_Y_AXIS;
 		
 		/** Controls **********************************************************/
 		//Drivetrain Controls
@@ -50,17 +52,19 @@ public class OI {
 		//Climber Controls
 
 		//Conveyor Controls
+		gamepad.RB.whileHeld(new Conveyor_Run(1)); //run converyor
+		gamepad.RT.whileActive(new Conveyor_Run(-1)); //reverse converyor
 	}
 	
 	/** Access to the driving axes values *****************************
 	 * A negative has been added to make pushing forward positive. */
-	public double getDriveLeft() {
-		double joystickValue = joyLeft.getRawAxis(driveAxisLeft);
+	public double getXSpeed() {
+		double joystickValue = joyRight.getRawAxis(driveAxisX);
 		joystickValue = scaleJoystick(joystickValue);
 		return joystickValue;
 	}
-	public double getDriveRight() {
-		double joystickValue = joyRight.getRawAxis(driveAxisRight);
+	public double getYSpeed() {
+		double joystickValue = joyRight.getRawAxis(driveAxisY);
 		joystickValue = scaleJoystick(joystickValue);
 		return joystickValue;
 	}
