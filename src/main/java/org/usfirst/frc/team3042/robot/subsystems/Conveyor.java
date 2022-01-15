@@ -15,26 +15,26 @@ import edu.wpi.first.util.sendable.SendableRegistry;
 public class Conveyor extends Subsystem {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_INTAKE;
-  private static final int CAN_CONVEYOR = RobotMap.CAN_CONVEYOR;
+  	private static final int CAN_CONVEYOR = RobotMap.CAN_CONVEYOR;
 	private static final boolean REVERSE_MOTOR = RobotMap.REVERSE_CONVEYOR;
 	private static final NeutralMode BRAKE_MODE = RobotMap.CONVEYOR_BRAKE_MODE;
 
-  /** Instance Variables ****************************************************/
+  	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
 	TalonSRX motor = new TalonSRX(CAN_CONVEYOR);
 
-  /** Conveyor ****************************************************************/
+  	/** Conveyor ****************************************************************/
 	public Conveyor() {
 	  log.add("Constructor", LOG_LEVEL);
 		initMotor(motor, REVERSE_MOTOR);
-  }
+  	}
 
   private void initMotor(TalonSRX motor, boolean reverse) {
 		motor.setNeutralMode(BRAKE_MODE);
 		motor.setInverted(reverse); // affects percent Vbus mode
-  }
+  	}
   
-  /** Methods for setting the motor in Percent Vbus mode **********************/
+ 	 /** Methods for setting the motor in Percent Vbus mode **********************/
 	public void setPower(double Power) {
 		Power = safetyCheck(Power);
 		motor.set(ControlMode.PercentOutput, Power);		

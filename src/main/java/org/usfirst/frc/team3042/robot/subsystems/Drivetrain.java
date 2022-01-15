@@ -2,7 +2,7 @@ package org.usfirst.frc.team3042.robot.subsystems;
 
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.RobotMap;
-import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_TankDrive;
+import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_MecanumDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -75,7 +75,7 @@ public class Drivetrain extends Subsystem {
 	/** initDefaultCommand ****************************************************
 	 * Set the default command for the subsystem. */
 	public void initDefaultCommand() {
-		setDefaultCommand(new Drivetrain_TankDrive());
+		setDefaultCommand(new Drivetrain_MecanumDrive());
 	}
 	
 	/** Methods for setting the motors in % power mode ********************/

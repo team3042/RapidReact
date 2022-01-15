@@ -10,9 +10,9 @@ import org.usfirst.frc.team3042.robot.Robot;
 import org.usfirst.frc.team3042.robot.RobotMap;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
-/** Drivetrain Tank Drive *****************************************************
- * Use joystick input to drive the robot. */
-public class Drivetrain_TankDrive extends Command {
+/** Drivetrain Mecanum Drive *****************************************************
+ * Use joystick input to manually drive the robot */
+public class Drivetrain_MecanumDrive extends Command {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_DRIVETRAIN;
 	private static final double ACCELERATION_MAX = RobotMap.ACCELERATION_MAX;
@@ -24,9 +24,9 @@ public class Drivetrain_TankDrive extends Command {
 	double leftPowerOld, rightPowerOld;
 	Timer timer = new Timer();
 	
-	/** Drivetrain Tank Drive *************************************************
+	/** Drivetrain Mecanum Drive *************************************************
 	 * Required subsystems will cancel commands when this command is run. */
-	public Drivetrain_TankDrive() {
+	public Drivetrain_MecanumDrive() {
 		log.add("Constructor", Log.Level.TRACE);
 		requires(drivetrain);
 	}
