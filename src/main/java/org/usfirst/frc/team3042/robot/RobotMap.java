@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3042.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import org.usfirst.frc.team3042.lib.Log;
 
@@ -38,22 +39,14 @@ public class RobotMap {
 	public static final double CONVEYOR_POWER = 0.0; // How much power (as a %) to give the intake
 
 	/** Drivetrain Settings ***************************************************/
-	public static final NeutralMode DRIVETRAIN_BRAKE_MODE = NeutralMode.Brake;
+	public static final IdleMode DRIVETRAIN_BRAKE_MODE = IdleMode.kBrake;
 	public static final boolean REVERSE_LEFT_FRONT_MOTOR = false; //TODO: Determine this setting for the actual 2022 robot!
 	public static final boolean REVERSE_RIGHT_FRONT_MOTOR = true; //TODO: Determine this setting for the actual 2022 robot!
 	public static final boolean REVERSE_LEFT_BACK_MOTOR = false; //TODO: Determine this setting for the actual 2022 robot!
 	public static final boolean REVERSE_RIGHT_BACK_MOTOR = true; //TODO: Determine this setting for the actual 2022 robot!
 	public static final double ACCELERATION_MAX = 1.5; // Maximum Acceleration given in power(volts) per second
-	public static final double kF_DRIVE_LEFT = 0.1817180616740088; //TODO: WHAT IS THIS?
-	public static final double kF_DRIVE_RIGHT = 0.16686239968682717;
-	public static final int COUNTS_PER_REVOLUTION = 1440; // In quadrature mode, actual counts will be 4x the cycles; e.g., 360 -> 1440
-	public static final int ENCODER_FRAME_RATE = 10; // How often the encoders update on the CAN, in milliseconds
-	public static final boolean SENSOR_PHASE_LEFT_FRONT = false;
-	public static final boolean SENSOR_PHASE_RIGHT_FRONT = false;
-	public static final boolean SENSOR_PHASE_LEFT_BACK = false;
-	public static final boolean SENSOR_PHASE_RIGHT_BACK = false;
-	public static final int AUTON_TIMEOUT = 0; // timeout in ms; set to zero
-	public static final int AUTON_PIDIDX = 0; // used for cascading PID; set to zero
+	public static final double kF_DRIVE_LEFT = 0.1817180616740088; //TODO: tune this???
+	public static final double kF_DRIVE_RIGHT = 0.16686239968682717; //TODO: tune this???
 
 	/** Drivetrain Gyro Drive Settings ****************************************/
 	public static final double kP_GYRO = 0.007;
