@@ -100,7 +100,7 @@ public class Drivetrain extends Subsystem {
 		return gyroscope.getAngle();
 	}
 	public double getTurnRate() { // Returns the turn rate of the robot
-		return gyroscope.getRate();
+		return -gyroscope.getRate();
 	}
 
 	/** resetEncoders ***********************************************************/
