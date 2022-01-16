@@ -31,6 +31,7 @@ public class Gamepad extends Joystick{
 	/** Axis Mapping for a single joystick ************************************/
 	public static final int JOY_X_AXIS = 0;
 	public static final int JOY_Y_AXIS = 1;
+	public static final int JOY_Z_AXIS = 2;
 	
 	/** Button Declarations ***************************************************/
 	Button A = new JoystickButton(this, BUTTON_A);

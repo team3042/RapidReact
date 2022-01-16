@@ -9,7 +9,7 @@ import org.usfirst.frc.team3042.robot.RobotMap;
 import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
 
 /** Conveyor_Advance *******************************************************************
- * Auto advance the conveyor by a set increment whenever the sensor detects a ball */
+ * Auto advance the conveyor by a set increment whenever the switch detects a ball in the conveyor */
 public class Conveyor_Advance extends Command {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CONVEYOR;

@@ -19,13 +19,14 @@ public class OI {
 	private static final double TRIGGER_SPINNER_SCALE = RobotMap.TRIGGER_SPINNER_SCALE;	
 	private static final int JOYSTICK_X_AXIS = Gamepad.JOY_X_AXIS;
 	private static final int JOYSTICK_Y_AXIS = Gamepad.JOY_Y_AXIS;
+	private static final int JOYSTICK_Z_AXIS = Gamepad.JOY_Z_AXIS;
 	private static final int GAMEPAD_LEFT_TRIGGER = Gamepad.LEFT_TRIGGER;
 	private static final int GAMEPAD_RIGHT_TRIGGER = Gamepad.RIGHT_TRIGGER;
 	
 	/** Instance Variables ****************************************************/
 	Log log = new Log(RobotMap.LOG_OI, "OI");
 	public Gamepad gamepad, joyLeft, joyRight;
-	int driveAxisX, driveAxisY;
+	int driveAxisX, driveAxisY, driveAxisZ;
 
 	/** OI ********************************************************************
 	 * Assign commands to the buttons and triggers*/
@@ -39,6 +40,7 @@ public class OI {
 		joyRight = new Gamepad(USB_JOY_RIGHT);
 		driveAxisX = JOYSTICK_X_AXIS;
 		driveAxisY = JOYSTICK_Y_AXIS;
+		driveAxisZ = JOYSTICK_Z_AXIS;
 		
 		/** Controls **********************************************************/
 		//Drivetrain Controls
@@ -68,10 +70,15 @@ public class OI {
 		joystickValue = scaleJoystick(joystickValue);
 		return joystickValue;
 	}
+	public double getZSpeed() {
+		double joystickValue = joyRight.getRawAxis(driveAxisZ);
+		joystickValue = scaleJoystick(joystickValue);
+		return joystickValue;
+	}
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
 		joystickValue *= JOYSTICK_DRIVE_SCALE;
-		joystickValue *= -1.0;
+		joystickValue *= 1.0; // TODO: Use this to reverse driving directions if needed!
 		return joystickValue;
 	}
 	private double checkDeadZone(double joystickValue) {

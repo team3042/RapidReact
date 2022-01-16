@@ -21,7 +21,7 @@ public class Drivetrain_MecanumDrive extends Command {
 	Drivetrain drivetrain = Robot.drivetrain;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(drivetrain));
 	OI oi = Robot.oi;
-	double xSpeedOld, ySpeedOld;
+	double xSpeedOld, ySpeedOld, zSpeedOld;
 	Timer timer = new Timer();
 	
 	/** Drivetrain Mecanum Drive *************************************************
@@ -39,6 +39,7 @@ public class Drivetrain_MecanumDrive extends Command {
 		drivetrain.stop();
 		xSpeedOld = 0.0;
 		ySpeedOld = 0.0;
+		zSpeedOld = 0.0;
 		
 		timer.start();
 		timer.reset();
@@ -47,30 +48,32 @@ public class Drivetrain_MecanumDrive extends Command {
 	protected void execute() {
 		double xSpeed = oi.getXSpeed();
 		double ySpeed = oi.getYSpeed();
+		double zSpeed = oi.getZSpeed();
 		
 		double dt = timer.get();
 		timer.reset();
 
 		xSpeed = restrictAcceleration(xSpeed, xSpeedOld, dt);
 		ySpeed = restrictAcceleration(ySpeed, ySpeedOld, dt);
+		zSpeed = restrictAcceleration(zSpeed, zSpeedOld, dt);
 		
-		drivetrain.driveCartesian(xSpeed, ySpeed, 0.0);
+		drivetrain.driveCartesian(xSpeed, ySpeed, zSpeed);
 		
 		xSpeedOld = xSpeed;
 		ySpeedOld = ySpeed;
+		zSpeedOld = zSpeed;
 	}
 	
 	/** restrictAcceleration **************************************************/
-	private double restrictAcceleration(double goalPower, 
-		double currentPower, double dt) {
-		double maxDeltaPower = ACCELERATION_MAX * dt;
-		double deltaPower = Math.abs(goalPower - currentPower);
-		double deltaSign = (goalPower < currentPower) ? -1.0 : 1.0;
+	private double restrictAcceleration(double goalSpeed, double currentSpeed, double dt) {
+		double maxDeltaSpeed = ACCELERATION_MAX * dt;
+		double deltaSpeed = Math.abs(goalSpeed - currentSpeed);
+		double deltaSign = (goalSpeed < currentSpeed) ? -1.0 : 1.0;
 		
-		deltaPower = Math.min(maxDeltaPower, deltaPower);
-		goalPower = currentPower + deltaSign * deltaPower;
+		deltaSpeed = Math.min(maxDeltaSpeed, deltaSpeed);
+		goalSpeed = currentSpeed + deltaSign * deltaSpeed;
 
-		return goalPower;
+		return goalSpeed;
 	}
 	
 	/** isFinished ************************************************************	

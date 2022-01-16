@@ -95,12 +95,12 @@ public class Drivetrain extends Subsystem {
 	/** Gyroscope Methods *******************************************************/
   	public void zeroGyro() { // Zeroes the heading of the robot
     	gyroscope.reset();
-	  }
+	}
 	public double getAngle() { // Returns the heading of the robot
 		return gyroscope.getAngle();
 	}
 	public double getTurnRate() { // Returns the turn rate of the robot
-		return -gyroscope.getRate();
+		return gyroscope.getRate();
 	}
 
 	/** resetEncoders ***********************************************************/
