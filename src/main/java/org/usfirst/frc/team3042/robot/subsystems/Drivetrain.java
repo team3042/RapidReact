@@ -8,10 +8,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
 /** Drivetrain ****************************************************************
@@ -37,7 +36,7 @@ public class Drivetrain extends Subsystem {
 	CANSparkMax leftBack = new CANSparkMax(CAN_LEFT_BACK_MOTOR, MotorType.kBrushless);
 	CANSparkMax rightBack = new CANSparkMax(CAN_RIGHT_BACK_MOTOR, MotorType.kBrushless);	
 
-	Gyro gyroscope = new ADXRS450_Gyro(); // The gyroscope sensor
+	ADIS16470_IMU gyroscope = new ADIS16470_IMU(); // The gyroscope sensor
 	MecanumDrive robotDrive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);
 
 	double leftFrontPositionZero, rightFrontPositionZero, leftBackPositionZero, rightBackPositionZero; // Zero positions of the encoders
@@ -46,6 +45,13 @@ public class Drivetrain extends Subsystem {
 	 * Setup the motor controllers for desired behavior. */
 	public Drivetrain() {
 		log.add("Constructor", LOG_LEVEL);
+
+		/** The RestoreFactoryDefaults method is used to reset the configuration parameters
+        * of the SPARK MAX to their factory default state to ensure consistent operation */
+		leftFront.restoreFactoryDefaults();
+		rightFront.restoreFactoryDefaults();
+		leftBack.restoreFactoryDefaults();
+		rightBack.restoreFactoryDefaults();
 		
 		initMotor(leftFront, REVERSE_LEFT_FRONT);
 		initMotor(rightFront, REVERSE_RIGHT_FRONT);
@@ -58,7 +64,7 @@ public class Drivetrain extends Subsystem {
 		motor.setIdleMode(BRAKE_MODE);
 		motor.setInverted(reverse);
 	}
-	
+
 	/** initDefaultCommand ****************************************************
 	 * Set the default command for the subsystem. */
 	public void initDefaultCommand() {
@@ -91,7 +97,7 @@ public class Drivetrain extends Subsystem {
     	gyroscope.reset();
 	  }
 	public double getAngle() { // Returns the heading of the robot
-		return gyroscope.getRotation2d().getDegrees();
+		return gyroscope.getAngle();
 	}
 	public double getTurnRate() { // Returns the turn rate of the robot
 		return -gyroscope.getRate();
