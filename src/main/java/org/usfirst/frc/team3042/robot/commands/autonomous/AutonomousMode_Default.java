@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3042.robot.commands.autonomous;
 
-import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_GyroStraight;
+import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

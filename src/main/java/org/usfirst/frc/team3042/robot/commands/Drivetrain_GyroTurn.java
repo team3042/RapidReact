@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3042.robot.commands.drivetrain;
+package org.usfirst.frc.team3042.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.util.sendable.SendableRegistry;
@@ -8,53 +8,42 @@ import org.usfirst.frc.team3042.robot.Robot;
 import org.usfirst.frc.team3042.robot.RobotMap;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
-/** Drivetrain Gyro Straight **************************************************
- * Command for driving straight using gyroscope feedback. */
-public class Drivetrain_GyroStraight extends Command {
+/** Drivetrain Gyro Turn ******************************************************
+ * Command for turning in place to a set angle. */
+public class Drivetrain_GyroTurn extends Command {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_DRIVETRAIN;
 	private static final double kP = RobotMap.kP_GYRO;
 	private static final double kI = RobotMap.kI_GYRO;
 	private static final double kD = RobotMap.kD_GYRO;
-	private static final double kF_LEFT = RobotMap.kF_DRIVE_LEFT;
-	private static final double kF_RIGHT = RobotMap.kF_DRIVE_RIGHT;
-	private static final double CIRCUMFRENCE = RobotMap.WHEEL_DIAMETER * Math.PI;
-	private static final double MAX_CORRECTION = RobotMap.MAX_POWER_GYRO;
+	private static final double ANGLE_TOLERANCE = RobotMap.ANGLE_TOLERANCE;
+	private static final double MAX_POWER = RobotMap.MAX_POWER_GYRO;
 	
 	/** Instance Variables ****************************************************/
 	Drivetrain drivetrain = Robot.drivetrain;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(drivetrain));
-	double leftPower, rightPower, lastError, integralError;
-	double goalAngle, goalDistance;
+	double lastError, integralError, goalAngle;
 	
-	/** Drivetrain Gyro Straight **********************************************
+	/** Drivetrain Gyro Turn ************************************************** 
 	 * Required subsystems will cancel commands when this command is run.
 	 * distance is given in physical units matching the wheel diameter unit
 	 * speed is given in physical units per second. The physical units should 
-	 * match that of the Wheel diameter. */
-	public Drivetrain_GyroStraight(double distance, double speed) {
+	 * match that of the Wheel diameter.
+	 * @param angle (degrees) */
+	public Drivetrain_GyroTurn(double angle) {
 		log.add("Constructor", Log.Level.TRACE);
 		requires(drivetrain);
-		
-		// convert distance to revolutions
-		goalDistance = distance / CIRCUMFRENCE;
-		
-		// Find the power level for the given speed
-		double rpm = speed * 60.0 / CIRCUMFRENCE;		
-		leftPower = drivetrain.rpmToPower(rpm, kF_LEFT);
-		rightPower = drivetrain.rpmToPower(rpm, kF_RIGHT);
+		goalAngle = angle;
 	}
 	
 	/** initialize ************************************************************
 	 * Called just before this Command runs the first time */
 	protected void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
-
 		drivetrain.stop();
-		goalAngle = drivetrain.getAngle();
 		lastError = 0.0;
 		integralError = 0.0;
-		drivetrain.resetEncoders();
+		drivetrain.zeroGyro();
 	}
 
 	/** execute ***************************************************************
@@ -69,20 +58,21 @@ public class Drivetrain_GyroStraight extends Command {
 		double Dterm = kD * deltaError;
 		
 		double correction = Pterm + Iterm + Dterm;
-		correction = Math.min(MAX_CORRECTION, correction);
-		correction = Math.max(-MAX_CORRECTION, correction);
 		
-		drivetrain.setPower(leftPower - correction, rightPower + correction);
+		correction = Math.min(MAX_POWER, correction);
+		correction = Math.max(-MAX_POWER, correction);
+	
+		drivetrain.driveCartesian(0, 0, correction);		
 		
+		log.add("***** " + correction, Log.Level.DEBUG);
+
 		lastError = error;
 	}
 	
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
 	protected boolean isFinished() {
-		boolean leftGoalReached = Math.abs(drivetrain.getLeftPosition()) >= goalDistance;
-		boolean rightGoalReached = Math.abs(drivetrain.getRightPosition()) >= goalDistance;
-		return leftGoalReached || rightGoalReached;
+		return Math.abs(lastError) < ANGLE_TOLERANCE;
 	}
 	
 	/** end *******************************************************************

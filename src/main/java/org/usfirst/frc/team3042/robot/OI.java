@@ -1,9 +1,9 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
-import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_GyroStraight;
-import org.usfirst.frc.team3042.robot.commands.drivetrain.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
+import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
+import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 
 /** OI ************************************************************************
