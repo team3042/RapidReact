@@ -16,7 +16,7 @@ public class Conveyor_Run extends Command {
 	private static final double POWER = RobotMap.CONVEYOR_POWER;
 	
 	/** Instance Variables ****************************************************/
-  Conveyor conveyor = Robot.conveyor;
+  	Conveyor conveyor = Robot.conveyor;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(conveyor));
   	int direction;
 
