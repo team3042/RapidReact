@@ -78,7 +78,7 @@ public class OI {
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
 		joystickValue *= JOYSTICK_DRIVE_SCALE;
-		joystickValue *= 1.0; // TODO: Use this to reverse driving directions if needed!
+		joystickValue *= -1.0;
 		return joystickValue;
 	}
 	private double checkDeadZone(double joystickValue) {
