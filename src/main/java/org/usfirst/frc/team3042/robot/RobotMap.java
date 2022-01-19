@@ -25,8 +25,8 @@ public class RobotMap {
 	public static final int CAN_INTAKE = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 
 	/** PCM channels **********************************************************/
-	public static final int RIGHT_INTAKE_SOLENOID = 0;
-	public static final int LEFT_INTAKE_SOLENOID = 0;
+	public static final int RIGHT_INTAKE_SOLENOID = 0; //TODO: Find this value
+	public static final int LEFT_INTAKE_SOLENOID = 0; //TODO: Find this value
 	
 	/** DIO channels **********************************************************/
 

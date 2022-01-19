@@ -15,25 +15,21 @@ import org.usfirst.frc.team3042.robot.subsystems.Intake;
 public class Intake_Toggle extends Command {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_INTAKE;
-	private static final int Power = RobotMap.CAN_INTAKE;
-	
 	private static final int RIGHT_ID = RobotMap.RIGHT_INTAKE_SOLENOID;
 	private static final int LEFT_ID = RobotMap.LEFT_INTAKE_SOLENOID;
-	private static final boolean retracted = true;
 	
 	/** Instance Variables ****************************************************/
 	Intake intake = Robot.intake;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(intake));
 	Solenoid rightIntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, RIGHT_ID);
 	Solenoid leftIntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, LEFT_ID);
-	boolean isRetracted;
+	boolean isRetracted = true;
 
 	/** Intake ****************************************************************
 	 * Required subsystems will cancel commands when this command is run. */
 	public Intake_Toggle(int direction) {
 		log.add("Constructor", Log.Level.TRACE);
 		requires(intake);
-		isRetracted = retracted;
 	}
     public void toggle(){
     	if (isRetracted == true){
@@ -48,7 +44,6 @@ public class Intake_Toggle extends Command {
 		leftIntakeSolenoid.set(true);
 		isRetracted = false;
 	}
-
 	public void retract() {
 		rightIntakeSolenoid.set(false);
 		leftIntakeSolenoid.set(false);
@@ -59,7 +54,7 @@ public class Intake_Toggle extends Command {
 	 * Called just before this Command runs the first time */
 	protected void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
-		intake.setPower(Power);
+		toggle();
 	}
 
 	/** execute ***************************************************************
@@ -69,7 +64,7 @@ public class Intake_Toggle extends Command {
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 	
 	/** end *******************************************************************
