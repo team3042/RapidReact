@@ -19,6 +19,7 @@ public class Drivetrain extends Subsystem {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_DRIVETRAIN;
 	private static final IdleMode BRAKE_MODE = RobotMap.DRIVETRAIN_BRAKE_MODE;
+	private static final int COUNTS_PER_REVOLUTION = RobotMap.COUNTS_PER_REVOLUTION;
 	private static final boolean REVERSE_LEFT_FRONT = RobotMap.REVERSE_LEFT_FRONT_MOTOR;
 	private static final boolean REVERSE_RIGHT_FRONT = RobotMap.REVERSE_RIGHT_FRONT_MOTOR;
 	private static final boolean REVERSE_LEFT_BACK = RobotMap.REVERSE_LEFT_BACK_MOTOR;
@@ -142,5 +143,12 @@ public class Drivetrain extends Subsystem {
 	}
 	public double getRightBackSpeed() {
 		return (int)(rightBack.getEncoder().getVelocity());
+	}
+	
+	public double rpmToPower(double rpm, double kF) {
+		//Convert to counts per 100 ms
+		double speed = rpm * 4.0 * COUNTS_PER_REVOLUTION / 600.0;
+		double power = kF * speed / 1023.0;
+		return power;
 	}
 }

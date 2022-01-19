@@ -47,6 +47,7 @@ public class RobotMap {
 	public static final double ACCELERATION_MAX = 1.5; // Maximum Acceleration given in power(volts) per second
 	public static final double kF_DRIVE_LEFT = 0.1817180616740088; //TODO: tune this???
 	public static final double kF_DRIVE_RIGHT = 0.16686239968682717; //TODO: tune this???
+	public static final int COUNTS_PER_REVOLUTION = 1440; // In quadrature mode, actual counts will be 4x the cycles; e.g., 360 -> 1440 //TODO: tune this???
 
 	/** Drivetrain Gyro Drive Settings ****************************************/
 	public static final double kP_GYRO = 0.007;

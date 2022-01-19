@@ -69,10 +69,11 @@ public class Drivetrain_GyroStraight extends Command {
 		double Dterm = kD * deltaError;
 		
 		double correction = Pterm + Iterm + Dterm;
+
 		correction = Math.min(MAX_CORRECTION, correction);
 		correction = Math.max(-MAX_CORRECTION, correction);
 		
-		drivetrain.setPower(leftPower - correction, rightPower + correction);
+		drivetrain.setPower(leftPower - correction, rightPower + correction, leftPower - correction, rightPower + correction);
 		
 		lastError = error;
 	}
@@ -80,9 +81,9 @@ public class Drivetrain_GyroStraight extends Command {
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
 	protected boolean isFinished() {
-		boolean leftGoalReached = Math.abs(drivetrain.getLeftPosition()) >= goalDistance;
-		boolean rightGoalReached = Math.abs(drivetrain.getRightPosition()) >= goalDistance;
-		return leftGoalReached || rightGoalReached;
+		boolean leftFrontGoalReached = Math.abs(drivetrain.getLeftFrontPosition()) >= goalDistance;
+		boolean rightFrontGoalReached = Math.abs(drivetrain.getRightFrontPosition()) >= goalDistance;
+		return leftFrontGoalReached || rightFrontGoalReached;
 	}
 	
 	/** end *******************************************************************
