@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3042.robot.commands;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.util.sendable.SendableRegistry;
@@ -23,8 +24,8 @@ public class Intake_Toggle extends Command {
 	/** Instance Variables ****************************************************/
 	Intake intake = Robot.intake;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(intake));
-	Solenoid rightIntakeSolenoid = new Solenoid(RIGHT_ID); // Find PnematicsModuleType: CTREPCM vs REVPH (https://first.wpi.edu/wpilib/allwpilib/docs/development/java/edu/wpi/first/wpilibj/PneumaticsModuleType.html)
-	Solenoid leftIntakeSolenoid = new Solenoid(null, LEFT_ID);
+	Solenoid rightIntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, RIGHT_ID);
+	Solenoid leftIntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, LEFT_ID);
 	boolean isRetracted;
 
 	/** Intake ****************************************************************
