@@ -16,8 +16,16 @@ public class RobotMap {
 	public static final double ROBOT_WIDTH = 27.0; // Measured in inches
 	
 	/** CAN ID numbers ********************************************************/
+<<<<<<< HEAD
 	public static final int CAN_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_TOP_CONVEYOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_RIGHT_CONVEYOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_LEFT_CONVEYOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+=======
+	public static final int CAN_RIGHT_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_LEFT_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_CONVEYOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+>>>>>>> 6c61e581ed4d876ef475f9ed32aef05981d84771
 	public static final int CAN_LEFT_FRONT_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_RIGHT_FRONT_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_LEFT_BACK_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
@@ -29,6 +37,7 @@ public class RobotMap {
 	public static final int LEFT_INTAKE_SOLENOID = 0; //TODO: Find this value
 	
 	/** DIO channels **********************************************************/
+	public static final int DIO_LIMITSWITCH = 0; //TODO Find this value
 
 	/** Climber Settings ***************************************************/
 	public static final boolean REVERSE_CLIMBER = false; //TODO: Determine this setting for the actual 2022 robot!
@@ -36,9 +45,13 @@ public class RobotMap {
 	public static final double CLIMBER_POWER = 0.0; // How much power (as a %) to give the intake
 	
 	/** Conveyor Settings ***************************************************/
-	public static final boolean REVERSE_CONVEYOR = false; //TODO: Determine this setting for the actual 2022 robot!
+	public static final boolean REVERSE_TOP_CONVEYOR = false; //TODO: Determine this setting for the actual 2022 robot!
+	public static final boolean REVERSE_RIGHT_CONVEYOR = false; //TODO: Determine this setting for the actual 2022 robot!
+	public static final boolean REVERSE_LEFT_CONVEYOR = false; //TODO: Determine this setting for the actual 2022 robot!
 	public static final NeutralMode CONVEYOR_BRAKE_MODE = NeutralMode.Brake;
 	public static final double CONVEYOR_POWER = 0.0; // How much power (as a %) to give the intake
+	public static final double CONVEYOR_ADVANCE_DURATION = 0.0; // How much time in seconds that the conveyor runs TODO: Edit
+
 
 	/** Drivetrain Settings ***************************************************/
 	public static final IdleMode DRIVETRAIN_BRAKE_MODE = IdleMode.kBrake;
