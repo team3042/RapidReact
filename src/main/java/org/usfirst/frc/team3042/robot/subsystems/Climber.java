@@ -17,18 +17,21 @@ import edu.wpi.first.util.sendable.SendableRegistry;
 public class Climber extends Subsystem {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_INTAKE;
-	private static final int CAN_CLIMBER = RobotMap.CAN_CLIMBER;
+	private static final int CAN_RIGHT_CLIMBER = RobotMap.CAN_RIGHT_CLIMBER;
+	private static final int CAN_LEFT_CLIMBER = RobotMap.CAN_LEFT_CLIMBER;
 	private static final boolean REVERSE_MOTOR = RobotMap.REVERSE_CLIMBER;
 	private static final NeutralMode BRAKE_MODE = RobotMap.CLIMBER_BRAKE_MODE;
 
 	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
-	TalonSRX motor = new TalonSRX(CAN_CLIMBER);
+	TalonSRX rightMotor = new TalonSRX(CAN_RIGHT_CLIMBER);
+	TalonSRX leftMotor = new TalonSRX(CAN_LEFT_CLIMBER);
 
 	/** Climber ****************************************************************/
 	public Climber() {
 		log.add("Constructor", LOG_LEVEL);
-		initMotor(motor, REVERSE_MOTOR);
+		initMotor(rightMotor, REVERSE_MOTOR);
+		initMotor(leftMotor, REVERSE_MOTOR);
 	}
 
 	private void initMotor(TalonSRX motor, boolean reverse) {
@@ -39,7 +42,8 @@ public class Climber extends Subsystem {
 	/** Methods for setting the motor in Percent Vbus mode **********************/
 	public void setPower(double Power) {
 		Power = safetyCheck(Power);
-		motor.set(ControlMode.PercentOutput, Power);		
+		rightMotor.set(ControlMode.PercentOutput, Power);
+		leftMotor.set(ControlMode.PercentOutput, Power);		
 	}
 	public void stop() {
 		setPower(0.0);

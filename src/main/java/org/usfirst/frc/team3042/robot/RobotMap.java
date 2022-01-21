@@ -16,7 +16,8 @@ public class RobotMap {
 	public static final double ROBOT_WIDTH = 27.0; // Measured in inches
 	
 	/** CAN ID numbers ********************************************************/
-	public static final int CAN_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_RIGHT_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_LEFT_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_CONVEYOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_LEFT_FRONT_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_RIGHT_FRONT_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
