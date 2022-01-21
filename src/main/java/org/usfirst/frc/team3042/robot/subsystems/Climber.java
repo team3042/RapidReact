@@ -10,8 +10,6 @@ import org.usfirst.frc.team3042.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
-//import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 /** Climber ********************************************************************
  * Subsystem for Climbing */
 public class Climber extends Subsystem {
@@ -19,7 +17,8 @@ public class Climber extends Subsystem {
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CLIMBER;
 	private static final int CAN_RIGHT_CLIMBER = RobotMap.CAN_RIGHT_CLIMBER;
 	private static final int CAN_LEFT_CLIMBER = RobotMap.CAN_LEFT_CLIMBER;
-	private static final boolean REVERSE_MOTOR = RobotMap.REVERSE_CLIMBER;
+	private static final boolean REVERSE_RIGHT_MOTOR = RobotMap.REVERSE_RIGHT_CLIMBER;
+	private static final boolean REVERSE_LEFT_MOTOR = RobotMap.REVERSE_LEFT_CLIMBER;
 	private static final NeutralMode BRAKE_MODE = RobotMap.CLIMBER_BRAKE_MODE;
 
 	/** Instance Variables ****************************************************/
@@ -30,8 +29,8 @@ public class Climber extends Subsystem {
 	/** Climber ****************************************************************/
 	public Climber() {
 		log.add("Constructor", LOG_LEVEL);
-		initMotor(rightMotor, REVERSE_MOTOR);
-		initMotor(leftMotor, REVERSE_MOTOR);
+		initMotor(rightMotor, REVERSE_RIGHT_MOTOR);
+		initMotor(leftMotor, REVERSE_LEFT_MOTOR);
 	}
 
 	private void initMotor(TalonSRX motor, boolean reverse) {

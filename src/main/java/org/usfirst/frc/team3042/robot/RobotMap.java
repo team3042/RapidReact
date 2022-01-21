@@ -35,7 +35,8 @@ public class RobotMap {
 	public static final int DIO_LIMITSWITCH = 0; //TODO Find this value
 
 	/** Climber Settings ***************************************************/
-	public static final boolean REVERSE_CLIMBER = false; //TODO: Determine this setting for the actual 2022 robot!
+	public static final boolean REVERSE_RIGHT_CLIMBER = false; //TODO: Determine this setting for the actual 2022 robot!
+	public static final boolean REVERSE_LEFT_CLIMBER = false; //TODO: Determine this setting for the actual 2022 robot!
 	public static final NeutralMode CLIMBER_BRAKE_MODE = NeutralMode.Brake;
 	public static final double CLIMBER_POWER = 0.0; // How much power (as a %) to give the intake
 	
