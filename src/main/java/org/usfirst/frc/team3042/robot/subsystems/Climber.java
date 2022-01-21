@@ -16,14 +16,9 @@ import edu.wpi.first.util.sendable.SendableRegistry;
  * Subsystem for Climbing */
 public class Climber extends Subsystem {
 	/** Configuration Constants ***********************************************/
-<<<<<<< HEAD
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CLIMBER;
-	private static final int CAN_CLIMBER = RobotMap.CAN_CLIMBER;
-=======
-	private static final Log.Level LOG_LEVEL = RobotMap.LOG_INTAKE;
 	private static final int CAN_RIGHT_CLIMBER = RobotMap.CAN_RIGHT_CLIMBER;
 	private static final int CAN_LEFT_CLIMBER = RobotMap.CAN_LEFT_CLIMBER;
->>>>>>> 6c61e581ed4d876ef475f9ed32aef05981d84771
 	private static final boolean REVERSE_MOTOR = RobotMap.REVERSE_CLIMBER;
 	private static final NeutralMode BRAKE_MODE = RobotMap.CLIMBER_BRAKE_MODE;
 
