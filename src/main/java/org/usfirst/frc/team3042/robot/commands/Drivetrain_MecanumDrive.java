@@ -45,6 +45,8 @@ public class Drivetrain_MecanumDrive extends Command {
 		timer.reset();
 	}
 
+	/** execute ***************************************************************
+	 * Called repeatedly when this Command is scheduled to run */	
 	protected void execute() {
 		double xSpeed = oi.getXSpeed();
 		double ySpeed = oi.getYSpeed();

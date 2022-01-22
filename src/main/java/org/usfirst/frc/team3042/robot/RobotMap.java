@@ -95,6 +95,7 @@ public class RobotMap {
 	public static final Log.Level	LOG_OI 								= Log.Level.TRACE;
 	public static final Log.Level	LOG_AXIS_TRIGGER 					= Log.Level.ERROR;
 	public static final Log.Level	LOG_POV_BUTTON						= Log.Level.ERROR;
+	
 	/** Subsystems ************************************************************/
 	public static final Log.Level	LOG_CLIMBER							= Log.Level.DEBUG;
 	public static final Log.Level	LOG_CONVEYOR						= Log.Level.DEBUG;

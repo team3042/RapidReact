@@ -10,8 +10,8 @@ import org.usfirst.frc.team3042.robot.Robot;
 import org.usfirst.frc.team3042.robot.RobotMap;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
-/** Drivetrain Mecanum Drive *****************************************************
- * Use joystick input to manually drive the robot */
+/** Drivetrain Field Oriented *****************************************************
+ * Use joystick input to manually drive the robot at a constant angle in relation to the field */
 public class Drivetrain_FieldOriented extends Command {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_DRIVETRAIN;
@@ -24,7 +24,7 @@ public class Drivetrain_FieldOriented extends Command {
 	double xSpeedOld, ySpeedOld, zSpeedOld;
 	Timer timer = new Timer();
 	
-	/** Drivetrain Mecanum Drive *************************************************
+	/** Drivetrain Field Oriented *************************************************
 	 * Required subsystems will cancel commands when this command is run. */
 	public Drivetrain_FieldOriented() {
 		log.add("Constructor", Log.Level.TRACE);
@@ -45,6 +45,8 @@ public class Drivetrain_FieldOriented extends Command {
 		timer.reset();
 	}
 
+	/** execute ***************************************************************
+	 * Called repeatedly when this Command is scheduled to run */
 	protected void execute() {
 		double xSpeed = oi.getXSpeed();
 		double ySpeed = oi.getYSpeed();
