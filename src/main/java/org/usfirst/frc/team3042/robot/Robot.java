@@ -116,7 +116,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Robot Speed", (drivetrain.getLeftFrontSpeed() + drivetrain.getRightFrontSpeed() + drivetrain.getLeftBackSpeed() + drivetrain.getRightBackSpeed()) / 4.0); // Average speed of the left and right side
-		SmartDashboard.putNumber("Gyro Angle", drivetrain.getAngle()); // The current gyroscope angle
+		SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle()); // The current gyroscope angle
 
 		SmartDashboard.putNumber("Encoder Position (LF)", drivetrain.getLeftFrontPosition()); //The current right encoder position
 		SmartDashboard.putNumber("Encoder Position (RF)", drivetrain.getRightFrontPosition()); //The current left encoder position

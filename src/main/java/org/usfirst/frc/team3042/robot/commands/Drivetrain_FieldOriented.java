@@ -1,87 +1,94 @@
 package org.usfirst.frc.team3042.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
 import org.usfirst.frc.team3042.lib.Log;
+import org.usfirst.frc.team3042.robot.OI;
 import org.usfirst.frc.team3042.robot.Robot;
 import org.usfirst.frc.team3042.robot.RobotMap;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
-/** Drivetrain Gyro Turn ******************************************************
- * Command for turning in place to a set angle. */
-public class Drivetrain_GyroTurn extends Command {
+/** Drivetrain Mecanum Drive *****************************************************
+ * Use joystick input to manually drive the robot */
+public class Drivetrain_FieldOriented extends Command {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_DRIVETRAIN;
-	private static final double kP = RobotMap.kP_GYRO;
-	private static final double kI = RobotMap.kI_GYRO;
-	private static final double kD = RobotMap.kD_GYRO;
-	private static final double ANGLE_TOLERANCE = RobotMap.ANGLE_TOLERANCE;
-	private static final double MAX_POWER = RobotMap.MAX_POWER_GYRO;
+	private static final double ACCELERATION_MAX = RobotMap.ACCELERATION_MAX;
 	
 	/** Instance Variables ****************************************************/
 	Drivetrain drivetrain = Robot.drivetrain;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(drivetrain));
-	double lastError, integralError, goalAngle;
+	OI oi = Robot.oi;
+	double xSpeedOld, ySpeedOld, zSpeedOld;
+	Timer timer = new Timer();
 	
-	/** Drivetrain Gyro Turn ************************************************** 
-	 * Required subsystems will cancel commands when this command is run.
-	 * distance is given in physical units matching the wheel diameter unit
-	 * speed is given in physical units per second. The physical units should 
-	 * match that of the Wheel diameter.
-	 * @param angle (degrees) */
-	public Drivetrain_GyroTurn(double angle) {
+	/** Drivetrain Mecanum Drive *************************************************
+	 * Required subsystems will cancel commands when this command is run. */
+	public Drivetrain_FieldOriented() {
 		log.add("Constructor", Log.Level.TRACE);
 		requires(drivetrain);
-		goalAngle = angle;
 	}
-	
+
 	/** initialize ************************************************************
 	 * Called just before this Command runs the first time */
 	protected void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
+				
 		drivetrain.stop();
-		lastError = 0.0;
-		integralError = 0.0;
-		drivetrain.zeroGyro();
+		xSpeedOld = 0.0;
+		ySpeedOld = 0.0;
+		zSpeedOld = 0.0;
+		
+		timer.start();
+		timer.reset();
 	}
 
-	/** execute ***************************************************************
-	 * Called repeatedly when this Command is scheduled to run */
 	protected void execute() {
-		double error = goalAngle - drivetrain.getGyroAngle();
-		integralError += error;
-		double deltaError = error - lastError;
+		double xSpeed = oi.getXSpeed();
+		double ySpeed = oi.getYSpeed();
+		double zSpeed = oi.getZSpeed();
 		
-		double Pterm = kP * error;
-		double Iterm = kI * integralError;
-		double Dterm = kD * deltaError;
-		
-		double correction = Pterm + Iterm + Dterm;
-		
-		correction = Math.min(MAX_POWER, correction);
-		correction = Math.max(-MAX_POWER, correction);
-	
-		drivetrain.driveCartesian(0, 0, correction);		
-		
-		log.add("***** " + correction, Log.Level.DEBUG);
+		double dt = timer.get();
+		timer.reset();
 
-		lastError = error;
+		xSpeed = restrictAcceleration(xSpeed, xSpeedOld, dt);
+		ySpeed = restrictAcceleration(ySpeed, ySpeedOld, dt);
+		zSpeed = restrictAcceleration(zSpeed, zSpeedOld, dt);
+		
+		drivetrain.driveCartesian(xSpeed, ySpeed, zSpeed, drivetrain.getGyroAngle());
+		
+		xSpeedOld = xSpeed;
+		ySpeedOld = ySpeed;
+		zSpeedOld = zSpeed;
+	}
+	
+	/** restrictAcceleration **************************************************/
+	private double restrictAcceleration(double goalSpeed, double currentSpeed, double dt) {
+		double maxDeltaSpeed = ACCELERATION_MAX * dt;
+		double deltaSpeed = Math.abs(goalSpeed - currentSpeed);
+		double deltaSign = (goalSpeed < currentSpeed) ? -1.0 : 1.0;
+		
+		deltaSpeed = Math.min(maxDeltaSpeed, deltaSpeed);
+		goalSpeed = currentSpeed + deltaSign * deltaSpeed;
+
+		return goalSpeed;
 	}
 	
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
 	protected boolean isFinished() {
-		return Math.abs(lastError) < ANGLE_TOLERANCE;
+		return false;
 	}
-	
+
 	/** end *******************************************************************
 	 * Called once after isFinished returns true */
 	protected void end() {
 		log.add("End", Log.Level.TRACE);
 		drivetrain.stop();
 	}
-	
+
 	/** interrupted ***********************************************************
 	 * Called when another command which requires one or more of the same
 	 * subsystems is scheduled to run */

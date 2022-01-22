@@ -97,7 +97,7 @@ public class Drivetrain extends Subsystem {
   	public void zeroGyro() { // Zeroes the heading of the robot
     	gyroscope.reset();
 	}
-	public double getAngle() { // Returns the heading of the robot
+	public double getGyroAngle() { // Returns the heading of the robot
 		return gyroscope.getAngle();
 	}
 	public double getTurnRate() { // Returns the turn rate of the robot
@@ -114,6 +114,10 @@ public class Drivetrain extends Subsystem {
 
 	public void driveCartesian(double xSpeed, double ySpeed, double zRotation) {
 		robotDrive.driveCartesian(ySpeed, xSpeed, zRotation);
+	}
+
+	public void driveCartesian(double xSpeed, double ySpeed, double zRotation, double currentAngle) {
+		robotDrive.driveCartesian(ySpeed, xSpeed, zRotation, currentAngle);
 	}
 	
 	/** Get the encoder position or speed *************************************
