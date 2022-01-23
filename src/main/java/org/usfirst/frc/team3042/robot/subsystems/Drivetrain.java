@@ -120,38 +120,35 @@ public class Drivetrain extends Subsystem {
 		robotDrive.driveCartesian(ySpeed, xSpeed, zRotation, currentAngle);
 	}
 	
-	/** Get the encoder position or speed *************************************
-	 * Position is converted to revolutions
-	 * Speed returns counts per 100ms and is converted to RPM */
-	public double getLeftFrontPosition() {
+	/** Get the encoder positions or speeds **************************************/
+	public double getLeftFrontPosition() { // Position is returned in units of revolutions
 		return (int)(leftFront.getEncoder().getPosition()) - leftFrontPositionZero;
 	}
-	public double getRightFrontPosition() {
+	public double getRightFrontPosition() { // Position is returned in units of revolutions
 		return (int)(rightFront.getEncoder().getPosition()) - rightFrontPositionZero;
 	}
-	public double getLeftBackPosition() {
+	public double getLeftBackPosition() { // Position is returned in units of revolutions
 		return (int)(leftBack.getEncoder().getPosition()) - leftBackPositionZero;
 	}
-	public double getRightBackPosition() {
+	public double getRightBackPosition() { // Position is returned in units of revolutions
 		return (int)(rightBack.getEncoder().getPosition()) - rightBackPositionZero;
 	}
-
-	public double getLeftFrontSpeed() {
+	public double getLeftFrontSpeed() { // Speed is returned in units of RPM (revolutions per minute)
 		return (int)(leftFront.getEncoder().getVelocity());
 	}
-	public double getRightFrontSpeed() {
+	public double getRightFrontSpeed() { // Speed is returned in units of RPM (revolutions per minute)
 		return (int)(rightFront.getEncoder().getVelocity());
 	}
-	public double getLeftBackSpeed() {
+	public double getLeftBackSpeed() { // Speed is returned in units of RPM (revolutions per minute)
 		return (int)(leftBack.getEncoder().getVelocity());
 	}
-	public double getRightBackSpeed() {
+	public double getRightBackSpeed() { // Speed is returned in units of RPM (revolutions per minute)
 		return (int)(rightBack.getEncoder().getVelocity());
 	}
 	
 	public double rpmToPower(double rpm, double kF) {
-		//Convert to counts per 100 ms
-		double speed = rpm * 4.0 * COUNTS_PER_REVOLUTION / 600.0;
+		//Convert rpm to counts per 100 ms
+		double speed = rpm * COUNTS_PER_REVOLUTION / 600.0; // Dividing by 600 converts the units from minutes to 100s of milliseconds
 		double power = kF * speed / 1023.0;
 		return power;
 	}
