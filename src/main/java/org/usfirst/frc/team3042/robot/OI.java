@@ -78,7 +78,7 @@ public class OI {
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
 		joystickValue *= JOYSTICK_DRIVE_SCALE;
-		joystickValue *= -0.25;
+		joystickValue *= -0.5;
 		return joystickValue;
 	}
 	private double checkDeadZone(double joystickValue) {
