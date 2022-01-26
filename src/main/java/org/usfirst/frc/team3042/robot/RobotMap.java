@@ -22,9 +22,9 @@ public class RobotMap {
 	public static final int CAN_RIGHT_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_LEFT_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_LEFT_FRONT_MOTOR = 5; //TODO: Determine this CAN ID on the actual 2022 robot!
-	public static final int CAN_RIGHT_FRONT_MOTOR = 4; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_RIGHT_FRONT_MOTOR = 2; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_LEFT_BACK_MOTOR = 3; //TODO: Determine this CAN ID on the actual 2022 robot!
-	public static final int CAN_RIGHT_BACK_MOTOR = 2; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_RIGHT_BACK_MOTOR = 4; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_INTAKE = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 
 	/** PCM channels **********************************************************/
