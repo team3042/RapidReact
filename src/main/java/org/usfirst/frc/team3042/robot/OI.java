@@ -63,7 +63,7 @@ public class OI {
 	public double getXSpeed() {
 		double joystickValue = joyRight.getRawAxis(driveAxisX);
 		joystickValue = scaleJoystick(joystickValue);
-		return joystickValue;
+		return -1 * joystickValue;
 	}
 	public double getYSpeed() {
 		double joystickValue = joyRight.getRawAxis(driveAxisY);
@@ -71,14 +71,14 @@ public class OI {
 		return joystickValue;
 	}
 	public double getZSpeed() {
-		double joystickValue = joyRight.getRawAxis(driveAxisZ);
+		double joystickValue = joyLeft.getRawAxis(driveAxisX);
 		joystickValue = scaleJoystick(joystickValue);
 		return joystickValue;
 	}
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
 		joystickValue *= JOYSTICK_DRIVE_SCALE;
-		joystickValue *= -1.0;
+		joystickValue *= -0.25;
 		return joystickValue;
 	}
 	private double checkDeadZone(double joystickValue) {
