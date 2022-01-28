@@ -21,7 +21,7 @@ public class Drivetrain_MecanumDrive extends Command {
 	Drivetrain drivetrain = Robot.drivetrain;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(drivetrain));
 	OI oi = Robot.oi;
-	double xSpeedOld, ySpeedOld, zSpeedOld;
+	double ySpeedOld, xSpeedOld, zSpeedOld;
 	Timer timer = new Timer();
 	
 	/** Drivetrain Mecanum Drive *************************************************
@@ -37,8 +37,8 @@ public class Drivetrain_MecanumDrive extends Command {
 		log.add("Initialize", Log.Level.TRACE);
 				
 		drivetrain.stop();
-		xSpeedOld = 0.0;
 		ySpeedOld = 0.0;
+		xSpeedOld = 0.0;
 		zSpeedOld = 0.0;
 		
 		timer.start();
@@ -48,21 +48,21 @@ public class Drivetrain_MecanumDrive extends Command {
 	/** execute ***************************************************************
 	 * Called repeatedly when this Command is scheduled to run */	
 	protected void execute() {
-		double xSpeed = oi.getXSpeed();
-		double ySpeed = oi.getYSpeed();
+		double ySpeed = oi.getXSpeed();
+		double xSpeed = oi.getYSpeed();
 		double zSpeed = oi.getZSpeed();
 		
 		double dt = timer.get();
 		timer.reset();
 
-		xSpeed = restrictAcceleration(xSpeed, xSpeedOld, dt);
 		ySpeed = restrictAcceleration(ySpeed, ySpeedOld, dt);
+		xSpeed = restrictAcceleration(xSpeed, xSpeedOld, dt);
 		zSpeed = restrictAcceleration(zSpeed, zSpeedOld, dt);
 		
-		drivetrain.driveCartesian(xSpeed, ySpeed, zSpeed);
+		drivetrain.driveCartesian(ySpeed, xSpeed, zSpeed);
 		
-		xSpeedOld = xSpeed;
 		ySpeedOld = ySpeed;
+		xSpeedOld = xSpeed;
 		zSpeedOld = zSpeed;
 	}
 	

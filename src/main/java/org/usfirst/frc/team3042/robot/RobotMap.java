@@ -51,8 +51,8 @@ public class RobotMap {
 	/** Drivetrain Settings ***************************************************/
 	public static final IdleMode DRIVETRAIN_BRAKE_MODE = IdleMode.kBrake;
 	public static final boolean REVERSE_LEFT_FRONT_MOTOR = false;
-	public static final boolean REVERSE_RIGHT_FRONT_MOTOR = true;
-	public static final boolean REVERSE_LEFT_BACK_MOTOR = false;
+	public static final boolean REVERSE_RIGHT_FRONT_MOTOR = false;
+	public static final boolean REVERSE_LEFT_BACK_MOTOR = true;
 	public static final boolean REVERSE_RIGHT_BACK_MOTOR = true;
 	public static final double ACCELERATION_MAX = 1.5; // Maximum Acceleration given in power(volts) per second //TODO: We'll probably want to tune this value
 	public static final double kF_DRIVE_LEFT = 0.1817180616740088; //TODO: Tune this??? (not sure yet)

@@ -112,11 +112,11 @@ public class Drivetrain extends Subsystem {
 		rightBackPositionZero = (int)(rightBack.getEncoder().getPosition());
 	}
 
-	public void driveCartesian(double xSpeed, double ySpeed, double zRotation) {
+	public void driveCartesian(double ySpeed, double xSpeed, double zRotation) {
 		robotDrive.driveCartesian(ySpeed, xSpeed, zRotation);
 	}
 
-	public void driveCartesian(double xSpeed, double ySpeed, double zRotation, double currentAngle) {
+	public void driveCartesian(double ySpeed, double xSpeed, double zRotation, double currentAngle) {
 		robotDrive.driveCartesian(ySpeed, xSpeed, zRotation, currentAngle);
 	}
 	

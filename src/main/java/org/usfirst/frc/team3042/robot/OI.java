@@ -73,7 +73,7 @@ public class OI {
 	public double getZSpeed() {
 		double joystickValue = joyLeft.getRawAxis(driveAxisX);
 		joystickValue = scaleJoystick(joystickValue);
-		return joystickValue;
+		return -1 * joystickValue;
 	}
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
