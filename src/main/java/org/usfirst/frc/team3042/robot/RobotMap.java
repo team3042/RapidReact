@@ -15,8 +15,8 @@ public class RobotMap {
 	public static final double WHEEL_DIAMETER = 6.0; // Measured in inches
 	public static final double ROBOT_WIDTH = 27.0; // Measured in inches
 
-	public static final double TRACK_WIDTH = 0.0; // Distance between centers of front and back wheels on robot TODO find
-    public static final double WHEEL_BASE = 0.0; // Distance between centers of front and back wheels on robot TODO find
+	public static final double TRACK_WIDTH = 0.0; // Distance between centers of front and back wheels on robot TODO measure this!
+    public static final double WHEEL_BASE = 0.0; // Distance between centers of front and back wheels on robot TODO measure this!
 
 	/** CAN ID numbers ********************************************************/
 	public static final int CAN_TOP_CONVEYOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
@@ -69,8 +69,8 @@ public class RobotMap {
 	public static final double kP_X_CONTROLLER = 0.5; //TODO: Tune using characterization tools
     public static final double kP_Y_CONTROLLER = 0.5; //TODO: Tune using characterization tools
     public static final double kP_THETA_CONTROLLER = 0.5; //TODO: Tune using characterization tools
-	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI; //TODO: Tune using characterization tools
-	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND_SQUARED = Math.PI; //TODO: Tune using characterization tools
+	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI; //TODO: Tune this??? (not sure yet)
+	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND_SQUARED = Math.PI; //TODO: Tune this??? (not sure yet)
 	public static final int COUNTS_PER_REVOLUTION = 42; // The NEO integrated encoder has 42 counts per revolution
 
 	/** Drivetrain Gyro Drive Settings ****************************************/

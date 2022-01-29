@@ -39,7 +39,7 @@ public class Drivetrain extends SubsystemBase {
 	private static final double TRACK_WIDTH = RobotMap.TRACK_WIDTH;
 	private static final double WHEEL_BASE = RobotMap.WHEEL_BASE;
 
-	private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(1, 0.8, 0.15); //TODO FInd characterization values??
+	private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0, 0, 0); //TODO Find characterization values!
 
 	private static final MecanumDriveKinematics kDriveKinematics =
 		new MecanumDriveKinematics(new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2), 
