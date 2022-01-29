@@ -3,8 +3,6 @@ package org.usfirst.frc.team3042.robot;
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
@@ -45,11 +43,7 @@ public class OI {
 		driveAxisY = JOYSTICK_Y_AXIS;
 		driveAxisZ = JOYSTICK_Z_AXIS;
 		
-		/** Controls **********************************************************/
-		//Drivetrain Controls
-		gamepad.Y.whenPressed(new Drivetrain_GyroStraight(20, 50));
-		gamepad.X.whenPressed(new Drivetrain_GyroTurn(90));
-
+		/** Robot Controls **********************************************************/
 		//Intake Controls
 		gamepad.LB.whileHeld(new Intake_Intake(1)); //run intake
 		gamepad.LT.whileActive(new Intake_Intake(-1)); //reverse intake
