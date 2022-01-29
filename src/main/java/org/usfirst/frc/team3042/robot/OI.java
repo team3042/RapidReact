@@ -5,6 +5,7 @@ import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
+import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
 /** OI ************************************************************************
  * This class is the glue that binds the controls on the physical operator
@@ -27,6 +28,7 @@ public class OI {
 	Log log = new Log(RobotMap.LOG_OI, "OI");
 	public Gamepad gamepad, joyLeft, joyRight;
 	int driveAxisX, driveAxisY, driveAxisZ;
+	Drivetrain drivetrain = Robot.drivetrain;
 
 	/** OI ********************************************************************
 	 * Assign commands to the buttons and triggers*/
