@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
+import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
@@ -54,6 +55,8 @@ public class OI {
 		gamepad.LT.whileActive(new Intake_Intake(-1)); //reverse intake
 
 		//Climber Controls
+		gamepad.POVUp.whileActive(new Climber_Run(1)); //raise climber
+		gamepad.POVDown.whileActive(new Climber_Run(-1)); //lower climber
 
 		//Conveyor Controls
 		gamepad.RB.whileHeld(new Conveyor_Run(1)); //run converyor

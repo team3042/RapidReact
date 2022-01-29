@@ -19,11 +19,11 @@ public class Drivetrain_Trajectory extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_DRIVETRAIN;
 	private static final double maxAcceleration = RobotMap.ACCELERATION_MAX_MPS;
- 	 private static final double maxVelocity = RobotMap.VELOCITY_MAX_MPS;
+ 	private static final double maxVelocity = RobotMap.VELOCITY_MAX_MPS;
   	private static final double kPFrontLeftVel = RobotMap.kP_FRONT_LEFT_VELOCITY;
   	private static final double kPRearLeftVel = RobotMap.kP_BACK_LEFT_VELOCITY;
  	private static final double kPFrontRightVel = RobotMap.kP_FRONT_RIGHT_VELOCITY;
- 	 private static final double kPRearRightVel = RobotMap.kP_BACK_RIGHT_VELOCITY;
+ 	private static final double kPRearRightVel = RobotMap.kP_BACK_RIGHT_VELOCITY;
   	private static final double kPXController = RobotMap.kP_X_CONTROLLER;
   	private static final double kPYController = RobotMap.kP_Y_CONTROLLER;
   	private static final double kPThetaController = RobotMap.kP_THETA_CONTROLLER;
@@ -31,7 +31,7 @@ public class Drivetrain_Trajectory extends CommandBase {
 	private static final double kMaxAngularSpeedRadiansPerSecondSquared = RobotMap.kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND_SQUARED;
 
  	 private static final TrapezoidProfile.Constraints kThetaControllerConstraints =
-                      new TrapezoidProfile.Constraints(kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+                    new TrapezoidProfile.Constraints(kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
 	/** Instance Variables ****************************************************/
 	Drivetrain drivetrain = Robot.drivetrain;
@@ -41,9 +41,9 @@ public class Drivetrain_Trajectory extends CommandBase {
 	/** Drivetrain Trajectory *************************************************
 	 * Required subsystems will cancel commands when this command is run. */
 	public Drivetrain_Trajectory(String pathName) {
-	log.add("Constructor", Log.Level.TRACE);
-    path = PathPlanner.loadPath(pathName, maxVelocity, maxAcceleration); 
-    addRequirements(drivetrain);
+		log.add("Constructor", Log.Level.TRACE);
+    	path = PathPlanner.loadPath(pathName, maxVelocity, maxAcceleration); 
+    	addRequirements(drivetrain);
 	}
 
 	/** initialize ************************************************************
@@ -74,17 +74,16 @@ public class Drivetrain_Trajectory extends CommandBase {
       drivetrain::getCurrentWheelSpeeds,
       drivetrain::setDriveMotorControllersVolts, // Consumer for the output motor voltages
       drivetrain);
-        
 
-    drivetrain.resetOdometry(path.getInitialPose());
+      drivetrain.resetOdometry(path.getInitialPose());
 
-    mecanumControllerCommand.andThen(() -> drivetrain.stop());
+      mecanumControllerCommand.andThen(() -> drivetrain.stop());
 	}
 
 	/** execute ***************************************************************
 	 * Called repeatedly when this Command is scheduled to run */	
 	public void execute() {
-    drivetrain.updateOdometry();
+    	drivetrain.updateOdometry();
 	}
 	
 	/** isFinished ************************************************************	

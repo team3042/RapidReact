@@ -28,7 +28,6 @@ public class Drivetrain_MecanumDrive extends CommandBase {
 	 * Required subsystems will cancel commands when this command is run. */
 	public Drivetrain_MecanumDrive() {
 		log.add("Constructor", Log.Level.TRACE);
-
 		addRequirements(drivetrain);
 	}
 

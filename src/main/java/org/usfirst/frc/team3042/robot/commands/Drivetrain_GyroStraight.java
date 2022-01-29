@@ -43,7 +43,6 @@ public class Drivetrain_GyroStraight extends CommandBase {
 		leftPower = drivetrain.rpmToPower(rpm, kF_LEFT);
 		rightPower = drivetrain.rpmToPower(rpm, kF_RIGHT);
 		addRequirements(drivetrain);
-
 	}
 	
 	/** initialize ************************************************************
