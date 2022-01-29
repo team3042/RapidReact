@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
+import org.usfirst.frc.team3042.robot.commands.Drivetrain_Trajectory;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Default;
 import org.usfirst.frc.team3042.robot.commands.autonomous.Autonomous_GyroTest;
 import org.usfirst.frc.team3042.robot.subsystems.Climber;
@@ -53,6 +54,9 @@ public class Robot extends TimedRobot {
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
 		chooser.addOption("Gyro TEST", new Autonomous_GyroTest());
+		chooser.addOption("Straight TEST", new Drivetrain_Trajectory(straightTest)); //TODO: Write code to instantiate this PathPlanner trajectory, make sure to extract holonomic rotation data from the path!
+		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory(strafeTest)); //TODO: Write code to instantiate this PathPlanner trajectory, make sure to extract holonomic rotation data from the path!
+		chooser.addOption("Curve TEST", new Drivetrain_Trajectory(curveTest)); //TODO: Write code to instantiate this PathPlanner trajectory, make sure to extract holonomic rotation data from the path!
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 
