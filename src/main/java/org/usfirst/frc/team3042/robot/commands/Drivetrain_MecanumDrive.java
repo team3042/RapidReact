@@ -48,8 +48,8 @@ public class Drivetrain_MecanumDrive extends CommandBase {
 	/** execute ***************************************************************
 	 * Called repeatedly when this Command is scheduled to run */	
 	public void execute() {
-		double ySpeed = oi.getXSpeed();
-		double xSpeed = oi.getYSpeed();
+		double ySpeed = oi.getYSpeed();
+		double xSpeed = oi.getXSpeed();
 		double zSpeed = oi.getZSpeed();
 		
 		double dt = timer.get();

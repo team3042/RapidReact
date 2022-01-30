@@ -58,16 +58,16 @@ public class OI {
 	}
 	
 	/** Access to the driving axes values *****************************
-	 * A negative has been added to make pushing forward positive. */
+	 * A negative can be added to make pushing forward positive/negative. */
 	public double getXSpeed() {
-		double joystickValue = joyRight.getRawAxis(driveAxisX);
-		joystickValue = scaleJoystick(joystickValue);
-		return -1 * joystickValue;
-	}
-	public double getYSpeed() {
 		double joystickValue = joyRight.getRawAxis(driveAxisY);
 		joystickValue = scaleJoystick(joystickValue);
 		return joystickValue;
+	}
+	public double getYSpeed() {
+		double joystickValue = joyRight.getRawAxis(driveAxisX);
+		joystickValue = scaleJoystick(joystickValue);
+		return -1 * joystickValue;
 	}
 	public double getZSpeed() {
 		double joystickValue = joyLeft.getRawAxis(driveAxisX);
