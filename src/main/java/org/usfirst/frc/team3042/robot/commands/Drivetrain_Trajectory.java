@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
 import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
 
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.Robot;
@@ -30,13 +30,12 @@ public class Drivetrain_Trajectory extends CommandBase {
 	private static final double kMaxAngularSpeedRadiansPerSecond = RobotMap.kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
 	private static final double kMaxAngularSpeedRadiansPerSecondSquared = RobotMap.kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND_SQUARED;
 
- 	 private static final TrapezoidProfile.Constraints kThetaControllerConstraints =
-                    new TrapezoidProfile.Constraints(kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+ 	private static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
 	/** Instance Variables ****************************************************/
 	Drivetrain drivetrain = Robot.drivetrain;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(drivetrain));
-  	Trajectory path;
+  	PathPlannerTrajectory path;
 
 	/** Drivetrain Trajectory *************************************************
 	 * Required subsystems will cancel commands when this command is run. */

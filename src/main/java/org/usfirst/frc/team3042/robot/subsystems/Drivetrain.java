@@ -39,7 +39,7 @@ public class Drivetrain extends SubsystemBase {
 	private static final double TRACK_WIDTH = RobotMap.TRACK_WIDTH;
 	private static final double WHEEL_BASE = RobotMap.WHEEL_BASE;
 
-	private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0, 0, 0); //TODO Find characterization values!
+	private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0, 0, 0); //TODO Find these characterization values!
 
 	private static final MecanumDriveKinematics kDriveKinematics =
 		new MecanumDriveKinematics(new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2), 
@@ -89,7 +89,7 @@ public class Drivetrain extends SubsystemBase {
 	/** initDefaultCommand ****************************************************
 	 * Set the default command for the subsystem. */
 	public void initDefaultCommand() {
-		setDefaultCommand(new Drivetrain_MecanumDrive()); //TODO: Change this to Drivetrain_FieldOriented when we are ready :)
+		setDefaultCommand(new Drivetrain_MecanumDrive()); //TODO: Change this to Drivetrain_FieldOriented when we are ready to test it :)
 	}
 	
 	/** Methods for setting the motors in % power mode ********************/

@@ -15,8 +15,8 @@ public class RobotMap {
 	public static final double WHEEL_DIAMETER = 6.0; // Measured in inches
 	public static final double ROBOT_WIDTH = 27.0; // Measured in inches
 
-	public static final double TRACK_WIDTH = 0.0; // Distance between centers of front and back wheels on robot TODO measure this!
-    public static final double WHEEL_BASE = 0.0; // Distance between centers of front and back wheels on robot TODO measure this!
+	public static final double TRACK_WIDTH = 0.0; // Distance between centers of front and back wheels on robot (in meters) // TODO measure this!
+    public static final double WHEEL_BASE = 0.0; // Distance between centers of front and back wheels on robot (in meters) // TODO measure this!
 
 	/** CAN ID numbers ********************************************************/
 	public static final int CAN_TOP_CONVEYOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
@@ -59,24 +59,24 @@ public class RobotMap {
 	public static final boolean REVERSE_RIGHT_BACK_MOTOR = true;
 	public static final double ACCELERATION_MAX = 1.5; // Maximum Acceleration given in power(volts) per second //TODO: We'll probably want to tune this value
 	public static final double VELOCITY_MAX_MPS = 3; // Maximum velocity in meters/second TODO: We'll probably want to tune this value
-	public static final double ACCELERATION_MAX_MPS = 1.5; // Maximum velocity in meters/second squared //TODO: We'll probably want to tune this value
-	public static final double kF_DRIVE_LEFT = 0.1817180616740088; //TODO: Tune this??? (not sure yet)
-	public static final double kF_DRIVE_RIGHT = 0.16686239968682717; //TODO: Tune this??? (not sure yet)
+	public static final double ACCELERATION_MAX_MPS = 1.5; // Maximum acceleration in meters/second squared //TODO: We'll probably want to tune this value
+	public static final double kF_DRIVE_LEFT = 0.1817180616740088; //TODO: Tune this??? (not sure if we'll need it yet)
+	public static final double kF_DRIVE_RIGHT = 0.16686239968682717; //TODO: Tune this??? (not sure if we'll need it yet)
 	public static final double kP_FRONT_RIGHT_VELOCITY = 0.5; //TODO: Tune using characterization tools
 	public static final double kP_FRONT_LEFT_VELOCITY = 0.5;//TODO: Tune using characterization tools
 	public static final double kP_BACK_RIGHT_VELOCITY = 0.5; //TODO: Tune using characterization tools
 	public static final double kP_BACK_LEFT_VELOCITY = 0.5; //TODO: Tune using characterization tools
-	public static final double kP_X_CONTROLLER = 0.5; //TODO: Tune using characterization tools
-    public static final double kP_Y_CONTROLLER = 0.5; //TODO: Tune using characterization tools
-    public static final double kP_THETA_CONTROLLER = 0.5; //TODO: Tune using characterization tools
-	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI; //TODO: Tune this??? (not sure yet)
-	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND_SQUARED = Math.PI; //TODO: Tune this??? (not sure yet)
+	public static final double kP_X_CONTROLLER = 0.5; //TODO: Tune this using guess-and-check after our drivetrain has been characterized
+    public static final double kP_Y_CONTROLLER = 0.5; //TODO: Tune this using guess-and-check after our drivetrain has been characterized
+    public static final double kP_THETA_CONTROLLER = 0.5; //TODO: Tune this using guess-and-check after our drivetrain has been characterized
+	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI; //TODO: Tune this??? (not sure yet if we'll need to change this value)
+	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND_SQUARED = Math.PI; //TODO: Tune this??? (not sure yet if we'll need to change this value)
 	public static final int COUNTS_PER_REVOLUTION = 42; // The NEO integrated encoder has 42 counts per revolution
 
 	/** Drivetrain Gyro Drive Settings ****************************************/
-	public static final double kP_GYRO = 0.007; //TODO: Tune this??? (not sure yet)
+	public static final double kP_GYRO = 0.007; //TODO: Tune this??? (not sure if we'll need it yet)
 	public static final double kI_GYRO = 0.0;
-	public static final double kD_GYRO = 0.017; //TODO: Tune this??? (not sure yet)
+	public static final double kD_GYRO = 0.017; //TODO: Tune this??? (not sure if we'll need it yet)
 	public static final double ANGLE_TOLERANCE = 2.0;
 	public static final double MAX_POWER_GYRO = 0.5;
 

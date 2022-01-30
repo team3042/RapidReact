@@ -54,9 +54,9 @@ public class Robot extends TimedRobot {
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
 		chooser.addOption("Gyro TEST", new Autonomous_GyroTest());
-		chooser.addOption("Straight TEST", new Drivetrain_Trajectory(straightTest)); //TODO: Write code to instantiate this PathPlanner trajectory, make sure to extract holonomic rotation data from the path!
-		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory(strafeTest)); //TODO: Write code to instantiate this PathPlanner trajectory, make sure to extract holonomic rotation data from the path!
-		chooser.addOption("Curve TEST", new Drivetrain_Trajectory(curveTest)); //TODO: Write code to instantiate this PathPlanner trajectory, make sure to extract holonomic rotation data from the path!
+		chooser.addOption("Straight TEST", new Drivetrain_Trajectory("pathplanner/Basic_Straight_Line_Path.path"));
+		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("pathplanner/Basic_Strafe_Path.path"));
+		chooser.addOption("Curve TEST", new Drivetrain_Trajectory("pathplanner/Basic_Curve_Path.path"));
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 

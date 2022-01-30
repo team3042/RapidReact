@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3042.robot.commands.autonomous;
 
+import org.usfirst.frc.team3042.robot.commands.Drivetrain_Trajectory;
+
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /** Autonomous Mode Default ******************************************************
@@ -8,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 public class AutonomousMode_Default extends SequentialCommandGroup {
 
   public AutonomousMode_Default() {
-    //TODO: Write this command group!
+    //TODO: Write this command group! You'll need to list the commands we want in order within the addCommands() method below. 
+    //Hint: You might want to use our Wait() command to stop the conveyor when scoring. Another Hint: You can nest a ParallelCommand Group within this list of commands!
+    addCommands(new Drivetrain_Trajectory("pathplanner/Bottom2_Path.path") /* List commands sequentially in here */);
   }
 }
