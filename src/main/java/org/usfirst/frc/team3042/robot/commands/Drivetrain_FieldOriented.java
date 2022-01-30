@@ -48,21 +48,21 @@ public class Drivetrain_FieldOriented extends CommandBase {
 	/** execute ***************************************************************
 	 * Called repeatedly when this Command is scheduled to run */
 	public void execute() {
-		double xSpeed = oi.getXSpeed();
 		double ySpeed = oi.getYSpeed();
+		double xSpeed = oi.getXSpeed();
 		double zSpeed = oi.getZSpeed();
 		
 		double dt = timer.get();
 		timer.reset();
 
-		xSpeed = restrictAcceleration(xSpeed, xSpeedOld, dt);
 		ySpeed = restrictAcceleration(ySpeed, ySpeedOld, dt);
+		xSpeed = restrictAcceleration(xSpeed, xSpeedOld, dt);
 		zSpeed = restrictAcceleration(zSpeed, zSpeedOld, dt);
 		
-		drivetrain.driveCartesian(xSpeed, ySpeed, zSpeed, drivetrain.getGyroAngle());
+		drivetrain.driveCartesian(ySpeed, xSpeed, zSpeed, drivetrain.getGyroAngle());
 		
-		xSpeedOld = xSpeed;
 		ySpeedOld = ySpeed;
+		xSpeedOld = xSpeed;
 		zSpeedOld = zSpeed;
 	}
 	
