@@ -7,6 +7,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
@@ -16,12 +18,16 @@ public class Intake extends Subsystem {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_INTAKE;
 	private static final int CAN_INTAKE = RobotMap.CAN_INTAKE;
+	private static final int RIGHT_ID = RobotMap.RIGHT_INTAKE_SOLENOID;
+	private static final int LEFT_ID = RobotMap.LEFT_INTAKE_SOLENOID;
 	private static final boolean REVERSE_MOTOR = RobotMap.REVERSE_INTAKE;
 	private static final NeutralMode BRAKE_MODE = RobotMap.INTAKE_BRAKE_MODE;
 
 	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
 	TalonSRX motor = new TalonSRX(CAN_INTAKE);
+	Solenoid rightIntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, RIGHT_ID);
+	Solenoid leftIntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, LEFT_ID);
 
 	/** Intake ****************************************************************/
 	public Intake() {
@@ -46,6 +52,16 @@ public class Intake extends Subsystem {
 		power = Math.min(1.0, power);
 		power = Math.max(-1.0, power);
 		return power;
+	}
+
+	// Commands for extending/retracting the intake
+	public void extend() {
+		rightIntakeSolenoid.set(true);
+		leftIntakeSolenoid.set(true);
+	}
+	public void retract() {
+		rightIntakeSolenoid.set(false);
+		leftIntakeSolenoid.set(false);
 	}
 	
 	/** initDefaultCommand ****************************************************

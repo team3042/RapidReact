@@ -24,10 +24,10 @@ public class RobotMap {
 	public static final int CAN_LEFT_CONVEYOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_RIGHT_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_LEFT_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
-	public static final int CAN_LEFT_FRONT_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
-	public static final int CAN_RIGHT_FRONT_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
-	public static final int CAN_LEFT_BACK_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
-	public static final int CAN_RIGHT_BACK_MOTOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_LEFT_FRONT_MOTOR = 5;
+	public static final int CAN_RIGHT_FRONT_MOTOR = 2;
+	public static final int CAN_LEFT_BACK_MOTOR = 3;
+	public static final int CAN_RIGHT_BACK_MOTOR = 4;
 	public static final int CAN_INTAKE = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 
 	/** PCM channels **********************************************************/
@@ -53,10 +53,10 @@ public class RobotMap {
 
 	/** Drivetrain Settings ***************************************************/
 	public static final IdleMode DRIVETRAIN_BRAKE_MODE = IdleMode.kBrake;
-	public static final boolean REVERSE_LEFT_FRONT_MOTOR = false; //TODO: Determine this setting for the actual 2022 robot!
-	public static final boolean REVERSE_RIGHT_FRONT_MOTOR = true; //TODO: Determine this setting for the actual 2022 robot!
-	public static final boolean REVERSE_LEFT_BACK_MOTOR = false; //TODO: Determine this setting for the actual 2022 robot!
-	public static final boolean REVERSE_RIGHT_BACK_MOTOR = true; //TODO: Determine this setting for the actual 2022 robot!
+	public static final boolean REVERSE_LEFT_FRONT_MOTOR = false;
+	public static final boolean REVERSE_RIGHT_FRONT_MOTOR = false;
+	public static final boolean REVERSE_LEFT_BACK_MOTOR = true;
+	public static final boolean REVERSE_RIGHT_BACK_MOTOR = true;
 	public static final double ACCELERATION_MAX = 1.5; // Maximum Acceleration given in power(volts) per second //TODO: We'll probably want to tune this value
 	public static final double VELOCITY_MAX_MPS = 3; // Maximum velocity in meters/second TODO: We'll probably want to tune this value
 	public static final double ACCELERATION_MAX_MPS = 1.5; // Maximum velocity in meters/second squared //TODO: We'll probably want to tune this value
