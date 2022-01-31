@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3042.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -13,6 +12,7 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.Robot;
 import org.usfirst.frc.team3042.robot.RobotMap;
+import org.usfirst.frc.team3042.robot.commands.autonomous.helperCommands.PPMecanumControllerCommand;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
 public class Drivetrain_Trajectory extends CommandBase {
@@ -20,10 +20,6 @@ public class Drivetrain_Trajectory extends CommandBase {
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_DRIVETRAIN;
 	private static final double maxAcceleration = RobotMap.ACCELERATION_MAX_MPS;
  	private static final double maxVelocity = RobotMap.VELOCITY_MAX_MPS;
-  	private static final double kPFrontLeftVel = RobotMap.kP_FRONT_LEFT_VELOCITY;
-  	private static final double kPRearLeftVel = RobotMap.kP_BACK_LEFT_VELOCITY;
- 	private static final double kPFrontRightVel = RobotMap.kP_FRONT_RIGHT_VELOCITY;
- 	private static final double kPRearRightVel = RobotMap.kP_BACK_RIGHT_VELOCITY;
   	private static final double kPXController = RobotMap.kP_X_CONTROLLER;
   	private static final double kPYController = RobotMap.kP_Y_CONTROLLER;
   	private static final double kPThetaController = RobotMap.kP_THETA_CONTROLLER;
@@ -50,33 +46,20 @@ public class Drivetrain_Trajectory extends CommandBase {
 	public void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
 
-    // Add kinematics to ensure max speed is actually obeyed
-    MecanumControllerCommand mecanumControllerCommand = new MecanumControllerCommand(
-      path,
-      drivetrain::getPose,
-      drivetrain.getkFeedforward(),
-      drivetrain.getkDriveKinematics(),
+		// Add kinematics to ensure max speed is actually obeyed
+		PPMecanumControllerCommand mecanumControllerCommand = new PPMecanumControllerCommand(path,
+		drivetrain::getPose, drivetrain.getkDriveKinematics(),
 
-      // Position contollers
-      new PIDController(kPXController, 0, 0),
-      new PIDController(kPYController, 0, 0),
-      new ProfiledPIDController(kPThetaController, 0, 0, kThetaControllerConstraints),
+		// Position contollers
+		new PIDController(kPXController, 0, 0),
+		new PIDController(kPYController, 0, 0),
+		new ProfiledPIDController(kPThetaController, 0, 0, kThetaControllerConstraints),
 
-      // Needed for normalizing wheel speeds
-      maxVelocity,
+		drivetrain::setWheelSpeeds, drivetrain);
 
-      // Velocity PIDs
-      new PIDController(kPFrontLeftVel, 0, 0),
-      new PIDController(kPRearLeftVel, 0, 0),
-      new PIDController(kPFrontRightVel, 0, 0),
-      new PIDController(kPRearRightVel, 0, 0),
-      drivetrain::getCurrentWheelSpeeds,
-      drivetrain::setDriveMotorControllersVolts, // Consumer for the output motor voltages
-      drivetrain);
+		drivetrain.resetOdometry(path.getInitialPose());
 
-      drivetrain.resetOdometry(path.getInitialPose());
-
-      mecanumControllerCommand.andThen(() -> drivetrain.stop());
+		mecanumControllerCommand.andThen(() -> drivetrain.stop());
 	}
 	
 	/** isFinished ************************************************************	

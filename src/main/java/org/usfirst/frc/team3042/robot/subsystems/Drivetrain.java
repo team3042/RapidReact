@@ -11,12 +11,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
-import edu.wpi.first.math.kinematics.MecanumDriveMotorVoltages;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
 import edu.wpi.first.util.sendable.SendableRegistry;
@@ -40,6 +40,10 @@ public class Drivetrain extends SubsystemBase {
 	private static final double WHEEL_BASE = RobotMap.WHEEL_BASE;
 
 	private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0, 0, 0); //TODO Find these characterization values!
+	private final PIDController frontLeftPIDController = new PIDController(RobotMap.kP_FRONT_LEFT_VELOCITY, 0, 0);
+  	private final PIDController frontRightPIDController = new PIDController(RobotMap.kP_FRONT_RIGHT_VELOCITY, 0, 0);
+  	private final PIDController backLeftPIDController = new PIDController(RobotMap.kP_BACK_LEFT_VELOCITY, 0, 0);
+  	private final PIDController backRightPIDController = new PIDController(RobotMap.kP_BACK_RIGHT_VELOCITY, 0, 0);
 
 	private static final MecanumDriveKinematics kDriveKinematics =
 		new MecanumDriveKinematics(new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2), 
@@ -135,10 +139,7 @@ public class Drivetrain extends SubsystemBase {
 		return odometry.getPoseMeters();
 	}
 	public MecanumDriveKinematics getkDriveKinematics() {
-		return kDriveKinematics;	}
-
-	public SimpleMotorFeedforward getkFeedforward() {
-		return kFeedforward;
+		return kDriveKinematics;	
 	}
 
 	@Override
@@ -150,7 +151,7 @@ public class Drivetrain extends SubsystemBase {
 		rightFront.getEncoder().getVelocity(),
 		rightBack.getEncoder().getVelocity()));
 	}
-	
+
 	/** resetEncoders ***********************************************************/
 	public void resetEncoders() {
 		leftFrontPositionZero = (int)(leftFront.getEncoder().getPosition());		
@@ -159,10 +160,11 @@ public class Drivetrain extends SubsystemBase {
 		rightBackPositionZero = (int)(rightBack.getEncoder().getPosition());
 	}
 
+	//Not Field-Oriented (aka Robot-Oriented)
 	public void driveCartesian(double ySpeed, double xSpeed, double zRotation) {
 		robotDrive.driveCartesian(ySpeed, xSpeed, zRotation);
 	}
-
+	// Field-Oriented
 	public void driveCartesian(double ySpeed, double xSpeed, double zRotation, double currentAngle) {
 		robotDrive.driveCartesian(ySpeed, xSpeed, zRotation, currentAngle);
 	}
@@ -191,33 +193,38 @@ public class Drivetrain extends SubsystemBase {
 	}
 	public double getRightBackSpeed() { // Speed is returned in units of RPM (revolutions per minute)
 		return (int)(rightBack.getEncoder().getVelocity());
-		
 	}
-	
-	public MecanumDriveWheelSpeeds getCurrentWheelSpeeds() {
-		return new MecanumDriveWheelSpeeds(
-			speedToMeters(leftFront.getEncoder().getVelocity()),
-			speedToMeters(leftBack.getEncoder().getVelocity()),
-			speedToMeters(rightFront.getEncoder().getVelocity()),
-			speedToMeters(rightFront.getEncoder().getVelocity()));
-	  }
 
-	public void setDriveMotorControllersVolts(MecanumDriveMotorVoltages volts) {
-		leftFront.setVoltage(volts.frontLeftVoltage);
-		leftBack.setVoltage(volts.rearLeftVoltage);
-		rightFront.setVoltage(volts.frontRightVoltage);
-		rightBack.setVoltage(volts.rearRightVoltage);
-	  }
+	public void setWheelSpeeds(MecanumDriveWheelSpeeds speeds) {
+		final double frontLeftFeedforward = kFeedforward.calculate(speeds.frontLeftMetersPerSecond);
+		final double frontRightFeedforward = kFeedforward.calculate(speeds.frontRightMetersPerSecond);
+		final double backLeftFeedforward = kFeedforward.calculate(speeds.rearLeftMetersPerSecond);
+		final double backRightFeedforward = kFeedforward.calculate(speeds.rearRightMetersPerSecond);
+
+		final double frontLeftOutput =
+			frontLeftPIDController.calculate(speedToMeters(getLeftFrontSpeed()), speeds.frontLeftMetersPerSecond);
+		final double frontRightOutput =
+			frontRightPIDController.calculate(speedToMeters(getRightFrontSpeed()), speeds.frontRightMetersPerSecond);
+		final double backLeftOutput =
+			backLeftPIDController.calculate(speedToMeters(getLeftBackSpeed()), speeds.rearLeftMetersPerSecond);
+		final double backRightOutput =
+			backRightPIDController.calculate(speedToMeters(getRightBackSpeed()), speeds.rearRightMetersPerSecond);
+
+		leftFront.setVoltage(frontLeftOutput + frontLeftFeedforward);
+		rightFront.setVoltage(frontRightOutput + frontRightFeedforward);
+		leftBack.setVoltage(backLeftOutput + backLeftFeedforward);
+		rightBack.setVoltage(backRightOutput + backRightFeedforward);
+	}
 
 	// Conversion Methods: Convert to Meters
 	public double positionToMeters(double position) {
 		return position * Math.PI * RobotMap.WHEEL_DIAMETER / 39.3700787; // Divide by 39.3700787 to convert inches to meters
 	}
-
 	public double speedToMeters(double speed) {
 		return speed / 60 * Math.PI * RobotMap.WHEEL_DIAMETER / 39.3700787; // Divide by 39.3700787 to convert inches to meters
 	}
 
+	// This is only used by Drivetrain_GyroStraight()
 	public double rpmToPower(double rpm, double kF) {
 		//Convert rpm to counts per 100 ms
 		double speed = rpm * COUNTS_PER_REVOLUTION / 600.0; // Dividing by 600 converts the units from minutes to 100s of milliseconds
