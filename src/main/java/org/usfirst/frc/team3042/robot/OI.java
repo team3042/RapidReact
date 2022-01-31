@@ -3,6 +3,8 @@ package org.usfirst.frc.team3042.robot;
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
+import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
+import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
@@ -55,6 +57,10 @@ public class OI {
 		//Conveyor Controls
 		gamepad.RB.whileHeld(new Conveyor_Run(1)); //run converyor
 		gamepad.RT.whileActive(new Conveyor_Run(-1)); //reverse converyor
+
+		//Drivetrain Test Controls
+		gamepad.X.whenPressed(new Drivetrain_GyroStraight(20, 50)); //TODO: This error should fix itself after you have migrated our code to the new framework :)
+		gamepad.Y.whenPressed(new Drivetrain_GyroTurn(90)); //TODO: This error should fix itself after you have migrated our code to the new framework :)
 	}
 	
 	/** Access to the driving axes values *****************************
