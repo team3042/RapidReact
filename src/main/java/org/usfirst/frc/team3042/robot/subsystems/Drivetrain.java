@@ -141,17 +141,16 @@ public class Drivetrain extends SubsystemBase {
 		return kFeedforward;
 	}
 
-	// Periodically update the odometry
-	public void updateOdometry() {
-		odometry.update(
-			this.getRotation2d(),
-			new MecanumDriveWheelSpeeds(
-				leftFront.getEncoder().getVelocity(),
-				leftBack.getEncoder().getVelocity(),
-				rightFront.getEncoder().getVelocity(),
-				rightBack.getEncoder().getVelocity()));
+	@Override
+	public void periodic() {
+	  // Update the odometry in the periodic block
+	  odometry.update( this.getRotation2d(), new MecanumDriveWheelSpeeds(
+		leftFront.getEncoder().getVelocity(),
+		leftBack.getEncoder().getVelocity(),
+		rightFront.getEncoder().getVelocity(),
+		rightBack.getEncoder().getVelocity()));
 	}
-
+	
 	/** resetEncoders ***********************************************************/
 	public void resetEncoders() {
 		leftFrontPositionZero = (int)(leftFront.getEncoder().getPosition());		
