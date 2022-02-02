@@ -146,18 +146,18 @@ public class Drivetrain extends SubsystemBase {
 	public void periodic() {
 	  // Update the odometry in the periodic block
 	  odometry.update( this.getRotation2d(), new MecanumDriveWheelSpeeds(
-		leftFront.getEncoder().getVelocity(),
-		leftBack.getEncoder().getVelocity(),
-		rightFront.getEncoder().getVelocity(),
-		rightBack.getEncoder().getVelocity()));
+		leftFront.getEncoder().getVelocity() / 10.71,
+		leftBack.getEncoder().getVelocity() / 10.71,
+		rightFront.getEncoder().getVelocity() / 10.71,
+		rightBack.getEncoder().getVelocity() / 10.71));
 	}
 
 	/** resetEncoders ***********************************************************/
 	public void resetEncoders() {
-		leftFrontPositionZero = (int)(leftFront.getEncoder().getPosition());		
-		rightFrontPositionZero = (int)(rightFront.getEncoder().getPosition());
-		leftBackPositionZero = (int)(leftBack.getEncoder().getPosition());
-		rightBackPositionZero = (int)(rightBack.getEncoder().getPosition());
+		leftFrontPositionZero = (int)(leftFront.getEncoder().getPosition() / 10.71);		
+		rightFrontPositionZero = (int)(rightFront.getEncoder().getPosition() / 10.71);
+		leftBackPositionZero = (int)(leftBack.getEncoder().getPosition() / 10.71);
+		rightBackPositionZero = (int)(rightBack.getEncoder().getPosition() / 10.71);
 	}
 
 	//Not Field-Oriented (aka Robot-Oriented)
@@ -171,28 +171,28 @@ public class Drivetrain extends SubsystemBase {
 	
 	/** Get the encoder positions or speeds **************************************/
 	public double getLeftFrontPosition() { // Position is returned in units of revolutions
-		return (int)(leftFront.getEncoder().getPosition()) - leftFrontPositionZero;
+		return (int)(leftFront.getEncoder().getPosition() / 10.71) - leftFrontPositionZero;
 	}
 	public double getRightFrontPosition() { // Position is returned in units of revolutions
-		return (int)(rightFront.getEncoder().getPosition()) - rightFrontPositionZero;
+		return (int)(rightFront.getEncoder().getPosition() / 10.71) - rightFrontPositionZero;
 	}
 	public double getLeftBackPosition() { // Position is returned in units of revolutions
-		return (int)(leftBack.getEncoder().getPosition()) - leftBackPositionZero;
+		return (int)(leftBack.getEncoder().getPosition() / 10.71) - leftBackPositionZero;
 	}
 	public double getRightBackPosition() { // Position is returned in units of revolutions
-		return (int)(rightBack.getEncoder().getPosition()) - rightBackPositionZero;
+		return (int)(rightBack.getEncoder().getPosition() / 10.71) - rightBackPositionZero;
 	}
 	public double getLeftFrontSpeed() { // Speed is returned in units of RPM (revolutions per minute)
-		return (int)(leftFront.getEncoder().getVelocity());
+		return (int)(leftFront.getEncoder().getVelocity() / 10.71);
 	}
 	public double getRightFrontSpeed() { // Speed is returned in units of RPM (revolutions per minute)
-		return (int)(rightFront.getEncoder().getVelocity());
+		return (int)(rightFront.getEncoder().getVelocity() / 10.71);
 	}
 	public double getLeftBackSpeed() { // Speed is returned in units of RPM (revolutions per minute)
-		return (int)(leftBack.getEncoder().getVelocity());
+		return (int)(leftBack.getEncoder().getVelocity() / 10.71);
 	}
 	public double getRightBackSpeed() { // Speed is returned in units of RPM (revolutions per minute)
-		return (int)(rightBack.getEncoder().getVelocity());
+		return (int)(rightBack.getEncoder().getVelocity() / 10.71);
 	}
 
 	public void setWheelSpeeds(MecanumDriveWheelSpeeds speeds) {
