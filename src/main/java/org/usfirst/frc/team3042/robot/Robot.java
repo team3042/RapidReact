@@ -9,10 +9,10 @@ import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3042.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -74,7 +74,7 @@ public class Robot extends TimedRobot {
 	/** disabledPeriodic ******************************************************
 	 * Called repeatedly while the robot is is disabled mode. */
 	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
+		CommandScheduler.getInstance().run();
 	}
 
 	/** autonomousInit ********************************************************
@@ -96,7 +96,7 @@ public class Robot extends TimedRobot {
 	/** autonomousPeriodic ****************************************************
 	 * This function is called periodically during autonomous */
 	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
+		CommandScheduler.getInstance().run();
 	}
 	
 	/** teleopInit ************************************************************
@@ -117,7 +117,7 @@ public class Robot extends TimedRobot {
 	/** teleopPeriodic ********************************************************
 	 * This function is called periodically during operator control */
 	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
+		CommandScheduler.getInstance().run();
 		SmartDashboard.putNumber("Robot Speed", (drivetrain.getLeftFrontSpeed() + drivetrain.getRightFrontSpeed() + drivetrain.getLeftBackSpeed() + drivetrain.getRightBackSpeed()) / 4.0); // Average speed of the left and right side
 		SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle()); // The current gyroscope angle
 		SmartDashboard.putNumber("Encoder Position (LF)", drivetrain.getLeftFrontPosition()); //The current right encoder position

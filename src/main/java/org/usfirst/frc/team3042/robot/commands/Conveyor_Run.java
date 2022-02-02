@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3042.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
 import org.usfirst.frc.team3042.lib.Log;
@@ -10,7 +10,7 @@ import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
 
 /** Conveyor_Run *******************************************************************
  * Sets power to the conveyor */
-public class Conveyor_Run extends Command {
+public class Conveyor_Run extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CONVEYOR;
 	private static final double POWER = RobotMap.CONVEYOR_POWER;
@@ -25,23 +25,23 @@ public class Conveyor_Run extends Command {
 	public Conveyor_Run(int direction) {
 		log.add("Constructor", Log.Level.TRACE);
     	this.direction = direction;
-		requires(conveyor);
+		addRequirements(conveyor);
 	}
 
 	/** initialize ************************************************************
 	 * Called just before this Command runs the first time */
-	protected void initialize() {
+	public void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
 		conveyor.setPower(POWER * direction);
 	}
 
 	/** execute ***************************************************************
 	 * Called repeatedly when this Command is scheduled to run */
-	protected void execute() {}
+	public void execute() {}
 	
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
-	protected boolean isFinished() {
+	public boolean isFinished() {
 		return false;
 	}
 	

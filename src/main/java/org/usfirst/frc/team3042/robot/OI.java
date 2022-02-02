@@ -48,19 +48,19 @@ public class OI {
 		/** Robot Controls **********************************************************/
 		//Intake Controls
 		gamepad.LB.whileHeld(new Intake_Intake(1)); //run intake
-		gamepad.LT.whileActive(new Intake_Intake(-1)); //reverse intake
+		gamepad.LT.whenActive(new Intake_Intake(-1)); //reverse intake
 
 		//Climber Controls
-		gamepad.POVUp.whileActive(new Climber_Run(1)); //raise climber
-		gamepad.POVDown.whileActive(new Climber_Run(-1)); //lower climber
+		gamepad.POVUp.whenActive(new Climber_Run(1)); //raise climber
+		gamepad.POVDown.whenActive(new Climber_Run(-1)); //lower climber
 
 		//Conveyor Controls
 		gamepad.RB.whileHeld(new Conveyor_Run(1)); //run converyor
-		gamepad.RT.whileActive(new Conveyor_Run(-1)); //reverse converyor
+		gamepad.RT.whenActive(new Conveyor_Run(-1)); //reverse converyor
 
 		//Drivetrain Test Controls
-		gamepad.X.whenPressed(new Drivetrain_GyroStraight(20, 50)); //TODO: This error should fix itself after you have migrated our code to the new framework :)
-		gamepad.Y.whenPressed(new Drivetrain_GyroTurn(90)); //TODO: This error should fix itself after you have migrated our code to the new framework :)
+		gamepad.X.whenPressed(new Drivetrain_GyroStraight(20, 50));
+		gamepad.Y.whenPressed(new Drivetrain_GyroTurn(90));
 	}
 	
 	/** Access to the driving axes values *****************************

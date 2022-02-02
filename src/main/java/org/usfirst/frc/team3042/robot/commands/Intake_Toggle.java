@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3042.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
 import org.usfirst.frc.team3042.lib.Log;
@@ -10,7 +10,7 @@ import org.usfirst.frc.team3042.robot.subsystems.Intake;
 
 /** Intake_Toggle *******************************************************************
  * Extends or retracts the intake */
-public class Intake_Toggle extends Command {
+public class Intake_Toggle extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_INTAKE;
 	
@@ -23,11 +23,12 @@ public class Intake_Toggle extends Command {
 	 * Required subsystems will cancel commands when this command is run. */
 	public Intake_Toggle() {
 		log.add("Constructor", Log.Level.TRACE);
+		addRequirements(intake);
 	}
 
 	/** initialize ************************************************************
 	 * Called just before this Command runs the first time */
-	protected void initialize() {
+	public void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
 		if (isRetracted == true) {
     		intake.extend();
@@ -41,11 +42,11 @@ public class Intake_Toggle extends Command {
 
 	/** execute ***************************************************************
 	 * Called repeatedly when this Command is scheduled to run */
-	protected void execute() {}
+	public void execute() {}
 	
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
-	protected boolean isFinished() {
+	public boolean isFinished() {
 		return true;
 	}
 	

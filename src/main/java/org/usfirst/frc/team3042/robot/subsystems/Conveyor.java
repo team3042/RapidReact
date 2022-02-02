@@ -7,12 +7,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /** Conveyor ********************************************************************
  * Subsystem for moving balls through the body of the robot */
-public class Conveyor extends Subsystem {
+public class Conveyor extends SubsystemBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CONVEYOR;
   	private static final int CAN_TOP_CONVEYOR = RobotMap.CAN_TOP_CONVEYOR;
