@@ -70,7 +70,7 @@ public class RobotMap {
     public static final double kP_Y_CONTROLLER = 0.5; //TODO: Tune this using guess-and-check after our drivetrain has been characterized
     public static final double kP_THETA_CONTROLLER = 0.5; //TODO: Tune this using guess-and-check after our drivetrain has been characterized
 	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI; //TODO: Tune this??? (not sure yet if we'll need to change this value)
-	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND_SQUARED = Math.PI; //TODO: Tune this??? (not sure yet if we'll need to change this value)
+	public static final double kMAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = Math.PI; //TODO: Tune this??? (not sure yet if we'll need to change this value)
 	public static final int COUNTS_PER_REVOLUTION = 42; // The NEO integrated encoder has 42 counts per revolution
 
 	/** Drivetrain Gyro Drive Settings ****************************************/

@@ -24,9 +24,9 @@ public class Drivetrain_Trajectory extends CommandBase {
   	private static final double kPYController = RobotMap.kP_Y_CONTROLLER;
   	private static final double kPThetaController = RobotMap.kP_THETA_CONTROLLER;
 	private static final double kMaxAngularSpeedRadiansPerSecond = RobotMap.kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
-	private static final double kMaxAngularSpeedRadiansPerSecondSquared = RobotMap.kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND_SQUARED;
+	private static final double kMaxAngularAccelerationRadiansPerSecondSquared = RobotMap.kMAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED;
 
- 	private static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+ 	private static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(kMaxAngularSpeedRadiansPerSecond, kMaxAngularAccelerationRadiansPerSecondSquared);
 
 	/** Instance Variables ****************************************************/
 	Drivetrain drivetrain = Robot.drivetrain;

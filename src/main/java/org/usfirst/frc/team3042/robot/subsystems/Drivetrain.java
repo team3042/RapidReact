@@ -22,7 +22,7 @@ import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
 /** Drivetrain ****************************************************************
- * The drivetrain subsystem of the robot. */
+ * The mecanum drivetrain subsystem of the robot. */
 public class Drivetrain extends SubsystemBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_DRIVETRAIN;
@@ -145,19 +145,18 @@ public class Drivetrain extends SubsystemBase {
 	@Override
 	public void periodic() {
 	  // Update the odometry in the periodic block
-	  odometry.update( this.getRotation2d(), new MecanumDriveWheelSpeeds(
-		leftFront.getEncoder().getVelocity() / 10.71,
-		leftBack.getEncoder().getVelocity() / 10.71,
-		rightFront.getEncoder().getVelocity() / 10.71,
-		rightBack.getEncoder().getVelocity() / 10.71));
+	  odometry.update(this.getRotation2d(), new MecanumDriveWheelSpeeds(this.speedToMeters(this.getLeftFrontSpeed()), 
+																		this.speedToMeters(this.getLeftBackSpeed()), 
+																		this.speedToMeters(this.getRightFrontSpeed()), 
+																		this.speedToMeters(this.getRightBackSpeed())));
 	}
 
 	/** resetEncoders ***********************************************************/
 	public void resetEncoders() {
-		leftFrontPositionZero = (int)(leftFront.getEncoder().getPosition() / 10.71);		
-		rightFrontPositionZero = (int)(rightFront.getEncoder().getPosition() / 10.71);
-		leftBackPositionZero = (int)(leftBack.getEncoder().getPosition() / 10.71);
-		rightBackPositionZero = (int)(rightBack.getEncoder().getPosition() / 10.71);
+		leftFrontPositionZero = (int)(leftFront.getEncoder().getPosition());		
+		rightFrontPositionZero = (int)(rightFront.getEncoder().getPosition());
+		leftBackPositionZero = (int)(leftBack.getEncoder().getPosition());
+		rightBackPositionZero = (int)(rightBack.getEncoder().getPosition());
 	}
 
 	//Not Field-Oriented (aka Robot-Oriented)
@@ -171,28 +170,28 @@ public class Drivetrain extends SubsystemBase {
 	
 	/** Get the encoder positions or speeds **************************************/
 	public double getLeftFrontPosition() { // Position is returned in units of revolutions
-		return (int)(leftFront.getEncoder().getPosition() / 10.71) - leftFrontPositionZero;
+		return (int)(leftFront.getEncoder().getPosition() / 10.71) - leftFrontPositionZero; // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getRightFrontPosition() { // Position is returned in units of revolutions
-		return (int)(rightFront.getEncoder().getPosition() / 10.71) - rightFrontPositionZero;
+		return (int)(rightFront.getEncoder().getPosition() / 10.71) - rightFrontPositionZero; // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getLeftBackPosition() { // Position is returned in units of revolutions
-		return (int)(leftBack.getEncoder().getPosition() / 10.71) - leftBackPositionZero;
+		return (int)(leftBack.getEncoder().getPosition() / 10.71) - leftBackPositionZero; // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getRightBackPosition() { // Position is returned in units of revolutions
-		return (int)(rightBack.getEncoder().getPosition() / 10.71) - rightBackPositionZero;
+		return (int)(rightBack.getEncoder().getPosition() / 10.71) - rightBackPositionZero; // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getLeftFrontSpeed() { // Speed is returned in units of RPM (revolutions per minute)
-		return (int)(leftFront.getEncoder().getVelocity() / 10.71);
+		return (int)(leftFront.getEncoder().getVelocity() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getRightFrontSpeed() { // Speed is returned in units of RPM (revolutions per minute)
-		return (int)(rightFront.getEncoder().getVelocity() / 10.71);
+		return (int)(rightFront.getEncoder().getVelocity() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getLeftBackSpeed() { // Speed is returned in units of RPM (revolutions per minute)
-		return (int)(leftBack.getEncoder().getVelocity() / 10.71);
+		return (int)(leftBack.getEncoder().getVelocity() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getRightBackSpeed() { // Speed is returned in units of RPM (revolutions per minute)
-		return (int)(rightBack.getEncoder().getVelocity() / 10.71);
+		return (int)(rightBack.getEncoder().getVelocity() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
 	}
 
 	public void setWheelSpeeds(MecanumDriveWheelSpeeds speeds) {
@@ -224,7 +223,7 @@ public class Drivetrain extends SubsystemBase {
 		return speed / 60 * Math.PI * RobotMap.WHEEL_DIAMETER / 39.3700787; // Divide by 39.3700787 to convert inches to meters
 	}
 
-	// This is only used by Drivetrain_GyroStraight()
+	// This is only used by the Drivetrain_GyroStraight() command
 	public double rpmToPower(double rpm, double kF) {
 		//Convert rpm to counts per 100 ms
 		double speed = rpm * COUNTS_PER_REVOLUTION / 600.0; // Dividing by 600 converts the units from minutes to 100s of milliseconds
