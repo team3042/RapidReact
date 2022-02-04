@@ -26,8 +26,8 @@ public class Intake extends SubsystemBase {
 	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
 	TalonSRX motor = new TalonSRX(CAN_INTAKE);
-	Solenoid rightIntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, RIGHT_ID);
-	Solenoid leftIntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, LEFT_ID);
+	//Solenoid rightIntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, RIGHT_ID);
+	//Solenoid leftIntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, LEFT_ID);
 
 	/** Intake ****************************************************************/
 	public Intake() {
@@ -56,12 +56,12 @@ public class Intake extends SubsystemBase {
 
 	// Commands for extending/retracting the intake
 	public void extend() {
-		rightIntakeSolenoid.set(true);
-		leftIntakeSolenoid.set(true);
+		//rightIntakeSolenoid.set(true);
+		//leftIntakeSolenoid.set(true);
 	}
 	public void retract() {
-		rightIntakeSolenoid.set(false);
-		leftIntakeSolenoid.set(false);
+		//rightIntakeSolenoid.set(false);
+		//leftIntakeSolenoid.set(false);
 	}
 	
 	/** initDefaultCommand ****************************************************
