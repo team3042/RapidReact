@@ -55,8 +55,8 @@ public class OI {
 		gamepad.POVDown.whenActive(new Climber_Run(-1)); //lower climber
 
 		//Conveyor Controls
-		gamepad.RB.whileHeld(new Conveyor_Run(1)); //run converyor
-		gamepad.RT.whenActive(new Conveyor_Run(-1)); //reverse converyor
+		gamepad.RB.whenPressed(new Conveyor_Run(1)); //run converyor
+		gamepad.RB.whenReleased(new Conveyor_Run(0)); //stops converyor
 
 		//Drivetrain Test Controls
 		gamepad.X.whenPressed(new Drivetrain_GyroStraight(20, 50));
