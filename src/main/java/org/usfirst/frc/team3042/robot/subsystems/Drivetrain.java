@@ -71,6 +71,8 @@ public class Drivetrain extends SubsystemBase {
 	public Drivetrain() {
 		log.add("Constructor", LOG_LEVEL);
 
+		robotDrive.setSafetyEnabled(false); // Disable the "safety" checker that checks if we are setting power to the motors often enough
+
 		/** The RestoreFactoryDefaults method is used to reset the configuration parameters
         * of the SPARK MAX to their factory default state to ensure consistent operation */
 		leftFront.restoreFactoryDefaults();
