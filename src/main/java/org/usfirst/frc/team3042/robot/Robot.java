@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
 	
 	CommandBase autonomousCommand;
 	SendableChooser<CommandBase> chooser = new SendableChooser<CommandBase>();
-
+	double goalAngle;
 	UsbCamera camera1;
 
 	/** robotInit *************************************************************
@@ -108,8 +108,9 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		log.add("Teleop Init", Log.Level.TRACE);
 		
-		drivetrain.zeroGyro();
-		drivetrain.resetEncoders();
+		drivetrain.zeroGyro(); //TODO: Delete this before tournament
+		drivetrain.resetEncoders(); //TODO: Delete this before tournament
+		goalAngle = drivetrain.getGyroAngle();
 		
 		// This makes sure that the autonomous command stops running when teleop starts. 
 		//If you want the autonomous command to continue until interrupted by another command, remove this line or comment it out.
@@ -122,7 +123,7 @@ public class Robot extends TimedRobot {
 	 * This function is called periodically during operator control */
 	public void teleopPeriodic() {
 		CommandScheduler.getInstance().run();
-		SmartDashboard.putNumber("Robot Speed", (drivetrain.getLeftFrontSpeed() + drivetrain.getRightFrontSpeed() + drivetrain.getLeftBackSpeed() + drivetrain.getRightBackSpeed()) / 4.0); // Average speed of the left and right side
+		SmartDashboard.putNumber("Robot Speed", (drivetrain.getLeftFrontSpeed() + drivetrain.getRightFrontSpeed() + drivetrain.getLeftBackSpeed() + drivetrain.getRightBackSpeed()) / 4.0); // Average drivetrain speed
 		SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle()); // The current gyroscope angle
 		SmartDashboard.putNumber("Encoder Position (LF)", drivetrain.getLeftFrontPosition()); //The current right encoder position
 		SmartDashboard.putNumber("Encoder Position (RF)", drivetrain.getRightFrontPosition()); //The current left encoder position
@@ -133,6 +134,19 @@ public class Robot extends TimedRobot {
 		double xSpeed = oi.getXSpeed();
 		double zSpeed = oi.getZSpeed();
 
-		drivetrain.driveCartesian(ySpeed, xSpeed, zSpeed, drivetrain.getGyroAngle());
+		if (Math.abs(zSpeed) > 0.01) {
+			drivetrain.driveCartesian(ySpeed, xSpeed, zSpeed, drivetrain.getGyroAngle());
+			goalAngle = drivetrain.getGyroAngle();
+		}
+		else {
+			double error = goalAngle - drivetrain.getGyroAngle();
+			
+			double correction = RobotMap.kP_GYRO * error;
+
+			correction = Math.min(RobotMap.MAX_POWER_GYRO, correction);
+			correction = Math.max(-RobotMap.MAX_POWER_GYRO, correction);
+			
+			drivetrain.driveCartesian(ySpeed, xSpeed, -1 * correction, drivetrain.getGyroAngle());
+		}
 	} 
 }

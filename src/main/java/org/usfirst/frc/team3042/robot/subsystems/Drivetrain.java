@@ -129,7 +129,7 @@ public class Drivetrain extends SubsystemBase {
 
 	/** Odometry Methods *******************************************************/
 	public Rotation2d getRotation2d() {
-		return Rotation2d.fromDegrees(-gyroscope.getAngle());
+		return Rotation2d.fromDegrees(gyroscope.getAngle());
 	}
 	public void resetOdometry(Pose2d pose) {
 		odometry.resetPosition(pose, this.getRotation2d());

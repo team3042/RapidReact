@@ -15,8 +15,8 @@ public class RobotMap {
 	public static final double WHEEL_DIAMETER = 6.0; // Measured in inches
 	public static final double ROBOT_WIDTH = 27.0; // Measured in inches
 
-	public static final double TRACK_WIDTH = 0.0; // Distance between centers of front and back wheels on robot (in meters) // TODO measure this!
-    public static final double WHEEL_BASE = 0.0; // Distance between centers of front and back wheels on robot (in meters) // TODO measure this!
+	public static final double TRACK_WIDTH = 0.57785; // Distance between centers of right and left wheels on robot (in meters) 
+    public static final double WHEEL_BASE = 0.517525; // Distance between centers of front and back wheels on robot (in meters) 
 
 	/** CAN ID numbers ********************************************************/
 	public static final int CAN_TOP_CONVEYOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
@@ -85,7 +85,6 @@ public class RobotMap {
 
 	/** OI Settings ***********************************************************/
 	public static final boolean USE_JOYSTICKS = true;
-	public static final double JOYSTICK_DRIVE_SCALE = 1.0; // Determines max driving speed of the robot
 	public static final double TRIGGER_SPINNER_SCALE = 0.1;
 	public static final double JOYSTICK_DEAD_ZONE = 0.0;
 	

@@ -14,7 +14,6 @@ public class OI {
 	private static final int USB_GAMEPAD = RobotMap.USB_GAMEPAD;
 	private static final int USB_JOY_LEFT = RobotMap.USB_JOYSTICK_LEFT;
 	private static final int USB_JOY_RIGHT = RobotMap.USB_JOYSTICK_RIGHT;
-	private static final double JOYSTICK_DRIVE_SCALE = RobotMap.JOYSTICK_DRIVE_SCALE;
 	private static final double JOYSTICK_DEAD_ZONE = RobotMap.JOYSTICK_DEAD_ZONE;
 	private static final double TRIGGER_SPINNER_SCALE = RobotMap.TRIGGER_SPINNER_SCALE;	
 	private static final int JOYSTICK_X_AXIS = Gamepad.JOY_X_AXIS;
@@ -72,12 +71,11 @@ public class OI {
 	public double getZSpeed() {
 		double joystickValue = joyLeft.getRawAxis(driveAxisX);
 		joystickValue = scaleJoystick(joystickValue);
-		return -1 * joystickValue;
+		return -0.75 * joystickValue;
 	}
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
-		joystickValue *= JOYSTICK_DRIVE_SCALE;
-		joystickValue *= -0.8;
+		joystickValue *= -0.75;
 		return joystickValue;
 	}
 	private double checkDeadZone(double joystickValue) {
