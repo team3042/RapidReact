@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
+import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
+import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_Trajectory;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Default;
 import org.usfirst.frc.team3042.robot.subsystems.Climber;
@@ -9,10 +11,10 @@ import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3042.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -37,7 +39,7 @@ public class Robot extends TimedRobot {
 	
 	CommandBase autonomousCommand;
 	SendableChooser<CommandBase> chooser = new SendableChooser<CommandBase>();
-
+	double goalAngle;
 	UsbCamera camera1;
 
 	/** robotInit *************************************************************
@@ -55,6 +57,8 @@ public class Robot extends TimedRobot {
 		chooser.addOption("Straight TEST", new Drivetrain_Trajectory("pathplanner/Basic_Straight_Line_Path.path"));
 		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("pathplanner/Basic_Strafe_Path.path"));
 		chooser.addOption("Curve TEST", new Drivetrain_Trajectory("pathplanner/Basic_Curve_Path.path"));
+		chooser.addOption("Gyro Straight", new Drivetrain_GyroStraight(100, 0.2));
+		chooser.addOption("Gyro Turn", new Drivetrain_GyroTurn(90));
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 
@@ -74,7 +78,7 @@ public class Robot extends TimedRobot {
 	/** disabledPeriodic ******************************************************
 	 * Called repeatedly while the robot is is disabled mode. */
 	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
+		CommandScheduler.getInstance().run();
 	}
 
 	/** autonomousInit ********************************************************
@@ -96,7 +100,7 @@ public class Robot extends TimedRobot {
 	/** autonomousPeriodic ****************************************************
 	 * This function is called periodically during autonomous */
 	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
+		CommandScheduler.getInstance().run();
 	}
 	
 	/** teleopInit ************************************************************
@@ -104,8 +108,9 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		log.add("Teleop Init", Log.Level.TRACE);
 		
-		drivetrain.zeroGyro();
-		drivetrain.resetEncoders();
+		drivetrain.zeroGyro(); //TODO: Delete this before tournament
+		drivetrain.resetEncoders(); //TODO: Delete this before tournament
+		goalAngle = drivetrain.getGyroAngle();
 		
 		// This makes sure that the autonomous command stops running when teleop starts. 
 		//If you want the autonomous command to continue until interrupted by another command, remove this line or comment it out.
@@ -117,12 +122,31 @@ public class Robot extends TimedRobot {
 	/** teleopPeriodic ********************************************************
 	 * This function is called periodically during operator control */
 	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Robot Speed", (drivetrain.getLeftFrontSpeed() + drivetrain.getRightFrontSpeed() + drivetrain.getLeftBackSpeed() + drivetrain.getRightBackSpeed()) / 4.0); // Average speed of the left and right side
+		CommandScheduler.getInstance().run();
+		SmartDashboard.putNumber("Robot Speed", (drivetrain.getLeftFrontSpeed() + drivetrain.getRightFrontSpeed() + drivetrain.getLeftBackSpeed() + drivetrain.getRightBackSpeed()) / 4.0); // Average drivetrain speed
 		SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle()); // The current gyroscope angle
 		SmartDashboard.putNumber("Encoder Position (LF)", drivetrain.getLeftFrontPosition()); //The current right encoder position
 		SmartDashboard.putNumber("Encoder Position (RF)", drivetrain.getRightFrontPosition()); //The current left encoder position
 		SmartDashboard.putNumber("Encoder Position (LB)", drivetrain.getLeftBackPosition()); //The current right encoder position
 		SmartDashboard.putNumber("Encoder Position (RB)", drivetrain.getRightBackPosition()); //The current left encoder position
+
+		double ySpeed = oi.getYSpeed();
+		double xSpeed = oi.getXSpeed();
+		double zSpeed = oi.getZSpeed();
+
+		if (Math.abs(zSpeed) > 0.01) {
+			drivetrain.driveCartesian(ySpeed, xSpeed, zSpeed, drivetrain.getGyroAngle());
+			goalAngle = drivetrain.getGyroAngle();
+		}
+		else {
+			double error = goalAngle - drivetrain.getGyroAngle();
+			
+			double correction = RobotMap.kP_GYRO * error;
+
+			correction = Math.min(RobotMap.MAX_POWER_GYRO, correction);
+			correction = Math.max(-RobotMap.MAX_POWER_GYRO, correction);
+			
+			drivetrain.driveCartesian(ySpeed, xSpeed, -1 * correction, drivetrain.getGyroAngle());
+		}
 	} 
 }

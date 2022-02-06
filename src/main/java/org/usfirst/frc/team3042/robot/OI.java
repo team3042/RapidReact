@@ -3,8 +3,6 @@ package org.usfirst.frc.team3042.robot;
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
@@ -16,7 +14,6 @@ public class OI {
 	private static final int USB_GAMEPAD = RobotMap.USB_GAMEPAD;
 	private static final int USB_JOY_LEFT = RobotMap.USB_JOYSTICK_LEFT;
 	private static final int USB_JOY_RIGHT = RobotMap.USB_JOYSTICK_RIGHT;
-	private static final double JOYSTICK_DRIVE_SCALE = RobotMap.JOYSTICK_DRIVE_SCALE;
 	private static final double JOYSTICK_DEAD_ZONE = RobotMap.JOYSTICK_DEAD_ZONE;
 	private static final double TRIGGER_SPINNER_SCALE = RobotMap.TRIGGER_SPINNER_SCALE;	
 	private static final int JOYSTICK_X_AXIS = Gamepad.JOY_X_AXIS;
@@ -48,19 +45,15 @@ public class OI {
 		/** Robot Controls **********************************************************/
 		//Intake Controls
 		gamepad.LB.whileHeld(new Intake_Intake(1)); //run intake
-		gamepad.LT.whileActive(new Intake_Intake(-1)); //reverse intake
+		gamepad.LT.whenActive(new Intake_Intake(-1)); //reverse intake
 
 		//Climber Controls
-		gamepad.POVUp.whileActive(new Climber_Run(1)); //raise climber
-		gamepad.POVDown.whileActive(new Climber_Run(-1)); //lower climber
+		gamepad.POVUp.whenActive(new Climber_Run(1)); //raise climber
+		gamepad.POVDown.whenActive(new Climber_Run(-1)); //lower climber
 
 		//Conveyor Controls
-		gamepad.RB.whileHeld(new Conveyor_Run(1)); //run converyor
-		gamepad.RT.whileActive(new Conveyor_Run(-1)); //reverse converyor
-
-		//Drivetrain Test Controls
-		gamepad.X.whenPressed(new Drivetrain_GyroStraight(20, 50)); //TODO: This error should fix itself after you have migrated our code to the new framework :)
-		gamepad.Y.whenPressed(new Drivetrain_GyroTurn(90)); //TODO: This error should fix itself after you have migrated our code to the new framework :)
+		gamepad.RB.whenPressed(new Conveyor_Run(1)); //run converyor
+		gamepad.RB.whenReleased(new Conveyor_Run(0)); //stops converyor
 	}
 	
 	/** Access to the driving axes values *****************************
@@ -78,12 +71,11 @@ public class OI {
 	public double getZSpeed() {
 		double joystickValue = joyLeft.getRawAxis(driveAxisX);
 		joystickValue = scaleJoystick(joystickValue);
-		return -1 * joystickValue;
+		return -0.75 * joystickValue;
 	}
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
-		joystickValue *= JOYSTICK_DRIVE_SCALE;
-		joystickValue *= -0.5;
+		joystickValue *= -0.75;
 		return joystickValue;
 	}
 	private double checkDeadZone(double joystickValue) {

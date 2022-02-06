@@ -14,34 +14,27 @@ public class Drivetrain_GyroStraight extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_DRIVETRAIN;
 	private static final double kP = RobotMap.kP_GYRO;
-	private static final double kI = RobotMap.kI_GYRO;
-	private static final double kD = RobotMap.kD_GYRO;
-	private static final double kF_LEFT = RobotMap.kF_DRIVE_LEFT;
-	private static final double kF_RIGHT = RobotMap.kF_DRIVE_RIGHT;
 	private static final double CIRCUMFRENCE = RobotMap.WHEEL_DIAMETER * Math.PI;
 	private static final double MAX_CORRECTION = RobotMap.MAX_POWER_GYRO;
 	
 	/** Instance Variables ****************************************************/
 	Drivetrain drivetrain = Robot.drivetrain;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(drivetrain));
-	double leftPower, rightPower, lastError, integralError;
-	double goalAngle, goalDistance;
+	double lastError, integralError;
+	double forwardPower, goalAngle, goalDistance;
 	
 	/** Drivetrain Gyro Straight **********************************************
 	 * Required subsystems will cancel commands when this command is run.
 	 * distance is given in physical units matching the wheel diameter unit
 	 * speed is given in physical units per second. The physical units should 
 	 * match that of the Wheel diameter. */
-	public Drivetrain_GyroStraight(double distance, double speed) {
+	public Drivetrain_GyroStraight(double distance, double power) {
 		log.add("Constructor", Log.Level.TRACE);
+		forwardPower = power;
 		
 		// convert distance to revolutions
 		goalDistance = distance / CIRCUMFRENCE;
-		
-		// Find the power level for the given speed
-		double rpm = speed * 60.0 / CIRCUMFRENCE;		
-		leftPower = drivetrain.rpmToPower(rpm, kF_LEFT);
-		rightPower = drivetrain.rpmToPower(rpm, kF_RIGHT);
+
 		addRequirements(drivetrain);
 	}
 	
@@ -60,21 +53,13 @@ public class Drivetrain_GyroStraight extends CommandBase {
 	 * Called repeatedly when this Command is scheduled to run */
 	public void execute() {
 		double error = goalAngle - drivetrain.getGyroAngle();
-		integralError += error;
-		double deltaError = error - lastError;
 		
-		double Pterm = kP * error;
-		double Iterm = kI * integralError;
-		double Dterm = kD * deltaError;
-		
-		double correction = Pterm + Iterm + Dterm;
+		double correction = kP * error;
 
 		correction = Math.min(MAX_CORRECTION, correction);
 		correction = Math.max(-MAX_CORRECTION, correction);
 		
-		drivetrain.setPower(leftPower - correction, rightPower + correction, leftPower - correction, rightPower + correction);
-		
-		lastError = error;
+		drivetrain.driveCartesian(0, forwardPower, -1 * correction);
 	}
 	
 	/** isFinished ************************************************************	
