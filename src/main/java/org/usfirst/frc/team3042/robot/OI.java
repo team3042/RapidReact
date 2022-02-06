@@ -4,6 +4,7 @@ import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
+import org.usfirst.frc.team3042.robot.commands.Intake_Toggle;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
 /** OI ************************************************************************
@@ -46,6 +47,7 @@ public class OI {
 		//Intake Controls
 		gamepad.LB.whileHeld(new Intake_Intake(1)); //run intake
 		gamepad.LT.whenActive(new Intake_Intake(-1)); //reverse intake
+		gamepad.A.whenPressed(new Intake_Toggle()); //extend or retract the intake
 
 		//Climber Controls
 		gamepad.POVUp.whenActive(new Climber_Run(1)); //raise climber
@@ -54,6 +56,8 @@ public class OI {
 		//Conveyor Controls
 		gamepad.RB.whenPressed(new Conveyor_Run(1)); //run converyor
 		gamepad.RB.whenReleased(new Conveyor_Run(0)); //stops converyor
+		gamepad.RT.whenActive(new Conveyor_Run(-1)); //reverse converyor
+		gamepad.RT.whenInactive(new Conveyor_Run(0)); //stops converyor
 	}
 	
 	/** Access to the driving axes values *****************************

@@ -108,8 +108,8 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		log.add("Teleop Init", Log.Level.TRACE);
 		
-		drivetrain.zeroGyro(); //TODO: Delete this before tournament
-		drivetrain.resetEncoders(); //TODO: Delete this before tournament
+		drivetrain.zeroGyro(); //TODO: Delete this before attending Week 0
+		drivetrain.resetEncoders(); //TODO: Delete this before attending Week 0
 		goalAngle = drivetrain.getGyroAngle();
 		
 		// This makes sure that the autonomous command stops running when teleop starts. 

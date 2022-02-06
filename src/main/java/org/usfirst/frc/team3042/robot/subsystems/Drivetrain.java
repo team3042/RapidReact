@@ -92,7 +92,7 @@ public class Drivetrain extends SubsystemBase {
 	/** initDefaultCommand ****************************************************
 	 * Set the default command for the subsystem. */
 	public void initDefaultCommand() {
-		setDefaultCommand(null); //TODO: Change this to Drivetrain_FieldOriented when we are ready to test it :)
+		setDefaultCommand(null);
 	}
 	
 	/** Methods for setting the motors in % power mode ********************/

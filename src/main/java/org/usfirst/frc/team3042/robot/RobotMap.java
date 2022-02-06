@@ -38,15 +38,15 @@ public class RobotMap {
 	public static final int DIO_LIMITSWITCH = 0; //TODO Find this value
 
 	/** Climber Settings ***************************************************/
-	public static final boolean REVERSE_RIGHT_CLIMBER = false; //TODO: Determine this setting for the actual 2022 robot!
-	public static final boolean REVERSE_LEFT_CLIMBER = false; //TODO: Determine this setting for the actual 2022 robot!
+	public static final boolean REVERSE_RIGHT_CLIMBER = false;
+	public static final boolean REVERSE_LEFT_CLIMBER = false;
 	public static final NeutralMode CLIMBER_BRAKE_MODE = NeutralMode.Brake;
 	public static final double CLIMBER_POWER = 0.85; // How much power (as a %) to give the climber
 	
 	/** Conveyor Settings ***************************************************/
-	public static final boolean REVERSE_TOP_CONVEYOR = false; //TODO: Determine this setting for the actual 2022 robot!
-	public static final boolean REVERSE_RIGHT_CONVEYOR = false; //TODO: Determine this setting for the actual 2022 robot!
-	public static final boolean REVERSE_LEFT_CONVEYOR = false; //TODO: Determine this setting for the actual 2022 robot!
+	public static final boolean REVERSE_TOP_CONVEYOR = false;
+	public static final boolean REVERSE_RIGHT_CONVEYOR = false;
+	public static final boolean REVERSE_LEFT_CONVEYOR = false;
 	public static final NeutralMode CONVEYOR_BRAKE_MODE = NeutralMode.Brake;
 	public static final double CONVEYOR_POWER = 0.75; // How much power (as a %) to give the conveyor
 	public static final double CONVEYOR_ADVANCE_DURATION = 2.0; // How much time in seconds that the conveyor runs //TODO: tune this value through testing!
@@ -57,7 +57,6 @@ public class RobotMap {
 	public static final boolean REVERSE_RIGHT_FRONT_MOTOR = false;
 	public static final boolean REVERSE_LEFT_BACK_MOTOR = true;
 	public static final boolean REVERSE_RIGHT_BACK_MOTOR = true;
-	public static final double ACCELERATION_MAX = 1.5; // Maximum Acceleration given in power(volts) per second //TODO: We'll probably want to tune this value
 	public static final double VELOCITY_MAX_MPS = 3; // Maximum velocity in meters/second TODO: We'll probably want to tune this value
 	public static final double ACCELERATION_MAX_MPS = 1.5; // Maximum acceleration in meters/second squared //TODO: We'll probably want to tune this value
 	public static final double kP_FRONT_RIGHT_VELOCITY = 0.5; //TODO: Tune using characterization tools
@@ -72,14 +71,14 @@ public class RobotMap {
 	public static final int COUNTS_PER_REVOLUTION = 42; // The NEO integrated encoder has 42 counts per revolution
 
 	/** Drivetrain Gyro Drive Settings ****************************************/
-	public static final double kP_GYRO = 0.01; //TODO: Tune this??? (not sure if we'll need it yet)
+	public static final double kP_GYRO = 0.01;
 	public static final double kI_GYRO = 0.0;
-	public static final double kD_GYRO = 0.015; //TODO: Tune this??? (not sure if we'll need it yet)
+	public static final double kD_GYRO = 0.015;
 	public static final double ANGLE_TOLERANCE = 2.0;
 	public static final double MAX_POWER_GYRO = 0.4;
 
 	/** Intake Settings *******************************************************/
-	public static final boolean REVERSE_INTAKE = false; //TODO: Determine this setting for the actual 2022 robot!
+	public static final boolean REVERSE_INTAKE = false;
 	public static final NeutralMode INTAKE_BRAKE_MODE = NeutralMode.Brake;
 	public static final double INTAKE_POWER = 0.75; // How much power (as a %) to give the intake
 
