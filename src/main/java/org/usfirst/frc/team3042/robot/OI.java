@@ -1,10 +1,10 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
+import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
+import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
 /** OI ************************************************************************
  * This class is the glue that binds the controls on the physical operator
@@ -14,7 +14,6 @@ public class OI {
 	private static final int USB_GAMEPAD = RobotMap.USB_GAMEPAD;
 	private static final int USB_JOY_LEFT = RobotMap.USB_JOYSTICK_LEFT;
 	private static final int USB_JOY_RIGHT = RobotMap.USB_JOYSTICK_RIGHT;
-	private static final double JOYSTICK_DRIVE_SCALE = RobotMap.JOYSTICK_DRIVE_SCALE;
 	private static final double JOYSTICK_DEAD_ZONE = RobotMap.JOYSTICK_DEAD_ZONE;
 	private static final double TRIGGER_SPINNER_SCALE = RobotMap.TRIGGER_SPINNER_SCALE;	
 	private static final int JOYSTICK_X_AXIS = Gamepad.JOY_X_AXIS;
@@ -27,6 +26,7 @@ public class OI {
 	Log log = new Log(RobotMap.LOG_OI, "OI");
 	public Gamepad gamepad, joyLeft, joyRight;
 	int driveAxisX, driveAxisY, driveAxisZ;
+	Drivetrain drivetrain = Robot.drivetrain;
 
 	/** OI ********************************************************************
 	 * Assign commands to the buttons and triggers*/
@@ -42,43 +42,40 @@ public class OI {
 		driveAxisY = JOYSTICK_Y_AXIS;
 		driveAxisZ = JOYSTICK_Z_AXIS;
 		
-		/** Controls **********************************************************/
-		//Drivetrain Controls
-		gamepad.Y.whenPressed(new Drivetrain_GyroStraight(20, 50));
-		gamepad.X.whenPressed(new Drivetrain_GyroTurn(90));
-
+		/** Robot Controls **********************************************************/
 		//Intake Controls
 		gamepad.LB.whileHeld(new Intake_Intake(1)); //run intake
-		gamepad.LT.whileActive(new Intake_Intake(-1)); //reverse intake
+		gamepad.LT.whenActive(new Intake_Intake(-1)); //reverse intake
 
 		//Climber Controls
+		gamepad.POVUp.whenActive(new Climber_Run(1)); //raise climber
+		gamepad.POVDown.whenActive(new Climber_Run(-1)); //lower climber
 
 		//Conveyor Controls
-		gamepad.RB.whileHeld(new Conveyor_Run(1)); //run converyor
-		gamepad.RT.whileActive(new Conveyor_Run(-1)); //reverse converyor
+		gamepad.RB.whenPressed(new Conveyor_Run(1)); //run converyor
+		gamepad.RB.whenReleased(new Conveyor_Run(0)); //stops converyor
 	}
 	
 	/** Access to the driving axes values *****************************
-	 * A negative has been added to make pushing forward positive. */
+	 * A negative can be added to make pushing forward positive/negative. */
 	public double getXSpeed() {
-		double joystickValue = joyRight.getRawAxis(driveAxisX);
-		joystickValue = scaleJoystick(joystickValue);
-		return -1 * joystickValue;
-	}
-	public double getYSpeed() {
 		double joystickValue = joyRight.getRawAxis(driveAxisY);
 		joystickValue = scaleJoystick(joystickValue);
 		return joystickValue;
 	}
-	public double getZSpeed() {
-		double joystickValue = joyLeft.getRawAxis(driveAxisX);
+	public double getYSpeed() {
+		double joystickValue = joyRight.getRawAxis(driveAxisX);
 		joystickValue = scaleJoystick(joystickValue);
 		return -1 * joystickValue;
 	}
+	public double getZSpeed() {
+		double joystickValue = joyLeft.getRawAxis(driveAxisX);
+		joystickValue = scaleJoystick(joystickValue);
+		return -0.75 * joystickValue;
+	}
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
-		joystickValue *= JOYSTICK_DRIVE_SCALE;
-		joystickValue *= -0.5;
+		joystickValue *= -0.75;
 		return joystickValue;
 	}
 	private double checkDeadZone(double joystickValue) {

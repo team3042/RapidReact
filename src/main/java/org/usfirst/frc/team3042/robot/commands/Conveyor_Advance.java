@@ -2,7 +2,7 @@ package org.usfirst.frc.team3042.robot.commands;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
 import org.usfirst.frc.team3042.lib.Log;
@@ -12,7 +12,7 @@ import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
 
 /** Conveyor_Advance *******************************************************************
  * Auto advance the conveyor by a set increment whenever the switch detects a ball in the conveyor */
-public class Conveyor_Advance extends Command {
+public class Conveyor_Advance extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CONVEYOR;
 	private static final double POWER = RobotMap.CONVEYOR_POWER;
@@ -29,19 +29,18 @@ public class Conveyor_Advance extends Command {
 	 * Required subsystems will cancel commands when this command is run. */
 	public Conveyor_Advance() {
 		log.add("Constructor", Log.Level.TRACE);
-		requires(conveyor);
-	}
+		addRequirements(conveyor);	}
 
 	/** initialize ************************************************************
 	 * Called just before this Command runs the first time */
-	protected void initialize() {
+	public void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
 		timer.reset();
 	}
 
 	/** execute ***************************************************************
 	 * Called repeatedly when this Command is scheduled to run */
-	protected void execute() {
+	public void execute() {
 		if(limit.get()){
 			conveyor.setPower(POWER);
 			timer.start();
@@ -55,7 +54,7 @@ public class Conveyor_Advance extends Command {
 	
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
-	protected boolean isFinished() {
+	public boolean isFinished() {
 		return false;
 	}
 	
