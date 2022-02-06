@@ -3,8 +3,6 @@ package org.usfirst.frc.team3042.robot;
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
@@ -57,10 +55,6 @@ public class OI {
 		//Conveyor Controls
 		gamepad.RB.whenPressed(new Conveyor_Run(1)); //run converyor
 		gamepad.RB.whenReleased(new Conveyor_Run(0)); //stops converyor
-
-		//Drivetrain Test Controls
-		gamepad.X.whenPressed(new Drivetrain_GyroStraight(20, 50));
-		gamepad.Y.whenPressed(new Drivetrain_GyroTurn(90));
 	}
 	
 	/** Access to the driving axes values *****************************
@@ -83,7 +77,7 @@ public class OI {
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
 		joystickValue *= JOYSTICK_DRIVE_SCALE;
-		joystickValue *= -0.5;
+		joystickValue *= -0.8;
 		return joystickValue;
 	}
 	private double checkDeadZone(double joystickValue) {

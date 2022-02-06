@@ -60,8 +60,6 @@ public class RobotMap {
 	public static final double ACCELERATION_MAX = 1.5; // Maximum Acceleration given in power(volts) per second //TODO: We'll probably want to tune this value
 	public static final double VELOCITY_MAX_MPS = 3; // Maximum velocity in meters/second TODO: We'll probably want to tune this value
 	public static final double ACCELERATION_MAX_MPS = 1.5; // Maximum acceleration in meters/second squared //TODO: We'll probably want to tune this value
-	public static final double kF_DRIVE_LEFT = 0.1817180616740088; //TODO: Tune this??? (not sure if we'll need it yet)
-	public static final double kF_DRIVE_RIGHT = 0.16686239968682717; //TODO: Tune this??? (not sure if we'll need it yet)
 	public static final double kP_FRONT_RIGHT_VELOCITY = 0.5; //TODO: Tune using characterization tools
 	public static final double kP_FRONT_LEFT_VELOCITY = 0.5;//TODO: Tune using characterization tools
 	public static final double kP_BACK_RIGHT_VELOCITY = 0.5; //TODO: Tune using characterization tools
@@ -74,11 +72,11 @@ public class RobotMap {
 	public static final int COUNTS_PER_REVOLUTION = 42; // The NEO integrated encoder has 42 counts per revolution
 
 	/** Drivetrain Gyro Drive Settings ****************************************/
-	public static final double kP_GYRO = 0.007; //TODO: Tune this??? (not sure if we'll need it yet)
+	public static final double kP_GYRO = 0.01; //TODO: Tune this??? (not sure if we'll need it yet)
 	public static final double kI_GYRO = 0.0;
-	public static final double kD_GYRO = 0.017; //TODO: Tune this??? (not sure if we'll need it yet)
+	public static final double kD_GYRO = 0.015; //TODO: Tune this??? (not sure if we'll need it yet)
 	public static final double ANGLE_TOLERANCE = 2.0;
-	public static final double MAX_POWER_GYRO = 0.5;
+	public static final double MAX_POWER_GYRO = 0.4;
 
 	/** Intake Settings *******************************************************/
 	public static final boolean REVERSE_INTAKE = false; //TODO: Determine this setting for the actual 2022 robot!

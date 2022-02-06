@@ -2,7 +2,8 @@ package org.usfirst.frc.team3042.robot.subsystems;
 
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.RobotMap;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_MecanumDrive;
+import org.usfirst.frc.team3042.robot.OI;
+import org.usfirst.frc.team3042.robot.Robot;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -27,7 +28,6 @@ public class Drivetrain extends SubsystemBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_DRIVETRAIN;
 	private static final IdleMode BRAKE_MODE = RobotMap.DRIVETRAIN_BRAKE_MODE;
-	private static final int COUNTS_PER_REVOLUTION = RobotMap.COUNTS_PER_REVOLUTION;
 	private static final boolean REVERSE_LEFT_FRONT = RobotMap.REVERSE_LEFT_FRONT_MOTOR;
 	private static final boolean REVERSE_RIGHT_FRONT = RobotMap.REVERSE_RIGHT_FRONT_MOTOR;
 	private static final boolean REVERSE_LEFT_BACK = RobotMap.REVERSE_LEFT_BACK_MOTOR;
@@ -38,6 +38,7 @@ public class Drivetrain extends SubsystemBase {
 	private static final int CAN_RIGHT_BACK_MOTOR = RobotMap.CAN_RIGHT_BACK_MOTOR;
 	private static final double TRACK_WIDTH = RobotMap.TRACK_WIDTH;
 	private static final double WHEEL_BASE = RobotMap.WHEEL_BASE;
+	OI oi = Robot.oi;
 
 	private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0, 0, 0); //TODO Find these characterization values!
 	private final PIDController frontLeftPIDController = new PIDController(RobotMap.kP_FRONT_LEFT_VELOCITY, 0, 0);
@@ -63,15 +64,11 @@ public class Drivetrain extends SubsystemBase {
 	MecanumDrive robotDrive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);
 
 	MecanumDriveOdometry odometry = new MecanumDriveOdometry(kDriveKinematics, Rotation2d.fromDegrees(-gyroscope.getAngle()));
-
-	double leftFrontPositionZero, rightFrontPositionZero, leftBackPositionZero, rightBackPositionZero; // Zero positions of the encoders
 	
 	/** Drivetrain ************************************************************
 	 * Setup the motor controllers for desired behavior. */
 	public Drivetrain() {
 		log.add("Constructor", LOG_LEVEL);
-
-		robotDrive.setSafetyEnabled(false); // Disable the "safety" checker that checks if we are setting power to the motors often enough
 
 		/** The RestoreFactoryDefaults method is used to reset the configuration parameters
         * of the SPARK MAX to their factory default state to ensure consistent operation */
@@ -95,7 +92,7 @@ public class Drivetrain extends SubsystemBase {
 	/** initDefaultCommand ****************************************************
 	 * Set the default command for the subsystem. */
 	public void initDefaultCommand() {
-		setDefaultCommand(new Drivetrain_MecanumDrive()); //TODO: Change this to Drivetrain_FieldOriented when we are ready to test it :)
+		setDefaultCommand(null); //TODO: Change this to Drivetrain_FieldOriented when we are ready to test it :)
 	}
 	
 	/** Methods for setting the motors in % power mode ********************/
@@ -155,10 +152,10 @@ public class Drivetrain extends SubsystemBase {
 
 	/** resetEncoders ***********************************************************/
 	public void resetEncoders() {
-		leftFrontPositionZero = (int)(leftFront.getEncoder().getPosition());		
-		rightFrontPositionZero = (int)(rightFront.getEncoder().getPosition());
-		leftBackPositionZero = (int)(leftBack.getEncoder().getPosition());
-		rightBackPositionZero = (int)(rightBack.getEncoder().getPosition());
+		leftFront.getEncoder().setPosition(0);
+		leftBack.getEncoder().setPosition(0);
+		rightFront.getEncoder().setPosition(0);
+		rightBack.getEncoder().setPosition(0);
 	}
 
 	//Not Field-Oriented (aka Robot-Oriented)
@@ -172,28 +169,28 @@ public class Drivetrain extends SubsystemBase {
 	
 	/** Get the encoder positions or speeds **************************************/
 	public double getLeftFrontPosition() { // Position is returned in units of revolutions
-		return (int)(leftFront.getEncoder().getPosition() / 10.71) - leftFrontPositionZero; // 10.71 : 1 is our drivetrain gear ratio
+		return (leftFront.getEncoder().getPosition() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getRightFrontPosition() { // Position is returned in units of revolutions
-		return (int)(rightFront.getEncoder().getPosition() / 10.71) - rightFrontPositionZero; // 10.71 : 1 is our drivetrain gear ratio
+		return -1 * (rightFront.getEncoder().getPosition() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getLeftBackPosition() { // Position is returned in units of revolutions
-		return (int)(leftBack.getEncoder().getPosition() / 10.71) - leftBackPositionZero; // 10.71 : 1 is our drivetrain gear ratio
+		return -1 * (leftBack.getEncoder().getPosition() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getRightBackPosition() { // Position is returned in units of revolutions
-		return (int)(rightBack.getEncoder().getPosition() / 10.71) - rightBackPositionZero; // 10.71 : 1 is our drivetrain gear ratio
+		return (rightBack.getEncoder().getPosition() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getLeftFrontSpeed() { // Speed is returned in units of RPM (revolutions per minute)
-		return (int)(leftFront.getEncoder().getVelocity() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
+		return (leftFront.getEncoder().getVelocity() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getRightFrontSpeed() { // Speed is returned in units of RPM (revolutions per minute)
-		return (int)(rightFront.getEncoder().getVelocity() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
+		return -1 * (rightFront.getEncoder().getVelocity() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getLeftBackSpeed() { // Speed is returned in units of RPM (revolutions per minute)
-		return (int)(leftBack.getEncoder().getVelocity() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
+		return -1 * (leftBack.getEncoder().getVelocity() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getRightBackSpeed() { // Speed is returned in units of RPM (revolutions per minute)
-		return (int)(rightBack.getEncoder().getVelocity() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
+		return (rightBack.getEncoder().getVelocity() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
 	}
 
 	public void setWheelSpeeds(MecanumDriveWheelSpeeds speeds) {
@@ -223,13 +220,5 @@ public class Drivetrain extends SubsystemBase {
 	}
 	public double speedToMeters(double speed) {
 		return speed / 60 * Math.PI * RobotMap.WHEEL_DIAMETER / 39.3700787; // Divide by 39.3700787 to convert inches to meters
-	}
-
-	// This is only used by the Drivetrain_GyroStraight() command
-	public double rpmToPower(double rpm, double kF) {
-		//Convert rpm to counts per 100 ms
-		double speed = rpm * COUNTS_PER_REVOLUTION / 600.0; // Dividing by 600 converts the units from minutes to 100s of milliseconds
-		double power = kF * speed / 1023.0;
-		return power;
 	}
 }

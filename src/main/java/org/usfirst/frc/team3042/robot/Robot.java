@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
+import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
+import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_Trajectory;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Default;
 import org.usfirst.frc.team3042.robot.subsystems.Climber;
@@ -55,6 +57,8 @@ public class Robot extends TimedRobot {
 		chooser.addOption("Straight TEST", new Drivetrain_Trajectory("pathplanner/Basic_Straight_Line_Path.path"));
 		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("pathplanner/Basic_Strafe_Path.path"));
 		chooser.addOption("Curve TEST", new Drivetrain_Trajectory("pathplanner/Basic_Curve_Path.path"));
+		chooser.addOption("Gyro Straight", new Drivetrain_GyroStraight(100, 0.2));
+		chooser.addOption("Gyro Turn", new Drivetrain_GyroTurn(90));
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 
@@ -124,5 +128,11 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Encoder Position (RF)", drivetrain.getRightFrontPosition()); //The current left encoder position
 		SmartDashboard.putNumber("Encoder Position (LB)", drivetrain.getLeftBackPosition()); //The current right encoder position
 		SmartDashboard.putNumber("Encoder Position (RB)", drivetrain.getRightBackPosition()); //The current left encoder position
+
+		double ySpeed = oi.getYSpeed();
+		double xSpeed = oi.getXSpeed();
+		double zSpeed = oi.getZSpeed();
+
+		drivetrain.driveCartesian(ySpeed, xSpeed, zSpeed, drivetrain.getGyroAngle());
 	} 
 }
