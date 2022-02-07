@@ -54,9 +54,9 @@ public class Robot extends TimedRobot {
 		
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
-		chooser.addOption("Straight TEST", new Drivetrain_Trajectory("pathplanner/Basic_Straight_Line_Path.path"));
-		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("pathplanner/Basic_Strafe_Path.path"));
-		chooser.addOption("Curve TEST", new Drivetrain_Trajectory("pathplanner/Basic_Curve_Path.path"));
+		chooser.addOption("Straight TEST", new Drivetrain_Trajectory("pathplanner/Basic_Straight_Line_Path"));
+		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("pathplanner/Basic_Strafe_Path"));
+		chooser.addOption("Curve TEST", new Drivetrain_Trajectory("pathplanner/Basic_Curve_Path"));
 		chooser.addOption("Gyro Straight", new Drivetrain_GyroStraight(100, 0.2));
 		chooser.addOption("Gyro Turn", new Drivetrain_GyroTurn(90));
 				

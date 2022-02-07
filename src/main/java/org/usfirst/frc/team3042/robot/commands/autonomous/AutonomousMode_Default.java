@@ -19,7 +19,7 @@ public class AutonomousMode_Default extends SequentialCommandGroup {
     addCommands(new Conveyor_Run(1), new Wait(3), new Conveyor_Run(0),
                 new Intake_Toggle(),
                 new ParallelCommandGroup(new Intake_Intake(1), new Conveyor_Advance()),
-                new Drivetrain_Trajectory("pathplanner/Bottom2_Path.path"),
+                new Drivetrain_Trajectory("pathplanner/Bottom2_Path"),
                 new ParallelCommandGroup(new Conveyor_Run(1), new Intake_Intake(0)));
   }
 }
