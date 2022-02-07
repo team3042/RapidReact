@@ -5,9 +5,11 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.math.geometry.Pose2d;
 
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
 
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.Robot;
@@ -46,6 +48,8 @@ public class Drivetrain_Trajectory extends CommandBase {
 	public void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
 
+		var initialState = (PathPlannerState)path.sample(0); // Define the initial state of the trajectory
+
 		// Add kinematics to ensure max speed is actually obeyed
 		PPMecanumControllerCommand mecanumControllerCommand = new PPMecanumControllerCommand(path,
 		drivetrain::getPose, drivetrain.getkDriveKinematics(),
@@ -57,7 +61,7 @@ public class Drivetrain_Trajectory extends CommandBase {
 
 		drivetrain::setWheelSpeeds, drivetrain);
 
-		drivetrain.resetOdometry(path.getInitialPose());
+		drivetrain.resetOdometry(new Pose2d(initialState.poseMeters.getTranslation(), initialState.holonomicRotation));
 
 		mecanumControllerCommand.andThen(() -> drivetrain.stop());
 	}
