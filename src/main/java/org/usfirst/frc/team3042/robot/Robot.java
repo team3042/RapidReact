@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
+import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStrafe;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_Trajectory;
@@ -59,6 +60,8 @@ public class Robot extends TimedRobot {
 		chooser.addOption("Curve TEST", new Drivetrain_Trajectory("pathplanner/Basic_Curve_Path"));
 		chooser.addOption("Gyro Straight", new Drivetrain_GyroStraight(100, 0.2));
 		chooser.addOption("Gyro Turn", new Drivetrain_GyroTurn(90));
+		chooser.addOption("Gyro Strafe", new Drivetrain_GyroStrafe(50, 0.2));
+
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 
