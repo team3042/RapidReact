@@ -34,7 +34,8 @@ public class RobotMap {
 	public static final int RIGHT_INTAKE_SOLENOID = 0; //TODO: Find this value
 	public static final int LEFT_INTAKE_SOLENOID = 0; //TODO: Find this value
 	
-	/** DIO channels **********************************************************/
+	/** DIO channels **************************************************
+	 * ********/
 	public static final int DIO_LIMITSWITCH = 0; //TODO Find this value
 
 	/** Climber Settings ***************************************************/
@@ -44,11 +45,11 @@ public class RobotMap {
 	public static final double CLIMBER_POWER = 0.85; // How much power (as a %) to give the climber
 	
 	/** Conveyor Settings ***************************************************/
-	public static final boolean REVERSE_TOP_CONVEYOR = false;
-	public static final boolean REVERSE_RIGHT_CONVEYOR = false;
-	public static final boolean REVERSE_LEFT_CONVEYOR = false;
+	public static final boolean REVERSE_TOP_CONVEYOR = true;
+	public static final boolean REVERSE_RIGHT_CONVEYOR = true;
+	public static final boolean REVERSE_LEFT_CONVEYOR = true;
 	public static final NeutralMode CONVEYOR_BRAKE_MODE = NeutralMode.Brake;
-	public static final double CONVEYOR_POWER = 0.75; // How much power (as a %) to give the conveyor
+	public static final double CONVEYOR_POWER = 0.6; // How much power (as a %) to give the conveyor
 	public static final double CONVEYOR_ADVANCE_DURATION = 2.0; // How much time in seconds that the conveyor runs //TODO: tune this value through testing!
 
 	/** Drivetrain Settings ***************************************************/
