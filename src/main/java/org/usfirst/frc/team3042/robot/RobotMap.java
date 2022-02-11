@@ -19,9 +19,9 @@ public class RobotMap {
     public static final double WHEEL_BASE = 0.517525; // Distance between centers of front and back wheels on robot (in meters) 
 
 	/** CAN ID numbers ********************************************************/
-	public static final int CAN_TOP_CONVEYOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
-	public static final int CAN_RIGHT_CONVEYOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
-	public static final int CAN_LEFT_CONVEYOR = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_TOP_CONVEYOR = 15;
+	public static final int CAN_RIGHT_CONVEYOR = 32;
+	public static final int CAN_LEFT_CONVEYOR = 25;
 	public static final int CAN_RIGHT_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_LEFT_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
 	public static final int CAN_LEFT_FRONT_MOTOR = 3;
