@@ -2,7 +2,6 @@ package org.usfirst.frc.team3042.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.util.sendable.SendableRegistry;
-import edu.wpi.first.wpilibj.Timer;
 
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.Robot;
@@ -22,7 +21,6 @@ public class Drivetrain_GyroStraight extends CommandBase {
 	Drivetrain drivetrain = Robot.drivetrain;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(drivetrain));
 	double forwardPower, goalAngle, goalDistance;
-	Timer timer  = new Timer();
 	
 	/** Drivetrain Gyro Straight **********************************************
 	 * Required subsystems will cancel commands when this command is run.
@@ -46,7 +44,6 @@ public class Drivetrain_GyroStraight extends CommandBase {
 		drivetrain.stop();
 		goalAngle = drivetrain.getGyroAngle();
 		drivetrain.resetEncoders();
-		timer.start();
 	}
 
 	/** execute ***************************************************************
@@ -65,10 +62,9 @@ public class Drivetrain_GyroStraight extends CommandBase {
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
 	public boolean isFinished() {
-		//boolean leftFrontGoalReached = Math.abs(drivetrain.getLeftFrontPosition()) >= goalDistance;
-		//boolean rightFrontGoalReached = Math.abs(drivetrain.getRightFrontPosition()) >= goalDistance;
-		//return leftFrontGoalReached || rightFrontGoalReached;
-		return (timer.get() > 2.0);
+		boolean leftFrontGoalReached = Math.abs(drivetrain.getLeftFrontPosition()) >= goalDistance;
+		boolean rightFrontGoalReached = Math.abs(drivetrain.getRightFrontPosition()) >= goalDistance;
+		return leftFrontGoalReached || rightFrontGoalReached;
 	}
 	
 	/** end *******************************************************************
