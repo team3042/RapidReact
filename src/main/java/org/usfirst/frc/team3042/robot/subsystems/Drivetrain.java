@@ -40,7 +40,7 @@ public class Drivetrain extends SubsystemBase {
 	private static final double WHEEL_BASE = RobotMap.WHEEL_BASE;
 	OI oi = Robot.oi;
 
-	private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0, 0, 0); //TODO Find these characterization values!
+	private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0.15465, 2.7381, 0.38004); //TODO Find these characterization values!
 	private final PIDController frontLeftPIDController = new PIDController(RobotMap.kP_FRONT_LEFT_VELOCITY, 0, 0);
   	private final PIDController frontRightPIDController = new PIDController(RobotMap.kP_FRONT_RIGHT_VELOCITY, 0, 0);
   	private final PIDController backLeftPIDController = new PIDController(RobotMap.kP_BACK_LEFT_VELOCITY, 0, 0);
@@ -83,6 +83,8 @@ public class Drivetrain extends SubsystemBase {
 		initMotor(rightBack, REVERSE_RIGHT_BACK);
 		
 		resetEncoders();
+
+		robotDrive.setSafetyEnabled(false);
 	}
 	private void initMotor(CANSparkMax motor, boolean reverse) {
 		motor.setIdleMode(BRAKE_MODE);
@@ -107,9 +109,7 @@ public class Drivetrain extends SubsystemBase {
 		leftBack.set(leftBackPower);
 		rightBack.set(rightBackPower);		
 	}
-	public void stop() {
-		setPower(0.0, 0.0, 0.0, 0.0);
-	}
+	
 	private double safetyCheck(double power) {
 		power = Math.min(1.0, power);
 		power = Math.max(-1.0, power);

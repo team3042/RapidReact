@@ -38,7 +38,7 @@ public class Drivetrain_GyroStrafe extends CommandBase {
   @Override
   public void initialize() {
     log.add("Initialize", Log.Level.TRACE);
-		drivetrain.stop();
+		drivetrain.driveCartesian(0, 0, 0);
 		goalAngle = drivetrain.getGyroAngle();
 		drivetrain.resetEncoders();
   }
@@ -60,7 +60,7 @@ public class Drivetrain_GyroStrafe extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     log.add("End", Log.Level.TRACE);
-		drivetrain.stop();
+		drivetrain.driveCartesian(0, 0, 0);
   }
 
   // Returns true when the command should end.

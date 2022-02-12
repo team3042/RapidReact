@@ -12,7 +12,7 @@ public class RobotMap {
 	 * The units of the wheel diameter determine the units of the position 
 	 * and speed closed-loop commands. For example, if the diameter is given 
 	 * in inches, position will be in inches and speed in inches per second. */
-	public static final double WHEEL_DIAMETER = 6.0; // Measured in inches
+	public static final double WHEEL_DIAMETER = 6.0; // Measured in inches (0.1524 m)
 	public static final double ROBOT_WIDTH = 27.0; // Measured in inches
 
 	public static final double TRACK_WIDTH = 0.57785; // Distance between centers of right and left wheels on robot (in meters) 
@@ -60,10 +60,10 @@ public class RobotMap {
 	public static final boolean REVERSE_RIGHT_BACK_MOTOR = true;
 	public static final double VELOCITY_MAX_MPS = 3; // Maximum velocity in meters/second TODO: We'll probably want to tune this value
 	public static final double ACCELERATION_MAX_MPS = 1.5; // Maximum acceleration in meters/second squared //TODO: We'll probably want to tune this value
-	public static final double kP_FRONT_RIGHT_VELOCITY = 0.5; //TODO: Tune using characterization tools
-	public static final double kP_FRONT_LEFT_VELOCITY = 0.5;//TODO: Tune using characterization tools
-	public static final double kP_BACK_RIGHT_VELOCITY = 0.5; //TODO: Tune using characterization tools
-	public static final double kP_BACK_LEFT_VELOCITY = 0.5; //TODO: Tune using characterization tools
+	public static final double kP_FRONT_RIGHT_VELOCITY = 0.0001451; //TODO: Tune using characterization tools
+	public static final double kP_FRONT_LEFT_VELOCITY = 0.0001451;//TODO: Tune using characterization tools
+	public static final double kP_BACK_RIGHT_VELOCITY = 0.0001451; //TODO: Tune using characterization tools
+	public static final double kP_BACK_LEFT_VELOCITY = 0.0001451; //TODO: Tune using characterization tools
 	public static final double kP_X_CONTROLLER = 0.5; //TODO: Tune this using guess-and-check after our drivetrain has been characterized
     public static final double kP_Y_CONTROLLER = 0.5; //TODO: Tune this using guess-and-check after our drivetrain has been characterized
     public static final double kP_THETA_CONTROLLER = 0.5; //TODO: Tune this using guess-and-check after our drivetrain has been characterized

@@ -5,7 +5,15 @@ import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStrafe;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_Trajectory;
+import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_BottomTarmac;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Default;
+import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TestCurvePath;
+import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TestCurvePath2;
+import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TestSpiralPath;
+import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TestStrafePath;
+import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TestStraightPath;
+import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TopTarmac;
+import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TopTarmac2;
 import org.usfirst.frc.team3042.robot.subsystems.Climber;
 import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
@@ -55,10 +63,15 @@ public class Robot extends TimedRobot {
 		
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
-		chooser.addOption("Straight TEST", new Drivetrain_Trajectory("pathplanner/Basic_Straight_Line_Path"));
-		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("pathplanner/Basic_Strafe_Path"));
-		chooser.addOption("Curve TEST", new Drivetrain_Trajectory("pathplanner/Basic_Curve_Path"));
-		chooser.addOption("Gyro Straight", new Drivetrain_GyroStraight(100, 0.2));
+		//chooser.addOption("Bottom Tarmac", new AutonomousMode_BottomTarmac());
+		//chooser.addOption("Top Tarmac", new AutonomousMode_TopTarmac());
+		//chooser.addOption("Top Tarmac 2", new AutonomousMode_TopTarmac2());
+		chooser.addOption("Straight TEST", new AutonomousMode_TestStraightPath());
+		chooser.addOption("Strafe TEST", new AutonomousMode_TestStrafePath());
+		chooser.addOption("Curve TEST", new AutonomousMode_TestCurvePath());
+		chooser.addOption("Curve TEST 2", new AutonomousMode_TestCurvePath2());
+		chooser.addOption("Spiral TEST", new AutonomousMode_TestSpiralPath());
+		chooser.addOption("Gyro Straight", new Drivetrain_GyroStraight(50, 0.2));
 		chooser.addOption("Gyro Turn", new Drivetrain_GyroTurn(90));
 		chooser.addOption("Gyro Strafe", new Drivetrain_GyroStrafe(50, 0.2));
 
@@ -104,6 +117,12 @@ public class Robot extends TimedRobot {
 	 * This function is called periodically during autonomous */
 	public void autonomousPeriodic() {
 		CommandScheduler.getInstance().run();
+		SmartDashboard.putNumber("Robot Speed", (drivetrain.getLeftFrontSpeed() + drivetrain.getRightFrontSpeed() + drivetrain.getLeftBackSpeed() + drivetrain.getRightBackSpeed()) / 4.0); // Average drivetrain speed
+		SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle()); // The current gyroscope angle
+		SmartDashboard.putNumber("Encoder Position (LF)", drivetrain.getLeftFrontPosition()); //The current right encoder position
+		SmartDashboard.putNumber("Encoder Position (RF)", drivetrain.getRightFrontPosition()); //The current left encoder position
+		SmartDashboard.putNumber("Encoder Position (LB)", drivetrain.getLeftBackPosition()); //The current right encoder position
+		SmartDashboard.putNumber("Encoder Position (RB)", drivetrain.getRightBackPosition()); //The current left encoder position
 	}
 	
 	/** teleopInit ************************************************************
