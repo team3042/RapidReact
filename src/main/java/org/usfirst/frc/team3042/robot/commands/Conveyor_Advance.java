@@ -15,7 +15,7 @@ import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
 public class Conveyor_Advance extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CONVEYOR;
-	private static final double POWER = RobotMap.CONVEYOR_POWER;
+	private static final double POWER = RobotMap.CONVEYOR_POWER * 0.5;
 	private static final double duration = RobotMap.CONVEYOR_ADVANCE_DURATION;
 	private static final int DIO_LIMITSWITCH = RobotMap.DIO_LIMITSWITCH;
   
