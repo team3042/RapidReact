@@ -5,15 +5,7 @@ import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStrafe;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_Trajectory;
-import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_BottomTarmac;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Default;
-import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TestCurvePath;
-import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TestCurvePath2;
-import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TestSpiralPath;
-import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TestStrafePath;
-import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TestStraightPath;
-import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TopTarmac;
-import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_TopTarmac2;
 import org.usfirst.frc.team3042.robot.subsystems.Climber;
 import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
@@ -63,18 +55,16 @@ public class Robot extends TimedRobot {
 		
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
-		//chooser.addOption("Bottom Tarmac", new AutonomousMode_BottomTarmac());
-		//chooser.addOption("Top Tarmac", new AutonomousMode_TopTarmac());
-		//chooser.addOption("Top Tarmac 2", new AutonomousMode_TopTarmac2());
-		chooser.addOption("Straight TEST", new AutonomousMode_TestStraightPath());
-		chooser.addOption("Strafe TEST", new AutonomousMode_TestStrafePath());
-		chooser.addOption("Curve TEST", new AutonomousMode_TestCurvePath());
-		chooser.addOption("Curve TEST 2", new AutonomousMode_TestCurvePath2());
-		chooser.addOption("Spiral TEST", new AutonomousMode_TestSpiralPath());
+		//chooser.addOption("Bottom Tarmac", new AutonomousMode_BottomTarmac()); //TODO: Figure out why these create errors when uncommented
+		//chooser.addOption("Top Tarmac", new AutonomousMode_TopTarmac()); //TODO: Figure out why these create errors when uncommented
+		//chooser.addOption("Top Tarmac 2", new AutonomousMode_TopTarmac2()); //TODO: Figure out why these create errors when uncommented
+		chooser.addOption("Straight TEST", new Drivetrain_Trajectory("Basic_Straight_Line_Path"));
+		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("Basic_Strafe_Path"));
+		chooser.addOption("Curve TEST", new Drivetrain_Trajectory("Basic_Curve_Path"));
+		chooser.addOption("Spiral TEST", new Drivetrain_Trajectory("Basic_Spiral_Path"));
 		chooser.addOption("Gyro Straight", new Drivetrain_GyroStraight(50, 0.2));
-		chooser.addOption("Gyro Turn", new Drivetrain_GyroTurn(90));
 		chooser.addOption("Gyro Strafe", new Drivetrain_GyroStrafe(50, 0.2));
-
+		chooser.addOption("Gyro Turn", new Drivetrain_GyroTurn(90));
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 
