@@ -109,6 +109,9 @@ public class Drivetrain extends SubsystemBase {
 		leftBack.set(leftBackPower);
 		rightBack.set(rightBackPower);		
 	}
+	public void stop() {
+		this.setPower(0, 0, 0, 0);
+	}
 	
 	private double safetyCheck(double power) {
 		power = Math.min(1.0, power);

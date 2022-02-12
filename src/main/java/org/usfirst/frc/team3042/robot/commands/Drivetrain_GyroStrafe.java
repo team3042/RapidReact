@@ -38,7 +38,7 @@ public class Drivetrain_GyroStrafe extends CommandBase {
   @Override
   public void initialize() {
     log.add("Initialize", Log.Level.TRACE);
-		drivetrain.driveCartesian(0, 0, 0);
+		drivetrain.stop();
 		goalAngle = drivetrain.getGyroAngle();
 		drivetrain.resetEncoders();
   }
@@ -60,7 +60,7 @@ public class Drivetrain_GyroStrafe extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     log.add("End", Log.Level.TRACE);
-		drivetrain.driveCartesian(0, 0, 0);
+		drivetrain.stop();
   }
 
   // Returns true when the command should end.
@@ -70,4 +70,19 @@ public class Drivetrain_GyroStrafe extends CommandBase {
 		boolean rightBackGoalReached = Math.abs(drivetrain.getRightBackPosition()) >= goalDistance;
 		return rightFrontGoalReached || rightBackGoalReached;
   }
+
+  /** end *******************************************************************
+	 * Called once after isFinished returns true */
+	protected void end() {
+		log.add("End", Log.Level.TRACE);
+		drivetrain.stop();
+	}
+	
+	/** interrupted ***********************************************************
+	 * Called when another command which requires one or more of the same
+	 * subsystems is scheduled to run */
+	protected void interrupted() {
+		log.add("Interrupted", Log.Level.TRACE);
+		drivetrain.stop();
+	}
 }
