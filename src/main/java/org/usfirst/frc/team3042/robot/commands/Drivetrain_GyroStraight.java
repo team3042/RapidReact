@@ -20,7 +20,6 @@ public class Drivetrain_GyroStraight extends CommandBase {
 	/** Instance Variables ****************************************************/
 	Drivetrain drivetrain = Robot.drivetrain;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(drivetrain));
-	double lastError, integralError;
 	double forwardPower, goalAngle, goalDistance;
 	
 	/** Drivetrain Gyro Straight **********************************************
@@ -44,8 +43,6 @@ public class Drivetrain_GyroStraight extends CommandBase {
 		log.add("Initialize", Log.Level.TRACE);
 		drivetrain.stop();
 		goalAngle = drivetrain.getGyroAngle();
-		lastError = 0.0;
-		integralError = 0.0;
 		drivetrain.resetEncoders();
 	}
 

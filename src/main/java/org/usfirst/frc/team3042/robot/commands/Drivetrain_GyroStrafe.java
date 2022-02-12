@@ -21,7 +21,6 @@ public class Drivetrain_GyroStrafe extends CommandBase {
 	/** Instance Variables ****************************************************/
 	Drivetrain drivetrain = Robot.drivetrain;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(drivetrain));
-	double lastError, integralError;
 	double strafePower, goalAngle, goalDistance;
 
   /** Creates a new Drivetrain_GyroStrafe. */
@@ -41,8 +40,6 @@ public class Drivetrain_GyroStrafe extends CommandBase {
     log.add("Initialize", Log.Level.TRACE);
 		drivetrain.stop();
 		goalAngle = drivetrain.getGyroAngle();
-		lastError = 0.0;
-		integralError = 0.0;
 		drivetrain.resetEncoders();
   }
 
