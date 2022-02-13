@@ -41,7 +41,7 @@ public class Drivetrain_GyroStraight extends CommandBase {
 	 * Called just before this Command runs the first time */
 	public void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
-		drivetrain.stop();
+		drivetrain.driveCartesian(0, 0, 0);
 		goalAngle = drivetrain.getGyroAngle();
 		drivetrain.resetEncoders();
 	}
@@ -71,7 +71,7 @@ public class Drivetrain_GyroStraight extends CommandBase {
 	 * Called once after isFinished returns true */
 	protected void end() {
 		log.add("End", Log.Level.TRACE);
-		drivetrain.stop();
+		drivetrain.driveCartesian(0, 0, 0);
 	}
 	
 	/** interrupted ***********************************************************
@@ -79,6 +79,6 @@ public class Drivetrain_GyroStraight extends CommandBase {
 	 * subsystems is scheduled to run */
 	protected void interrupted() {
 		log.add("Interrupted", Log.Level.TRACE);
-		drivetrain.stop();
+		drivetrain.driveCartesian(0, 0, 0);
 	}
 }

@@ -63,7 +63,7 @@ public class Drivetrain_Trajectory extends CommandBase {
 
 		drivetrain.resetOdometry(new Pose2d(initialState.poseMeters.getTranslation(), initialState.holonomicRotation));
 
-		mecanumControllerCommand.andThen(() -> drivetrain.stop());
+		mecanumControllerCommand.andThen(() -> drivetrain.driveCartesian(0, 0, 0));
 
 	}
 	
@@ -77,7 +77,7 @@ public class Drivetrain_Trajectory extends CommandBase {
 	 * Called once after isFinished returns true */
 	protected void end() {
 		log.add("End", Log.Level.TRACE);
-		drivetrain.stop();
+		drivetrain.driveCartesian(0, 0, 0);
 	}
 
 	/** interrupted ***********************************************************
@@ -85,6 +85,6 @@ public class Drivetrain_Trajectory extends CommandBase {
 	 * subsystems is scheduled to run */
 	protected void interrupted() {
 		log.add("Interrupted", Log.Level.TRACE);
-		drivetrain.stop();
+		drivetrain.driveCartesian(0, 0, 0);
 	}
 }

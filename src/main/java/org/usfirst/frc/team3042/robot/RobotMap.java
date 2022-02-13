@@ -34,17 +34,16 @@ public class RobotMap {
 	public static final int RIGHT_INTAKE_SOLENOID = 0; //TODO: Find this value
 	public static final int LEFT_INTAKE_SOLENOID = 0; //TODO: Find this value
 	
-	/** DIO channels **************************************************
-	 * ********/
+	/** DIO channels **********************************************************/
 	public static final int DIO_LIMITSWITCH = 0; //TODO Find this value
 
-	/** Climber Settings ***************************************************/
+	/** Climber Settings ******************************************************/
 	public static final boolean REVERSE_RIGHT_CLIMBER = false;
 	public static final boolean REVERSE_LEFT_CLIMBER = false;
 	public static final NeutralMode CLIMBER_BRAKE_MODE = NeutralMode.Brake;
 	public static final double CLIMBER_POWER = 0.85; // How much power (as a %) to give the climber
 	
-	/** Conveyor Settings ***************************************************/
+	/** Conveyor Settings *****************************************************/
 	public static final boolean REVERSE_TOP_CONVEYOR = true;
 	public static final boolean REVERSE_RIGHT_CONVEYOR = true;
 	public static final boolean REVERSE_LEFT_CONVEYOR = true;
@@ -60,10 +59,10 @@ public class RobotMap {
 	public static final boolean REVERSE_RIGHT_BACK_MOTOR = true;
 	public static final double VELOCITY_MAX_MPS = 3; // Maximum velocity in meters/second TODO: We'll probably want to tune this value
 	public static final double ACCELERATION_MAX_MPS = 1.5; // Maximum acceleration in meters/second squared //TODO: We'll probably want to tune this value
-	public static final double kP_FRONT_RIGHT_VELOCITY = 0.0001451; //TODO: Tune using characterization tools
-	public static final double kP_FRONT_LEFT_VELOCITY = 0.0001451;//TODO: Tune using characterization tools
-	public static final double kP_BACK_RIGHT_VELOCITY = 0.0001451; //TODO: Tune using characterization tools
-	public static final double kP_BACK_LEFT_VELOCITY = 0.0001451; //TODO: Tune using characterization tools
+	public static final double kP_FRONT_RIGHT_VELOCITY = 0.0001451; //TODO: If this doesn't work, then let's try the "default" kP value
+	public static final double kP_FRONT_LEFT_VELOCITY = 0.0001451; //TODO: If this doesn't work, then let's try the "default" kP value
+	public static final double kP_BACK_RIGHT_VELOCITY = 0.0001451; //TODO: If this doesn't work, then let's try the "default" kP value
+	public static final double kP_BACK_LEFT_VELOCITY = 0.0001451; //TODO: If this doesn't work, then let's try the "default" kP value
 	public static final double kP_X_CONTROLLER = 0.5; //TODO: Tune this using guess-and-check after our drivetrain has been characterized
     public static final double kP_Y_CONTROLLER = 0.5; //TODO: Tune this using guess-and-check after our drivetrain has been characterized
     public static final double kP_THETA_CONTROLLER = 0.5; //TODO: Tune this using guess-and-check after our drivetrain has been characterized

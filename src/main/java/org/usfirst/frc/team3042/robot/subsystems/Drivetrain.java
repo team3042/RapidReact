@@ -2,8 +2,6 @@ package org.usfirst.frc.team3042.robot.subsystems;
 
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.RobotMap;
-import org.usfirst.frc.team3042.robot.OI;
-import org.usfirst.frc.team3042.robot.Robot;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -38,9 +36,8 @@ public class Drivetrain extends SubsystemBase {
 	private static final int CAN_RIGHT_BACK_MOTOR = RobotMap.CAN_RIGHT_BACK_MOTOR;
 	private static final double TRACK_WIDTH = RobotMap.TRACK_WIDTH;
 	private static final double WHEEL_BASE = RobotMap.WHEEL_BASE;
-	OI oi = Robot.oi;
 
-	private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0.15465, 2.7381, 0.38004); //TODO Find these characterization values!
+	private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0.15465, 2.7381, 0.38004); // kS, kV, kA Characterization Constants
 	private final PIDController frontLeftPIDController = new PIDController(RobotMap.kP_FRONT_LEFT_VELOCITY, 0, 0);
   	private final PIDController frontRightPIDController = new PIDController(RobotMap.kP_FRONT_RIGHT_VELOCITY, 0, 0);
   	private final PIDController backLeftPIDController = new PIDController(RobotMap.kP_BACK_LEFT_VELOCITY, 0, 0);
@@ -83,8 +80,6 @@ public class Drivetrain extends SubsystemBase {
 		initMotor(rightBack, REVERSE_RIGHT_BACK);
 		
 		resetEncoders();
-
-		robotDrive.setSafetyEnabled(false);
 	}
 	private void initMotor(CANSparkMax motor, boolean reverse) {
 		motor.setIdleMode(BRAKE_MODE);
@@ -95,28 +90,6 @@ public class Drivetrain extends SubsystemBase {
 	 * Set the default command for the subsystem. */
 	public void initDefaultCommand() {
 		setDefaultCommand(null);
-	}
-	
-	/** Methods for setting the motors in % power mode ********************/
-	public void setPower(double leftFrontPower, double rightFrontPower, double leftBackPower, double rightBackPower) {
-		leftFrontPower = safetyCheck(leftFrontPower);
-		rightFrontPower = safetyCheck(rightFrontPower);
-		leftBackPower = safetyCheck(leftBackPower);
-		rightBackPower = safetyCheck(rightBackPower);
-				
-		leftFront.set(leftFrontPower);
-		rightFront.set(rightFrontPower);
-		leftBack.set(leftBackPower);
-		rightBack.set(rightBackPower);		
-	}
-	public void stop() {
-		this.setPower(0, 0, 0, 0);
-	}
-	
-	private double safetyCheck(double power) {
-		power = Math.min(1.0, power);
-		power = Math.max(-1.0, power);
-		return power;
 	}
 
 	/** Gyroscope Methods *******************************************************/
