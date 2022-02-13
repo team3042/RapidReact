@@ -20,17 +20,16 @@ public class RobotMap {
 	public static final int CAN_TOP_CONVEYOR = 15;
 	public static final int CAN_RIGHT_CONVEYOR = 32;
 	public static final int CAN_LEFT_CONVEYOR = 25;
-	public static final int CAN_RIGHT_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
-	public static final int CAN_LEFT_CLIMBER = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_RIGHT_CLIMBER = 0;
+	public static final int CAN_LEFT_CLIMBER = 0;
 	public static final int CAN_LEFT_FRONT_MOTOR = 3;
 	public static final int CAN_RIGHT_FRONT_MOTOR = 4;
 	public static final int CAN_LEFT_BACK_MOTOR = 5;
 	public static final int CAN_RIGHT_BACK_MOTOR = 2;
-	public static final int CAN_INTAKE = 0; //TODO: Determine this CAN ID on the actual 2022 robot!
+	public static final int CAN_INTAKE = 0;
 
 	/** PCM channels **********************************************************/
-	public static final int RIGHT_INTAKE_SOLENOID = 0; //TODO: Find this value
-	public static final int LEFT_INTAKE_SOLENOID = 0; //TODO: Find this value
+	public static final int INTAKE_SOLENOID = 1;
 	
 	/** DIO channels **********************************************************/
 	public static final int DIO_LIMITSWITCH = 0; //TODO Find this value

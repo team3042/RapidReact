@@ -18,16 +18,14 @@ public class Intake extends SubsystemBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_INTAKE;
 	private static final int CAN_INTAKE = RobotMap.CAN_INTAKE;
-	private static final int RIGHT_ID = RobotMap.RIGHT_INTAKE_SOLENOID;
-	private static final int LEFT_ID = RobotMap.LEFT_INTAKE_SOLENOID;
+	private static final int ID = RobotMap.INTAKE_SOLENOID;
 	private static final boolean REVERSE_MOTOR = RobotMap.REVERSE_INTAKE;
 	private static final NeutralMode BRAKE_MODE = RobotMap.INTAKE_BRAKE_MODE;
 
 	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
 	TalonSRX motor = new TalonSRX(CAN_INTAKE);
-	//Solenoid rightIntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, RIGHT_ID); //TODO: Uncomment this AFTER our pneumatics are wired up
-	//Solenoid leftIntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, LEFT_ID); //TODO: Uncomment this AFTER our pneumatics are wired up
+	Solenoid IntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, ID);
 
 	/** Intake ****************************************************************/
 	public Intake() {
@@ -56,12 +54,10 @@ public class Intake extends SubsystemBase {
 
 	// Commands for extending/retracting the intake
 	public void extend() {
-		//rightIntakeSolenoid.set(true); //TODO: Uncomment this AFTER our pneumatics are wired up
-		//leftIntakeSolenoid.set(true); //TODO: Uncomment this AFTER our pneumatics are wired up
+		IntakeSolenoid.set(true);
 	}
 	public void retract() {
-		//rightIntakeSolenoid.set(false); //TODO: Uncomment this AFTER our pneumatics are wired up
-		//leftIntakeSolenoid.set(false); //TODO: Uncomment this AFTER our pneumatics are wired up
+		IntakeSolenoid.set(false);
 	}
 	
 	/** initDefaultCommand ****************************************************
