@@ -13,8 +13,6 @@ public class RobotMap {
 	 * and speed closed-loop commands. For example, if the diameter is given 
 	 * in inches, position will be in inches and speed in inches per second. */
 	public static final double WHEEL_DIAMETER = 6.0; // Measured in inches (0.1524 m)
-	public static final double ROBOT_WIDTH = 27.0; // Measured in inches
-
 	public static final double TRACK_WIDTH = 0.57785; // Distance between centers of right and left wheels on robot (in meters) 
     public static final double WHEEL_BASE = 0.517525; // Distance between centers of front and back wheels on robot (in meters) 
 

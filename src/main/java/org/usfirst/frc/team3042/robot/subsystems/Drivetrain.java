@@ -61,6 +61,8 @@ public class Drivetrain extends SubsystemBase {
 	MecanumDrive robotDrive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);
 
 	MecanumDriveOdometry odometry = new MecanumDriveOdometry(kDriveKinematics, Rotation2d.fromDegrees(-gyroscope.getAngle()));
+
+	double leftFrontPositionZero, rightFrontPositionZero, leftBackPositionZero, rightBackPositionZero;
 	
 	/** Drivetrain ************************************************************
 	 * Setup the motor controllers for desired behavior. */
@@ -128,10 +130,10 @@ public class Drivetrain extends SubsystemBase {
 
 	/** resetEncoders ***********************************************************/
 	public void resetEncoders() {
-		leftFront.getEncoder().setPosition(0);
-		leftBack.getEncoder().setPosition(0);
-		rightFront.getEncoder().setPosition(0);
-		rightBack.getEncoder().setPosition(0);
+		leftFrontPositionZero = leftFront.getEncoder().getPosition() / 10.71; // 10.71 : 1 is our drivetrain gear ratio
+		leftBackPositionZero = leftBack.getEncoder().getPosition() / 10.71; // 10.71 : 1 is our drivetrain gear ratio
+		rightFrontPositionZero = rightFront.getEncoder().getPosition() / 10.71; // 10.71 : 1 is our drivetrain gear ratio
+		rightBackPositionZero = rightBack.getEncoder().getPosition() / 10.71; // 10.71 : 1 is our drivetrain gear ratio
 	}
 
 	//Not Field-Oriented (aka Robot-Oriented)
@@ -145,16 +147,16 @@ public class Drivetrain extends SubsystemBase {
 	
 	/** Get the encoder positions or speeds **************************************/
 	public double getLeftFrontPosition() { // Position is returned in units of revolutions
-		return (leftFront.getEncoder().getPosition() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
+		return (leftFront.getEncoder().getPosition() / 10.71 - leftFrontPositionZero); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getRightFrontPosition() { // Position is returned in units of revolutions
-		return -1 * (rightFront.getEncoder().getPosition() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
+		return -1 * (rightFront.getEncoder().getPosition() / 10.71 - rightFrontPositionZero); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getLeftBackPosition() { // Position is returned in units of revolutions
-		return -1 * (leftBack.getEncoder().getPosition() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
+		return -1 * (leftBack.getEncoder().getPosition() / 10.71 - leftBackPositionZero); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getRightBackPosition() { // Position is returned in units of revolutions
-		return (rightBack.getEncoder().getPosition() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
+		return (rightBack.getEncoder().getPosition() / 10.71 - rightBackPositionZero); // 10.71 : 1 is our drivetrain gear ratio
 	}
 	public double getLeftFrontSpeed() { // Speed is returned in units of RPM (revolutions per minute)
 		return (leftFront.getEncoder().getVelocity() / 10.71); // 10.71 : 1 is our drivetrain gear ratio
