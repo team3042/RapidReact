@@ -12,6 +12,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 public class AutonomousMode_Default extends SequentialCommandGroup {
 
   public AutonomousMode_Default() {
-    addCommands(new Conveyor_Run(1), new Wait(3), new Conveyor_Run(0), new Drivetrain_GyroStraight(20, 0.5), new Intake_Toggle());
+    addCommands(new Conveyor_Run(1), new Wait(3), new Conveyor_Run(0), new Drivetrain_GyroStraight(75, 0.5), new Intake_Toggle());
   }
 }

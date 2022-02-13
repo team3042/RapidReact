@@ -55,15 +55,15 @@ public class Robot extends TimedRobot {
 		
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
-		//chooser.addOption("Bottom Tarmac", new AutonomousMode_BottomTarmac()); //TODO: Figure out why these create errors when uncommented
-		//chooser.addOption("Top Tarmac", new AutonomousMode_TopTarmac()); //TODO: Figure out why these create errors when uncommented
-		//chooser.addOption("Top Tarmac 2", new AutonomousMode_TopTarmac2()); //TODO: Figure out why these create errors when uncommented
+		//chooser.addOption("Bottom Tarmac", new AutonomousMode_BottomTarmac()); //TODO: Figure out why this creates errors when uncommented
+		//chooser.addOption("Top Tarmac", new AutonomousMode_TopTarmac()); //TODO: Figure out why this creates errors when uncommented
+		//chooser.addOption("Top Tarmac 2", new AutonomousMode_TopTarmac2()); //TODO: Figure out why this creates errors when uncommented
 		chooser.addOption("Straight TEST", new Drivetrain_Trajectory("Basic_Straight_Line_Path"));
 		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("Basic_Strafe_Path"));
 		chooser.addOption("Curve TEST", new Drivetrain_Trajectory("Basic_Curve_Path"));
 		chooser.addOption("Spiral TEST", new Drivetrain_Trajectory("Basic_Spiral_Path"));
-		chooser.addOption("Gyro Straight", new Drivetrain_GyroStraight(50, 0.2));
-		chooser.addOption("Gyro Strafe", new Drivetrain_GyroStrafe(50, 0.2));
+		chooser.addOption("Gyro Straight", new Drivetrain_GyroStraight(50, 0.25));
+		chooser.addOption("Gyro Strafe", new Drivetrain_GyroStrafe(50, 0.25));
 		chooser.addOption("Gyro Turn", new Drivetrain_GyroTurn(90));
 				
 		SmartDashboard.putData("Auto Mode", chooser);
@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
 	}
 
 	/** disabledPeriodic ******************************************************
-	 * Called repeatedly while the robot is is disabled mode. */
+	 * Called repeatedly while the robot is in disabled mode. */
 	public void disabledPeriodic() {
 		CommandScheduler.getInstance().run();
 	}

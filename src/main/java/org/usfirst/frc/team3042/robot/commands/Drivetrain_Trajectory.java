@@ -48,7 +48,7 @@ public class Drivetrain_Trajectory extends CommandBase {
 	public void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
 
-		PathPlannerState initialState = (PathPlannerState)path.sample(0); // Define the initial state of the trajectory
+		var initialState = (PathPlannerState)path.sample(0); // Define the initial state of the trajectory
 
 		// Add kinematics to ensure max speed is actually obeyed
 		PPMecanumControllerCommand mecanumControllerCommand = new PPMecanumControllerCommand(path,
