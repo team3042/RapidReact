@@ -7,6 +7,8 @@ import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 import org.usfirst.frc.team3042.robot.commands.Intake_Toggle;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+
 /** OI ************************************************************************
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot. */
@@ -36,28 +38,34 @@ public class OI {
 		
 		gamepad = new Gamepad(USB_GAMEPAD);
 		
-		/** Setup Driving Controls ********************************************/
+		//Setup Driving Controls ///
 		joyLeft = new Gamepad(USB_JOY_LEFT);
 		joyRight = new Gamepad(USB_JOY_RIGHT);
 		driveAxisX = JOYSTICK_X_AXIS;
 		driveAxisY = JOYSTICK_Y_AXIS;
 		driveAxisZ = JOYSTICK_Z_AXIS;
+
+		joyLeft.button1.whenPressed(new InstantCommand(drivetrain::zeroGyro, drivetrain)); // Zero the gyro, this is helpful for field-oriented driving
 		
-		//Intake Controls
-		gamepad.LB.whenActive(new Intake_Intake(1)); //run intake
-		gamepad.LB.whenReleased(new Intake_Intake(0)); // 
-		gamepad.LT.whenActive(new Intake_Intake(-1)); //reverse intake
-		gamepad.A.whenPressed(new Intake_Toggle()); //extend or retract the intake
+		// Intake Controls //
+		gamepad.LB.whenActive(new Intake_Intake(1)); // run the intake
+		gamepad.LB.whenReleased(new Intake_Intake(0)); // stop running the intake
 
-		//Climber Controls
-		gamepad.POVUp.whenActive(new Climber_Run(1)); //raise climber
-		gamepad.POVDown.whenActive(new Climber_Run(-1)); //lower climber
+		gamepad.LT.whenActive(new Intake_Intake(-1)); // reverse the intake
+		gamepad.LT.whenInactive(new Intake_Intake(0)); // stop reversing the intake
 
-		//Conveyor Controls
-		gamepad.RB.whenPressed(new Conveyor_Run(1)); //run converyor
-		gamepad.RB.whenReleased(new Conveyor_Run(0)); //stops converyor
-		gamepad.RT.whenActive(new Conveyor_Run(-1)); //reverse converyor
-		gamepad.RT.whenInactive(new Conveyor_Run(0)); //stops converyor
+		gamepad.A.whenPressed(new Intake_Toggle()); // extend or retract the intake
+
+		// Climber Controls //
+		gamepad.POVUp.whenActive(new Climber_Run(1)); // raise the climber
+		gamepad.POVDown.whenActive(new Climber_Run(-1)); // lower the climber
+
+		// Conveyor Controls //
+		gamepad.RB.whenPressed(new Conveyor_Run(1)); // run the converyor
+		gamepad.RB.whenReleased(new Conveyor_Run(0)); // stop running the converyor
+
+		gamepad.RT.whenActive(new Conveyor_Run(0.5)); // run the converyor slowly
+		gamepad.RT.whenInactive(new Conveyor_Run(0)); // stop running the conveyor slowly
 	}
 	
 	/** Access to the driving axes values *****************************
