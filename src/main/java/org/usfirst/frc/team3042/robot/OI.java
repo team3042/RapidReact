@@ -44,7 +44,8 @@ public class OI {
 		driveAxisZ = JOYSTICK_Z_AXIS;
 		
 		//Intake Controls
-		gamepad.LB.whileHeld(new Intake_Intake(1)); //run intake
+		gamepad.LB.whenActive(new Intake_Intake(1)); //run intake
+		gamepad.LB.whenReleased(new Intake_Intake(0)); // 
 		gamepad.LT.whenActive(new Intake_Intake(-1)); //reverse intake
 		gamepad.A.whenPressed(new Intake_Toggle()); //extend or retract the intake
 

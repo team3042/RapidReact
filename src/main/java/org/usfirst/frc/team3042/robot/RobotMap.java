@@ -75,7 +75,7 @@ public class RobotMap {
 	public static final double MAX_POWER_GYRO = 0.4;
 
 	/** Intake Settings *******************************************************/
-	public static final boolean REVERSE_INTAKE = false;
+	public static final boolean REVERSE_INTAKE = true;
 	public static final NeutralMode INTAKE_BRAKE_MODE = NeutralMode.Brake;
 	public static final double INTAKE_POWER = 0.75; // How much power (as a %) to give the intake
 
