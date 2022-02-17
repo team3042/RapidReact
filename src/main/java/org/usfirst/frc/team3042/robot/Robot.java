@@ -31,12 +31,12 @@ public class Robot extends TimedRobot {
 
 	/** Create Subsystems *****************************************************/
 	private Log log = new Log(LOG_LEVEL, "Robot");
-	public static final Climber climber 			  = new Climber();
-	public static final Conveyor conveyor 			  = new Conveyor();
-	public static final Drivetrain drivetrain 			  = new Drivetrain();
-	public static final Intake intake 			  		  = new Intake();
-	public static final PowerDistribution pdp		  = new PowerDistribution();
-	public static OI oi;
+	public static final Climber climber = new Climber();
+	public static final Conveyor conveyor  = new Conveyor();
+	public static final Drivetrain drivetrain = new Drivetrain();
+	public static final Intake intake = new Intake();
+	public static final PowerDistribution pdp = new PowerDistribution();
+	public static OI oi = new OI();;
 	
 	CommandBase autonomousCommand;
 	SendableChooser<CommandBase> chooser = new SendableChooser<CommandBase>();
@@ -48,8 +48,6 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		log.add("Robot Init", Log.Level.TRACE);
 
-		oi = new OI();
-
 		drivetrain.zeroGyro();
 		drivetrain.resetEncoders();
 		
@@ -58,13 +56,15 @@ public class Robot extends TimedRobot {
 		//chooser.addOption("Bottom Tarmac", new AutonomousMode_BottomTarmac()); //TODO: Figure out why this creates errors when uncommented
 		//chooser.addOption("Top Tarmac", new AutonomousMode_TopTarmac()); //TODO: Figure out why this creates errors when uncommented
 		//chooser.addOption("Top Tarmac 2", new AutonomousMode_TopTarmac2()); //TODO: Figure out why this creates errors when uncommented
-		chooser.addOption("Straight TEST", new Drivetrain_Trajectory("Basic_Straight_Line_Path"));
-		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("Basic_Strafe_Path"));
-		chooser.addOption("Curve TEST", new Drivetrain_Trajectory("Basic_Curve_Path"));
-		chooser.addOption("Spiral TEST", new Drivetrain_Trajectory("Basic_Spiral_Path"));
-		chooser.addOption("Gyro Straight", new Drivetrain_GyroStraight(50, 0.25));
-		chooser.addOption("Gyro Strafe", new Drivetrain_GyroStrafe(50, 0.25));
-		chooser.addOption("Gyro Turn", new Drivetrain_GyroTurn(90));
+
+		//chooser.addOption("Straight TEST", new Drivetrain_Trajectory("Basic_Straight_Line_Path"));
+		//chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("Basic_Strafe_Path"));
+		//chooser.addOption("Curve TEST", new Drivetrain_Trajectory("Basic_Curve_Path"));
+		//chooser.addOption("Spiral TEST", new Drivetrain_Trajectory("Basic_Spiral_Path"));
+
+		//chooser.addOption("Gyro Straight", new Drivetrain_GyroStraight(50, 0.25));
+		//chooser.addOption("Gyro Strafe", new Drivetrain_GyroStrafe(50, 0.25));
+		//chooser.addOption("Gyro Turn", new Drivetrain_GyroTurn(90));
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 
@@ -92,7 +92,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		log.add("Autonomous Init", Log.Level.TRACE);
 
-		drivetrain.zeroGyro();
+		drivetrain.zeroGyro(); // TODO: Comment this out before attending a tournament!
 		drivetrain.resetEncoders();
 		
 		autonomousCommand = chooser.getSelected();
@@ -107,7 +107,7 @@ public class Robot extends TimedRobot {
 	 * This function is called periodically during autonomous */
 	public void autonomousPeriodic() {
 		CommandScheduler.getInstance().run();
-		SmartDashboard.putNumber("Robot Speed", (drivetrain.getLeftFrontSpeed() + drivetrain.getRightFrontSpeed() + drivetrain.getLeftBackSpeed() + drivetrain.getRightBackSpeed()) / 4.0); // Average drivetrain speed
+		SmartDashboard.putNumber("Robot Speed", (Math.abs(drivetrain.getLeftFrontSpeed()) + Math.abs(drivetrain.getRightFrontSpeed()) + Math.abs(drivetrain.getLeftBackSpeed()) + Math.abs(drivetrain.getRightBackSpeed())) / 4.0); // Average drivetrain speed
 		SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle()); // The current gyroscope angle
 		SmartDashboard.putNumber("Encoder Position (LF)", drivetrain.getLeftFrontPosition()); //The current right encoder position
 		SmartDashboard.putNumber("Encoder Position (RF)", drivetrain.getRightFrontPosition()); //The current left encoder position
@@ -120,8 +120,8 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		log.add("Teleop Init", Log.Level.TRACE);
 		
-		drivetrain.zeroGyro(); //TODO: Delete this before attending Week 0
-		drivetrain.resetEncoders(); //TODO: Delete this before attending Week 0
+		drivetrain.zeroGyro(); // TODO: Comment this out before attending a tournament!
+		drivetrain.resetEncoders();
 		goalAngle = drivetrain.getGyroAngle();
 		
 		// This makes sure that the autonomous command stops running when teleop starts. 
@@ -135,7 +135,7 @@ public class Robot extends TimedRobot {
 	 * This function is called periodically during operator control */
 	public void teleopPeriodic() {
 		CommandScheduler.getInstance().run();
-		SmartDashboard.putNumber("Robot Speed", (drivetrain.getLeftFrontSpeed() + drivetrain.getRightFrontSpeed() + drivetrain.getLeftBackSpeed() + drivetrain.getRightBackSpeed()) / 4.0); // Average drivetrain speed
+		SmartDashboard.putNumber("Robot Speed", (Math.abs(drivetrain.getLeftFrontSpeed()) + Math.abs(drivetrain.getRightFrontSpeed()) + Math.abs(drivetrain.getLeftBackSpeed()) + Math.abs(drivetrain.getRightBackSpeed())) / 4.0); // Average drivetrain speed
 		SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle()); // The current gyroscope angle
 		SmartDashboard.putNumber("Encoder Position (LF)", drivetrain.getLeftFrontPosition()); //The current right encoder position
 		SmartDashboard.putNumber("Encoder Position (RF)", drivetrain.getRightFrontPosition()); //The current left encoder position
@@ -146,11 +146,11 @@ public class Robot extends TimedRobot {
 		double xSpeed = oi.getXSpeed();
 		double zSpeed = oi.getZSpeed();
 
-		if (Math.abs(zSpeed) > 0.01) {
+		if (Math.abs(zSpeed) > 0.01) { // If we are telling the robot to rotate, then let it rotate
 			drivetrain.driveCartesian(ySpeed, xSpeed, zSpeed, drivetrain.getGyroAngle());
 			goalAngle = drivetrain.getGyroAngle();
 		}
-		else {
+		else { // Otherwise, use the gyro to maintain our current angle
 			double error = goalAngle - drivetrain.getGyroAngle();
 			
 			double correction = RobotMap.kP_GYRO * error;
