@@ -41,7 +41,7 @@ public class RobotMap {
 	public static final double CLIMBER_POWER = 0.85; // How much power (as a %) to give the climber
 	
 	/** Conveyor Settings *****************************************************/
-	public static final boolean REVERSE_TOP_CONVEYOR = true;
+	public static final boolean REVERSE_TOP_CONVEYOR = false;
 	public static final boolean REVERSE_RIGHT_CONVEYOR = true;
 	public static final boolean REVERSE_LEFT_CONVEYOR = true;
 	public static final NeutralMode CONVEYOR_BRAKE_MODE = NeutralMode.Brake;
@@ -77,7 +77,7 @@ public class RobotMap {
 	/** Intake Settings *******************************************************/
 	public static final boolean REVERSE_INTAKE = true;
 	public static final NeutralMode INTAKE_BRAKE_MODE = NeutralMode.Brake;
-	public static final double INTAKE_POWER = 0.75; // How much power (as a %) to give the intake
+	public static final double INTAKE_POWER = 0.9; // How much power (as a %) to give the intake
 
 	/** OI Settings ***********************************************************/
 	public static final boolean USE_JOYSTICKS = true;
