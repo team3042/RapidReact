@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
-import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 import org.usfirst.frc.team3042.robot.commands.Intake_Toggle;
@@ -57,18 +56,18 @@ public class OI {
 		gamepad.A.whenPressed(new Intake_Toggle()); // extend or retract the intake
 
 		// Climber Controls //
-		gamepad.POVUp.whenActive(new Climber_Run(1)); // raise the climber
-		gamepad.POVDown.whenActive(new Climber_Run(-1)); // lower the climber
+		//gamepad.POVUp.whenActive(new Climber_Run(1)); // raise the climber
+		//gamepad.POVDown.whenActive(new Climber_Run(-1)); // lower the climber
 
 		// Conveyor Controls //
 		gamepad.RB.whenPressed(new Conveyor_Run(1)); // run the converyor
 		gamepad.RB.whenReleased(new Conveyor_Run(0)); // stop running the converyor
 
-		gamepad.B.whenPressed(new Conveyor_Run(-1)); // run the converyor
-		gamepad.B.whenReleased(new Conveyor_Run(0)); // stop running the converyor
-
 		gamepad.RT.whenActive(new Conveyor_Run(0.5)); // run the converyor slowly
 		gamepad.RT.whenInactive(new Conveyor_Run(0)); // stop running the conveyor slowly
+
+		gamepad.B.whenPressed(new Conveyor_Run(-0.5)); // reverse the converyor
+		gamepad.B.whenReleased(new Conveyor_Run(0)); // stop reversing the converyor
 	}
 	
 	/** Access to the driving axes values *****************************
@@ -86,11 +85,11 @@ public class OI {
 	public double getZSpeed() {
 		double joystickValue = joyLeft.getRawAxis(driveAxisX);
 		joystickValue = scaleJoystick(joystickValue);
-		return -0.75 * joystickValue;
+		return -0.7 * joystickValue;
 	}
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
-		joystickValue *= -0.75;
+		joystickValue *= -0.8;
 		return joystickValue;
 	}
 	private double checkDeadZone(double joystickValue) {

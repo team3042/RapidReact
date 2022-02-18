@@ -1,10 +1,6 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStrafe;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroTurn;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_Trajectory;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Default;
 import org.usfirst.frc.team3042.robot.subsystems.Climber;
 import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
@@ -92,7 +88,6 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		log.add("Autonomous Init", Log.Level.TRACE);
 
-		drivetrain.zeroGyro(); // TODO: Comment this out before attending a tournament!
 		drivetrain.resetEncoders();
 		
 		autonomousCommand = chooser.getSelected();
@@ -120,7 +115,6 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		log.add("Teleop Init", Log.Level.TRACE);
 		
-		drivetrain.zeroGyro(); // TODO: Comment this out before attending a tournament!
 		drivetrain.resetEncoders();
 		goalAngle = drivetrain.getGyroAngle();
 		
