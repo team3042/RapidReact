@@ -64,6 +64,9 @@ public class OI {
 		gamepad.RB.whenPressed(new Conveyor_Run(1)); // run the converyor
 		gamepad.RB.whenReleased(new Conveyor_Run(0)); // stop running the converyor
 
+		gamepad.B.whenPressed(new Conveyor_Run(-1)); // run the converyor
+		gamepad.B.whenReleased(new Conveyor_Run(0)); // stop running the converyor
+
 		gamepad.RT.whenActive(new Conveyor_Run(0.5)); // run the converyor slowly
 		gamepad.RT.whenInactive(new Conveyor_Run(0)); // stop running the conveyor slowly
 	}
