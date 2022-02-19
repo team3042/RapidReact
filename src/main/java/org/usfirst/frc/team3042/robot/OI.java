@@ -89,7 +89,7 @@ public class OI {
 	}
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
-		joystickValue *= -0.8;
+		joystickValue *= -0.9;
 		return joystickValue;
 	}
 	private double checkDeadZone(double joystickValue) {
