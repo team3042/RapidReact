@@ -50,8 +50,9 @@ public class Robot extends TimedRobot {
 		
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
-		//chooser.addOption("Right Tarmac", new AutonomousMode_RightTarmac()); //TODO: Figure out why this creates errors when uncommented
 		//chooser.addOption("Left Tarmac", new AutonomousMode_LeftTarmac()); //TODO: Figure out why this creates errors when uncommented
+		//chooser.addOption("Right Tarmac", new AutonomousMode_RightTarmac()); //TODO: Figure out why this creates errors when uncommented
+		//chooser.addOption("4 Ball Auto", new AutonomousMode_Ludicrous()); //TODO: Figure out why this creates errors when uncommented
 
 		chooser.addOption("Straight TEST", new Drivetrain_Trajectory("Basic_Straight_Line_Path"));
 		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("Basic_Strafe_Path"));

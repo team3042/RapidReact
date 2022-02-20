@@ -13,6 +13,6 @@ public class AutonomousMode_Default extends SequentialCommandGroup {
 
   public AutonomousMode_Default() {
     addCommands(new Conveyor_Run(1), new Wait(2), new Conveyor_Run(0), // Run the conveyor for a specified number of seconds
-                new Drivetrain_GyroStraight(75, 0.5), new Intake_Toggle()); // Drive out of the tarmac and deploy intake
+                new Drivetrain_GyroStraight(75, 0.5), new Intake_Toggle()); // Drive out of the tarmac and deploy intake!
   }
 }
