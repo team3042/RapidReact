@@ -48,7 +48,7 @@ public class Drivetrain_Trajectory extends CommandBase {
 	public void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
 
-		var initialState = (PathPlannerState)path.sample(0); // Define the initial state of the trajectory
+		PathPlannerState initialState = (PathPlannerState)path.sample(0); // Define the initial state of the trajectory
 
 		// Add kinematics to ensure max speed is actually obeyed
 		PPMecanumControllerCommand mecanumControllerCommand = new PPMecanumControllerCommand(path,
@@ -64,7 +64,6 @@ public class Drivetrain_Trajectory extends CommandBase {
 		drivetrain.resetOdometry(new Pose2d(initialState.poseMeters.getTranslation(), initialState.holonomicRotation));
 
 		mecanumControllerCommand.andThen(() -> drivetrain.driveCartesian(0, 0, 0));
-
 	}
 	
 	/** isFinished ************************************************************	
@@ -77,14 +76,12 @@ public class Drivetrain_Trajectory extends CommandBase {
 	 * Called once after isFinished returns true */
 	protected void end() {
 		log.add("End", Log.Level.TRACE);
-		drivetrain.driveCartesian(0, 0, 0);
 	}
-
+	
 	/** interrupted ***********************************************************
 	 * Called when another command which requires one or more of the same
 	 * subsystems is scheduled to run */
 	protected void interrupted() {
 		log.add("Interrupted", Log.Level.TRACE);
-		drivetrain.driveCartesian(0, 0, 0);
 	}
 }
