@@ -47,7 +47,7 @@ public class OI {
 		joyLeft.button1.whenPressed(new InstantCommand(drivetrain::zeroGyro, drivetrain)); // Zero the gyro, this is helpful for field-oriented driving
 		
 		// Intake Controls //
-		gamepad.LB.whenActive(new Intake_Intake(1)); // run the intake
+		gamepad.LB.whenPressed(new Intake_Intake(1)); // run the intake
 		gamepad.LB.whenReleased(new Intake_Intake(0)); // stop running the intake
 
 		gamepad.LT.whenActive(new Intake_Intake(-1)); // reverse the intake

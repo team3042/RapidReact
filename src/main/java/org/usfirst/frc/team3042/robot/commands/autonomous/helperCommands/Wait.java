@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * Waits for a specified number of seconds. Useful for autonomous command groups! */
 public class Wait extends CommandBase {
 
-	int duration;
+	double duration;
 	Timer timer = new Timer();
 
-	public Wait(int time) {
+	public Wait(double time) {
 		duration = time;
 	}
 

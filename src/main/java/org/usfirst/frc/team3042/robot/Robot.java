@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
+import org.usfirst.frc.team3042.robot.commands.Drivetrain_Trajectory;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Default;
 import org.usfirst.frc.team3042.robot.subsystems.Climber;
 import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
@@ -49,18 +50,12 @@ public class Robot extends TimedRobot {
 		
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
-		//chooser.addOption("Bottom Tarmac", new AutonomousMode_BottomTarmac()); //TODO: Figure out why this creates errors when uncommented
-		//chooser.addOption("Top Tarmac", new AutonomousMode_TopTarmac()); //TODO: Figure out why this creates errors when uncommented
-		//chooser.addOption("Top Tarmac 2", new AutonomousMode_TopTarmac2()); //TODO: Figure out why this creates errors when uncommented
+		//chooser.addOption("Right Tarmac", new AutonomousMode_RightTarmac()); //TODO: Figure out why this creates errors when uncommented
+		//chooser.addOption("Left Tarmac", new AutonomousMode_LeftTarmac()); //TODO: Figure out why this creates errors when uncommented
 
-		//chooser.addOption("Straight TEST", new Drivetrain_Trajectory("Basic_Straight_Line_Path"));
-		//chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("Basic_Strafe_Path"));
-		//chooser.addOption("Curve TEST", new Drivetrain_Trajectory("Basic_Curve_Path"));
-		//chooser.addOption("Spiral TEST", new Drivetrain_Trajectory("Basic_Spiral_Path"));
-
-		//chooser.addOption("Gyro Straight", new Drivetrain_GyroStraight(50, 0.25));
-		//chooser.addOption("Gyro Strafe", new Drivetrain_GyroStrafe(50, 0.25));
-		//chooser.addOption("Gyro Turn", new Drivetrain_GyroTurn(90));
+		chooser.addOption("Straight TEST", new Drivetrain_Trajectory("Basic_Straight_Line_Path"));
+		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("Basic_Strafe_Path"));
+		chooser.addOption("Curve TEST", new Drivetrain_Trajectory("Basic_Curve_Path"));
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 

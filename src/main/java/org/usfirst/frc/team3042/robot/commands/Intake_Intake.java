@@ -42,14 +42,13 @@ public class Intake_Intake extends CommandBase {
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
 	public boolean isFinished() {
-		return false;
+		return true;
 	}
 	
 	/** end *******************************************************************
 	 * Called once after isFinished returns true */
 	protected void end() {
 		log.add("End", Log.Level.TRACE);
-		intake.stop();
 	}
 
 	/** interrupted ***********************************************************
@@ -57,6 +56,5 @@ public class Intake_Intake extends CommandBase {
 	 * subsystems is scheduled to run */
 	protected void interrupted() {
 		log.add("Interrupted", Log.Level.TRACE);
-		intake.stop();
 	}
 }

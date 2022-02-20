@@ -7,11 +7,12 @@ import org.usfirst.frc.team3042.robot.commands.autonomous.helperCommands.Wait;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-/** Basic Autonomous Mode ******************************************************
- * This is our default autonomous routine for Week 0! */
+/** Autonomous Mode (Default) - 4 points ******************************************************
+ * This is our most basic autonomous routine for scoring the starting cargo */
 public class AutonomousMode_Default extends SequentialCommandGroup {
 
   public AutonomousMode_Default() {
-    addCommands(new Conveyor_Run(1), new Wait(3), new Conveyor_Run(0), new Drivetrain_GyroStraight(75, 0.5), new Intake_Toggle());
+    addCommands(new Conveyor_Run(1), new Wait(2), new Conveyor_Run(0), // Run the conveyor for a specified number of seconds
+                new Drivetrain_GyroStraight(75, 0.5), new Intake_Toggle()); // Drive out of the tarmac and deploy intake
   }
 }
