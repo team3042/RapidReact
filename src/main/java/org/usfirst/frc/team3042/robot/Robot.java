@@ -6,6 +6,8 @@ import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
 
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Default;
+import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_LeftTarmac;
+import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_RightTarmac;
 import org.usfirst.frc.team3042.robot.commands.autonomous.helperCommands.PPMecanumControllerCommand;
 import org.usfirst.frc.team3042.robot.subsystems.Climber;
 import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
@@ -58,12 +60,11 @@ public class Robot extends TimedRobot {
 		
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
-		//chooser.addOption("Left Tarmac", new AutonomousMode_LeftTarmac());
+		chooser.addOption("Left Tarmac", new AutonomousMode_LeftTarmac());
 		//chooser.addOption("Right Tarmac", new AutonomousMode_RightTarmac());
 		//chooser.addOption("4 Ball Auto", new AutonomousMode_Ludicrous());
 
 		chooser.addOption("Straight TEST", constructTrajectoryCommand("Basic_Straight_Line_Path"));
-		chooser.addOption("Strafe TEST", constructTrajectoryCommand("Basic_Strafe_Path"));
 		chooser.addOption("Curve TEST", constructTrajectoryCommand("Basic_Curve_Path"));
 				
 		SmartDashboard.putData("Auto Mode", chooser);
@@ -164,8 +165,6 @@ public class Robot extends TimedRobot {
 		
 		PathPlannerTrajectory path = PathPlanner.loadPath(pathName, RobotMap.VELOCITY_MAX_MPS, RobotMap.ACCELERATION_MAX_MPS); 
 
-		PathPlannerState initialState = (PathPlannerState)path.sample(0); // Define the initial state of the trajectory
-
 		// Add kinematics to ensure max speed is actually obeyed
 		PPMecanumControllerCommand mecanumControllerCommand = new PPMecanumControllerCommand(path, drivetrain::getPose, drivetrain.getkDriveKinematics(),
 
@@ -175,8 +174,6 @@ public class Robot extends TimedRobot {
 		new ProfiledPIDController(RobotMap.kP_THETA_CONTROLLER, 0, 0, drivetrain.getkThetaControllerConstraints()),
 
 		drivetrain::setWheelSpeeds, drivetrain);
-
-		drivetrain.resetOdometry(new Pose2d(initialState.poseMeters.getTranslation(), initialState.holonomicRotation));
 
 		return mecanumControllerCommand.andThen(() -> drivetrain.driveCartesian(0, 0, 0));
 	}

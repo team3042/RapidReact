@@ -54,15 +54,15 @@ public class RobotMap {
 	public static final boolean REVERSE_RIGHT_FRONT_MOTOR = false;
 	public static final boolean REVERSE_LEFT_BACK_MOTOR = true;
 	public static final boolean REVERSE_RIGHT_BACK_MOTOR = true;
-	public static final double VELOCITY_MAX_MPS = 8; // Maximum velocity in meters/second TODO: We'll probably want to tune this value
-	public static final double ACCELERATION_MAX_MPS = 5; // Maximum acceleration in meters/second squared //TODO: We'll probably want to tune this value
-	public static final double kP_FRONT_RIGHT_VELOCITY = 3.545;
-	public static final double kP_FRONT_LEFT_VELOCITY = 3.545;
-	public static final double kP_BACK_RIGHT_VELOCITY = 3.545;
-	public static final double kP_BACK_LEFT_VELOCITY = 3.545;
-	public static final double kP_X_CONTROLLER = 1; //TODO: Tune this using guess-and-check after our drivetrain has been characterized!
-    public static final double kP_Y_CONTROLLER = 1; //TODO: Tune this using guess-and-check after our drivetrain has been characterized!
-    public static final double kP_THETA_CONTROLLER = 1; //TODO: Tune this using guess-and-check after our drivetrain has been characterized!
+	public static final double VELOCITY_MAX_MPS = 4; // Maximum velocity in meters/second TODO: We'll probably want to tune this value
+	public static final double ACCELERATION_MAX_MPS = 2; // Maximum acceleration in meters/second squared //TODO: We'll probably want to tune this value
+	public static final double kP_FRONT_RIGHT_VELOCITY = 0.0010269;
+	public static final double kP_FRONT_LEFT_VELOCITY = 0.0010269;
+	public static final double kP_BACK_RIGHT_VELOCITY = 0.0010269;
+	public static final double kP_BACK_LEFT_VELOCITY = 0.0010269;
+	public static final double kP_X_CONTROLLER = 9.6421; //TODO: Tune this using guess-and-check after our drivetrain has been characterized!
+    public static final double kP_Y_CONTROLLER = 9.6421; //TODO: Tune this using guess-and-check after our drivetrain has been characterized!
+    public static final double kP_THETA_CONTROLLER = 9.6421; //TODO: Tune this using guess-and-check after our drivetrain has been characterized!
 	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI; //TODO: Tune this??? (not sure yet if we'll need to change this value)
 	public static final double kMAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = Math.PI; //TODO: Tune this??? (not sure yet if we'll need to change this value)
 

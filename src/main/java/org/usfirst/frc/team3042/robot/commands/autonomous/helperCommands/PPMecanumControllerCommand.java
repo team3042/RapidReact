@@ -6,6 +6,8 @@ import java.util.function.Supplier;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
 
+import org.usfirst.frc.team3042.robot.Robot;
+
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -49,6 +51,10 @@ public class PPMecanumControllerCommand extends CommandBase {
 
   @Override
   public void initialize() {
+    PathPlannerState initialState = (PathPlannerState)m_trajectory.sample(0); // Define the initial state of the trajectory
+
+    Robot.drivetrain.resetOdometry(new Pose2d(initialState.poseMeters.getTranslation(), initialState.holonomicRotation));
+
     m_timer.reset();
     m_timer.start();
   }
