@@ -1,8 +1,12 @@
 package org.usfirst.frc.team3042.robot;
 
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPlannerTrajectory.PathPlannerState;
+
 import org.usfirst.frc.team3042.lib.Log;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_Trajectory;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Default;
+import org.usfirst.frc.team3042.robot.commands.autonomous.helperCommands.PPMecanumControllerCommand;
 import org.usfirst.frc.team3042.robot.subsystems.Climber;
 import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
@@ -13,7 +17,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.PowerDistribution;
 
@@ -50,13 +58,13 @@ public class Robot extends TimedRobot {
 		
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
-		//chooser.addOption("Left Tarmac", new AutonomousMode_LeftTarmac()); //TODO: Figure out why this creates errors when uncommented
-		//chooser.addOption("Right Tarmac", new AutonomousMode_RightTarmac()); //TODO: Figure out why this creates errors when uncommented
-		//chooser.addOption("4 Ball Auto", new AutonomousMode_Ludicrous()); //TODO: Figure out why this creates errors when uncommented
+		//chooser.addOption("Left Tarmac", new AutonomousMode_LeftTarmac());
+		//chooser.addOption("Right Tarmac", new AutonomousMode_RightTarmac());
+		//chooser.addOption("4 Ball Auto", new AutonomousMode_Ludicrous());
 
-		chooser.addOption("Straight TEST", new Drivetrain_Trajectory("Basic_Straight_Line_Path"));
-		chooser.addOption("Strafe TEST", new Drivetrain_Trajectory("Basic_Strafe_Path"));
-		chooser.addOption("Curve TEST", new Drivetrain_Trajectory("Basic_Curve_Path"));
+		chooser.addOption("Straight TEST", constructTrajectoryCommand("Basic_Straight_Line_Path"));
+		chooser.addOption("Strafe TEST", constructTrajectoryCommand("Basic_Strafe_Path"));
+		chooser.addOption("Curve TEST", constructTrajectoryCommand("Basic_Curve_Path"));
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 
@@ -151,4 +159,25 @@ public class Robot extends TimedRobot {
 			drivetrain.driveCartesian(ySpeed, xSpeed, -1 * correction, drivetrain.getGyroAngle());
 		}
 	} 
+
+	public static SequentialCommandGroup constructTrajectoryCommand(String pathName) { // Give this a path name and it will return a PPMecanumControllerCommand for that path :)
+		
+		PathPlannerTrajectory path = PathPlanner.loadPath(pathName, RobotMap.VELOCITY_MAX_MPS, RobotMap.ACCELERATION_MAX_MPS); 
+
+		PathPlannerState initialState = (PathPlannerState)path.sample(0); // Define the initial state of the trajectory
+
+		// Add kinematics to ensure max speed is actually obeyed
+		PPMecanumControllerCommand mecanumControllerCommand = new PPMecanumControllerCommand(path, drivetrain::getPose, drivetrain.getkDriveKinematics(),
+
+		// Position contollers
+		new PIDController(RobotMap.kP_X_CONTROLLER, 0, 0),
+		new PIDController(RobotMap.kP_Y_CONTROLLER, 0, 0),
+		new ProfiledPIDController(RobotMap.kP_THETA_CONTROLLER, 0, 0, drivetrain.getkThetaControllerConstraints()),
+
+		drivetrain::setWheelSpeeds, drivetrain);
+
+		drivetrain.resetOdometry(new Pose2d(initialState.poseMeters.getTranslation(), initialState.holonomicRotation));
+
+		return mecanumControllerCommand.andThen(() -> drivetrain.driveCartesian(0, 0, 0));
+	}
 }

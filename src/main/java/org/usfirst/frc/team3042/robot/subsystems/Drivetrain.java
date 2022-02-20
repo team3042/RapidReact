@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
 /** Drivetrain ****************************************************************
@@ -38,6 +39,7 @@ public class Drivetrain extends SubsystemBase {
 	private static final double WHEEL_BASE = RobotMap.WHEEL_BASE;
 
 	private static final SimpleMotorFeedforward kFeedforward = new SimpleMotorFeedforward(0.15465, 2.7381, 0.38004); // kS, kV, kA Characterization Constants
+	private static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(RobotMap.kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND, RobotMap.kMAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
 	private final PIDController frontLeftPIDController = new PIDController(RobotMap.kP_FRONT_LEFT_VELOCITY, 0, 0);
   	private final PIDController frontRightPIDController = new PIDController(RobotMap.kP_FRONT_RIGHT_VELOCITY, 0, 0);
   	private final PIDController backLeftPIDController = new PIDController(RobotMap.kP_BACK_LEFT_VELOCITY, 0, 0);
@@ -117,6 +119,9 @@ public class Drivetrain extends SubsystemBase {
 	}
 	public MecanumDriveKinematics getkDriveKinematics() {
 		return kDriveKinematics;	
+	}
+	public TrapezoidProfile.Constraints getkThetaControllerConstraints() {
+		return kThetaControllerConstraints;
 	}
 
 	@Override

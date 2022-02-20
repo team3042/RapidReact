@@ -1,7 +1,7 @@
 package org.usfirst.frc.team3042.robot.commands.autonomous;
 
+import org.usfirst.frc.team3042.robot.Robot;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
-import org.usfirst.frc.team3042.robot.commands.Drivetrain_Trajectory;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 import org.usfirst.frc.team3042.robot.commands.Intake_Toggle;
 import org.usfirst.frc.team3042.robot.commands.autonomous.helperCommands.Wait;
@@ -15,7 +15,7 @@ public class AutonomousMode_LeftTarmac extends SequentialCommandGroup {
   public AutonomousMode_LeftTarmac() {
     addCommands(new Conveyor_Run(1), new Wait(2), new Conveyor_Run(0), // Run the conveyor for a specified number of seconds
                 new Intake_Toggle(), new Intake_Intake(1), // Deploy the intake and start running it
-                new Drivetrain_Trajectory("Left_Tarmac"), // Drive our trajectory to intake 1 more cargo
+                Robot.constructTrajectoryCommand("Left_Tarmac"), // Drive our trajectory to intake 1 more cargo
                 new Conveyor_Run(1), new Intake_Intake(0)); // Stop the intake and score our additional cargo
   }
 }
