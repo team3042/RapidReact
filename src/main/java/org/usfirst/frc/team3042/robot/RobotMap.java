@@ -13,7 +13,7 @@ public class RobotMap {
 	 * and speed closed-loop commands. For example, if the diameter is given 
 	 * in inches, position will be in inches and speed in inches per second. */
 	public static final double WHEEL_DIAMETER = 6.0; // Measured in inches (0.1524 m)
-	public static final double TRACK_WIDTH = 0.57785; // Distance between centers of right and left wheels on robot (in meters) //TODO: We might need to replace this with the calculated track width from SysID
+	public static final double TRACK_WIDTH = 0.57785; // Distance between centers of right and left wheels on robot (in meters)
     public static final double WHEEL_BASE = 0.517525; // Distance between centers of front and back wheels on robot (in meters) 
 
 	/** CAN ID numbers ********************************************************/
@@ -46,7 +46,7 @@ public class RobotMap {
 	public static final boolean REVERSE_LEFT_CONVEYOR = true;
 	public static final NeutralMode CONVEYOR_BRAKE_MODE = NeutralMode.Brake;
 	public static final double CONVEYOR_POWER = 0.65; // How much power (as a %) to give the conveyor
-	public static final double CONVEYOR_ADVANCE_DURATION = 1.0; // How much time in seconds that the conveyor runs //TODO: tune this value through testing!
+	public static final double CONVEYOR_ADVANCE_DURATION = 1.0; // How much time in seconds that the conveyor runs //TODO: Remove this setting after rewriting the Conveyor_Advance Command
 
 	/** Drivetrain Settings ***************************************************/
 	public static final IdleMode DRIVETRAIN_BRAKE_MODE = IdleMode.kBrake;
@@ -54,17 +54,17 @@ public class RobotMap {
 	public static final boolean REVERSE_RIGHT_FRONT_MOTOR = false;
 	public static final boolean REVERSE_LEFT_BACK_MOTOR = true;
 	public static final boolean REVERSE_RIGHT_BACK_MOTOR = true;
-	public static final double VELOCITY_MAX_MPS = 4; // Maximum velocity in meters/second TODO: We'll probably want to tune this value
-	public static final double ACCELERATION_MAX_MPS = 2; // Maximum acceleration in meters/second squared //TODO: We'll probably want to tune this value
+	public static final double VELOCITY_MAX_MPS = 4;
+	public static final double ACCELERATION_MAX_MPS = 2;
 	public static final double kP_FRONT_RIGHT_VELOCITY = 0.0010269;
 	public static final double kP_FRONT_LEFT_VELOCITY = 0.0010269;
 	public static final double kP_BACK_RIGHT_VELOCITY = 0.0010269;
 	public static final double kP_BACK_LEFT_VELOCITY = 0.0010269;
-	public static final double kP_X_CONTROLLER = 9.6421; //TODO: Tune this using guess-and-check after our drivetrain has been characterized!
-    public static final double kP_Y_CONTROLLER = 9.6421; //TODO: Tune this using guess-and-check after our drivetrain has been characterized!
-    public static final double kP_THETA_CONTROLLER = 9.6421; //TODO: Tune this using guess-and-check after our drivetrain has been characterized!
-	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI; //TODO: Tune this??? (not sure yet if we'll need to change this value)
-	public static final double kMAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = Math.PI; //TODO: Tune this??? (not sure yet if we'll need to change this value)
+	public static final double kP_X_CONTROLLER = 9.6421;
+    public static final double kP_Y_CONTROLLER = 9.6421;
+    public static final double kP_THETA_CONTROLLER = 9.6421;
+	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI;
+	public static final double kMAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = Math.PI;
 
 	/** Drivetrain Gyro Drive Settings ****************************************/
 	public static final double kP_GYRO = 0.01;
