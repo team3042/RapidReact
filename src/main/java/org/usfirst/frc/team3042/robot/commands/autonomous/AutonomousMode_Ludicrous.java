@@ -18,7 +18,7 @@ public class AutonomousMode_Ludicrous extends SequentialCommandGroup {
                 Robot.constructTrajectoryCommand("RightTarmac_1Ball"), // Drive our trajectory to intake 1 more cargo
                 new Conveyor_Run(1), new Intake_Intake(0), new Wait(2), new Conveyor_Run(0), new Intake_Intake(1)); // Score our first 2 cargo
                 new ParallelCommandGroup(Robot.constructTrajectoryCommand("Ludicrous_Mode"), // Drive our trajectory to intake 2 more cargo
-                                         new ParallelCommandGroup(new Wait(1), new Conveyor_Run(0.5), new Wait(1), new Conveyor_Run(0)), //TODO: Tune these wait times to bring the first ball into the conveyor!
+                                         new SequentialCommandGroup(new Wait(1), new Conveyor_Run(0.5), new Wait(1), new Conveyor_Run(0)), //TODO: Tune these wait times to bring the first ball into the conveyor!
                 new Conveyor_Run(1), new Intake_Intake(0)); // Stop the intake and score our additional cargo
   }
 }
