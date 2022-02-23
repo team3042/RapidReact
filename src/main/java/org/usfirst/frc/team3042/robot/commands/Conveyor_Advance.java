@@ -10,7 +10,7 @@ import org.usfirst.frc.team3042.robot.RobotMap;
 import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
 
 /** Conveyor_Advance *******************************************************************
- * Auto advance the conveyor by a set increment whenever the switch detects a ball in the conveyor */
+ * Auto advance the conveyor until the limit switch detects a ball */
 public class Conveyor_Advance extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CONVEYOR;
@@ -26,29 +26,24 @@ public class Conveyor_Advance extends CommandBase {
 	 * Required subsystems will cancel commands when this command is run. */
 	public Conveyor_Advance() {
 		log.add("Constructor", Log.Level.TRACE);
-		addRequirements(conveyor);	}
+		addRequirements(conveyor);	
+	}
 
 	/** initialize ************************************************************
 	 * Called just before this Command runs the first time */
 	public void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
+		conveyor.setPower(POWER);
 	}
 
 	/** execute ***************************************************************
 	 * Called repeatedly when this Command is scheduled to run */
-	public void execute() {
-		if(limit.get()){
-			conveyor.setPower(0);
-		}
-		else {
-			conveyor.setPower(POWER);
-		}
-	}
+	public void execute() {}
 	
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
 	public boolean isFinished() {
-		return false;
+		return limit.get();
 	}
 	
 	/** end *******************************************************************
