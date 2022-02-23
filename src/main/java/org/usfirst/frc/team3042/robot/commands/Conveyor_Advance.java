@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3042.robot.commands;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
@@ -16,14 +15,12 @@ public class Conveyor_Advance extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CONVEYOR;
 	private static final double POWER = RobotMap.CONVEYOR_POWER * 0.5;
-	private static final double duration = RobotMap.CONVEYOR_ADVANCE_DURATION;
 	private static final int DIO_LIMITSWITCH = RobotMap.DIO_LIMITSWITCH;
   
 	/** Instance Variables ****************************************************/
   	Conveyor conveyor = Robot.conveyor;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(conveyor));
 	DigitalInput limit = new DigitalInput(DIO_LIMITSWITCH);
-	Timer timer = new Timer();
 
 	/** Conveyor ****************************************************************
 	 * Required subsystems will cancel commands when this command is run. */
@@ -35,20 +32,16 @@ public class Conveyor_Advance extends CommandBase {
 	 * Called just before this Command runs the first time */
 	public void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
-		timer.reset();
 	}
 
 	/** execute ***************************************************************
 	 * Called repeatedly when this Command is scheduled to run */
 	public void execute() {
 		if(limit.get()){
-			conveyor.setPower(POWER);
-			timer.start();
+			conveyor.setPower(0);
 		}
-		if(timer.get() >= duration){
-			conveyor.stop();
-			timer.stop();
-			timer.reset();
+		else {
+			conveyor.setPower(POWER);
 		}
 	}
 	

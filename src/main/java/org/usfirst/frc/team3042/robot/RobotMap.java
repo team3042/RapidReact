@@ -46,7 +46,6 @@ public class RobotMap {
 	public static final boolean REVERSE_LEFT_CONVEYOR = true;
 	public static final NeutralMode CONVEYOR_BRAKE_MODE = NeutralMode.Brake;
 	public static final double CONVEYOR_POWER = 0.65; // How much power (as a %) to give the conveyor
-	public static final double CONVEYOR_ADVANCE_DURATION = 1.0; // How much time in seconds that the conveyor runs //TODO: Remove this setting after rewriting the Conveyor_Advance Command
 
 	/** Drivetrain Settings ***************************************************/
 	public static final IdleMode DRIVETRAIN_BRAKE_MODE = IdleMode.kBrake;
