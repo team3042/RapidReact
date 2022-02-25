@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
+import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 import org.usfirst.frc.team3042.robot.commands.Intake_Toggle;
@@ -56,8 +57,10 @@ public class OI {
 		gamepad.A.whenPressed(new Intake_Toggle()); // extend or retract the intake
 
 		// Climber Controls //
-		//gamepad.POVUp.whenActive(new Climber_Run(1)); // raise the climber
-		//gamepad.POVDown.whenActive(new Climber_Run(-1)); // lower the climber
+		gamepad.POVUp.whenActive(new Climber_Run(1)); // raise the climber
+		gamepad.POVUp.whenInactive(new Climber_Run(0)); // stop the climber
+		gamepad.POVDown.whenActive(new Climber_Run(-1)); // lower the climber
+		gamepad.POVDown.whenInactive(new Climber_Run(0)); // stop the climber
 
 		// Conveyor Controls //
 		gamepad.RB.whenPressed(new Conveyor_Run(1)); // run the converyor

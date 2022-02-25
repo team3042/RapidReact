@@ -35,10 +35,10 @@ public class RobotMap {
 	public static final int DIO_LIMITSWITCH = 0; //TODO Find this value
 
 	/** Climber Settings ******************************************************/
-	public static final boolean REVERSE_RIGHT_CLIMBER = false;
+	public static final boolean REVERSE_RIGHT_CLIMBER = true;
 	public static final boolean REVERSE_LEFT_CLIMBER = false;
 	public static final NeutralMode CLIMBER_BRAKE_MODE = NeutralMode.Brake;
-	public static final double CLIMBER_POWER = 0.85; // How much power (as a %) to give the climber
+	public static final double CLIMBER_POWER = 0.5; // How much power (as a %) to give the climber
 	
 	/** Conveyor Settings *****************************************************/
 	public static final boolean REVERSE_TOP_CONVEYOR = false;
