@@ -49,6 +49,7 @@ public class RobotMap {
 
 	/** Drivetrain Settings ***************************************************/
 	public static final IdleMode DRIVETRAIN_BRAKE_MODE = IdleMode.kBrake;
+	public static final double JOYSTICK_DRIVE_SCALE = 1; // Determines the max driving speed of the robot
 	public static final boolean REVERSE_LEFT_FRONT_MOTOR = false;
 	public static final boolean REVERSE_RIGHT_FRONT_MOTOR = false;
 	public static final boolean REVERSE_LEFT_BACK_MOTOR = true;

@@ -24,6 +24,7 @@ public class OI {
 	private static final int JOYSTICK_Z_AXIS = Gamepad.JOY_Z_AXIS;
 	private static final int GAMEPAD_LEFT_TRIGGER = Gamepad.LEFT_TRIGGER;
 	private static final int GAMEPAD_RIGHT_TRIGGER = Gamepad.RIGHT_TRIGGER;
+	private static final double JOYSTICK_DRIVE_SCALE = RobotMap.JOYSTICK_DRIVE_SCALE;
 	
 	/** Instance Variables ****************************************************/
 	Log log = new Log(RobotMap.LOG_OI, "OI");
@@ -78,21 +79,22 @@ public class OI {
 	public double getXSpeed() {
 		double joystickValue = joyRight.getRawAxis(driveAxisY);
 		joystickValue = scaleJoystick(joystickValue);
-		return joystickValue;
+		return -1 * joystickValue; // Multiply by -1 to reverse direction
 	}
 	public double getYSpeed() {
 		double joystickValue = joyRight.getRawAxis(driveAxisX);
 		joystickValue = scaleJoystick(joystickValue);
-		return -1 * joystickValue;
+		return joystickValue; 
 	}
 	public double getZSpeed() {
 		double joystickValue = joyLeft.getRawAxis(driveAxisX);
 		joystickValue = scaleJoystick(joystickValue);
-		return -0.7 * joystickValue;
+		return 0.6 * joystickValue; // Scale turning to be 60% the speed of driving for better control
 	}
+	
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
-		joystickValue *= -0.9;
+		joystickValue *= JOYSTICK_DRIVE_SCALE;
 		return joystickValue;
 	}
 	private double checkDeadZone(double joystickValue) {
