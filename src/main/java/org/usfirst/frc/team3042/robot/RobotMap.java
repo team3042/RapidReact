@@ -33,9 +33,9 @@ public class RobotMap {
 	public static final int CLIMBER_SOLENOID = 2; 
 	
 	/** DIO channels **********************************************************/
-	public static final int DIO_LIMITSWITCH_CONVEYOR = 1; //TODO Find this value
-	public static final int DIO_LIMITSWITCH_CLIMBER_RIGHT = 5; //TODO Find this value
-	public static final int DIO_LIMITSWITCH_CLIMBER_LEFT = 4; //TODO Find this value
+	public static final int DIO_LIMITSWITCH_CONVEYOR = 1;
+	public static final int DIO_LIMITSWITCH_CLIMBER_RIGHT = 0; //TODO: Find this value after we install the climber limit switches
+	public static final int DIO_LIMITSWITCH_CLIMBER_LEFT = 0; //TODO: Find this value after we install the climber limit switches
 
 	/** Climber Settings ******************************************************/
 	public static final boolean REVERSE_RIGHT_CLIMBER = true;

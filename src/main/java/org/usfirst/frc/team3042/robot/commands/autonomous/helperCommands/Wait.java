@@ -18,18 +18,12 @@ public class Wait extends CommandBase {
 		timer.reset();
 		timer.start();
 	}
-
-	public void execute() {}
 	
 	public boolean isFinished() {
 		return timer.get() >= duration;
 	}
-	
-	protected void end() {
-		timer.reset();
-	}
 
-	protected void interrupted() {
+	public void end(boolean interrupted) {
 		timer.reset();
 	}
 }

@@ -74,19 +74,10 @@ public class Drivetrain_GyroTurn extends CommandBase {
 	public boolean isFinished() {
 		return Math.abs(lastError) < ANGLE_TOLERANCE;
 	}
-	
-	/** end *******************************************************************
-	 * Called once after isFinished returns true */
-	protected void end() {
+
+	// Called once the command ends or is interrupted.
+	public void end(boolean interrupted) {
 		log.add("End", Log.Level.TRACE);
-		drivetrain.driveCartesian(0, 0, 0);
-	}
-	
-	/** interrupted ***********************************************************
-	 * Called when another command which requires one or more of the same
-	 * subsystems is scheduled to run */
-	protected void interrupted() {
-		log.add("Interrupted", Log.Level.TRACE);
 		drivetrain.driveCartesian(0, 0, 0);
 	}
 }

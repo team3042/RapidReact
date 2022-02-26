@@ -49,17 +49,9 @@ public class Intake_Toggle extends CommandBase {
 	public boolean isFinished() {
 		return true;
 	}
-	
-	/** end *******************************************************************
-	 * Called once after isFinished returns true */
-	protected void end() {
-		log.add("End", Log.Level.TRACE);
-	}
 
-	/** interrupted ***********************************************************
-	 * Called when another command which requires one or more of the same
-	 * subsystems is scheduled to run */
-	protected void interrupted() {
-		log.add("Interrupted", Log.Level.TRACE);
+	// Called once the command ends or is interrupted.
+	public void end(boolean interrupted) {
+		log.add("End", Log.Level.TRACE);
 	}
 }

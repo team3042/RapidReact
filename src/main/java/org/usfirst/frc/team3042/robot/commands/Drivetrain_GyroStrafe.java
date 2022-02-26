@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
  * Command for driving sideways using gyroscope feedback. */
 public class Drivetrain_GyroStrafe extends CommandBase {
   
-  /** Configuration Constants ***********************************************/
+  	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_DRIVETRAIN;
 	private static final double kP = RobotMap.kP_GYRO;
 	private static final double CIRCUMFRENCE = RobotMap.WHEEL_DIAMETER * Math.PI;
@@ -23,8 +23,8 @@ public class Drivetrain_GyroStrafe extends CommandBase {
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(drivetrain));
 	double strafePower, goalAngle, goalDistance;
 
-  /** Creates a new Drivetrain_GyroStrafe. */
-  public Drivetrain_GyroStrafe(double distance, double power) {
+  	/** Creates a new Drivetrain_GyroStrafe. */
+  	public Drivetrain_GyroStrafe(double distance, double power) {
     log.add("Constructor", Log.Level.TRACE);
 		strafePower = power;
 		
@@ -32,7 +32,7 @@ public class Drivetrain_GyroStrafe extends CommandBase {
 		goalDistance = distance / CIRCUMFRENCE;
 
 		addRequirements(drivetrain);
-  }
+  	}
 
   // Called when the command is initially scheduled.
   @Override
@@ -41,7 +41,7 @@ public class Drivetrain_GyroStrafe extends CommandBase {
 		drivetrain.driveCartesian(0, 0, 0);
 		goalAngle = drivetrain.getGyroAngle();
 		drivetrain.resetEncoders();
-  }
+  	}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -54,14 +54,7 @@ public class Drivetrain_GyroStrafe extends CommandBase {
 		correction = Math.max(-MAX_CORRECTION, correction);
 		
 		drivetrain.driveCartesian(strafePower, 0, -1 * correction);
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    log.add("End", Log.Level.TRACE);
-		drivetrain.driveCartesian(0, 0, 0);
-  }
+ 	 }
 
   // Returns true when the command should end.
   @Override
@@ -69,20 +62,11 @@ public class Drivetrain_GyroStrafe extends CommandBase {
     boolean rightFrontGoalReached = Math.abs(drivetrain.getRightFrontPosition()) >= goalDistance;
 		boolean rightBackGoalReached = Math.abs(drivetrain.getRightBackPosition()) >= goalDistance;
 		return rightFrontGoalReached || rightBackGoalReached;
-  }
+  	}
 
-  /** end *******************************************************************
-	 * Called once after isFinished returns true */
-	protected void end() {
+    // Called once the command ends or is interrupted.
+	public void end(boolean interrupted) {
 		log.add("End", Log.Level.TRACE);
-		drivetrain.driveCartesian(0, 0, 0);
-	}
-	
-	/** interrupted ***********************************************************
-	 * Called when another command which requires one or more of the same
-	 * subsystems is scheduled to run */
-	protected void interrupted() {
-		log.add("Interrupted", Log.Level.TRACE);
 		drivetrain.driveCartesian(0, 0, 0);
 	}
 }

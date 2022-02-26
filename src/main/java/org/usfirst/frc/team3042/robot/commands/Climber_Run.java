@@ -2,7 +2,6 @@ package org.usfirst.frc.team3042.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.util.sendable.SendableRegistry;
-import edu.wpi.first.wpilibj.DigitalInput;
 
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.Robot;
@@ -69,19 +68,10 @@ public class Climber_Run extends CommandBase {
 	public boolean isFinished() {
 		return false;
 	}
-	
-	/** end *******************************************************************
-	 * Called once after isFinished returns true */
-	protected void end() {
-		log.add("End", Log.Level.TRACE);
-		climber.stop();
-	}
 
-	/** interrupted ***********************************************************
-	 * Called when another command which requires one or more of the same
-	 * subsystems is scheduled to run */
-	protected void interrupted() {
-		log.add("Interrupted", Log.Level.TRACE);
+	// Called once the command ends or is interrupted.
+	public void end(boolean interrupted) {
+		log.add("End", Log.Level.TRACE);
 		climber.stop();
 	}
 }

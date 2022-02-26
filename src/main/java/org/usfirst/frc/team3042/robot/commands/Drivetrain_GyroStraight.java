@@ -66,19 +66,10 @@ public class Drivetrain_GyroStraight extends CommandBase {
 		boolean rightFrontGoalReached = Math.abs(drivetrain.getRightFrontPosition()) >= goalDistance;
 		return leftFrontGoalReached || rightFrontGoalReached;
 	}
-	
-	/** end *******************************************************************
-	 * Called once after isFinished returns true */
-	protected void end() {
+
+	// Called once the command ends or is interrupted.
+	public void end(boolean interrupted) {
 		log.add("End", Log.Level.TRACE);
-		drivetrain.driveCartesian(0, 0, 0);
-	}
-	
-	/** interrupted ***********************************************************
-	 * Called when another command which requires one or more of the same
-	 * subsystems is scheduled to run */
-	protected void interrupted() {
-		log.add("Interrupted", Log.Level.TRACE);
 		drivetrain.driveCartesian(0, 0, 0);
 	}
 }
