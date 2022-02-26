@@ -3,6 +3,7 @@ package org.usfirst.frc.team3042.robot;
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.commands.Climber_Ratchet;
 import org.usfirst.frc.team3042.robot.commands.Climber_Run;
+import org.usfirst.frc.team3042.robot.commands.Conveyor_Advance;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 import org.usfirst.frc.team3042.robot.commands.Intake_Toggle;
@@ -19,13 +20,9 @@ public class OI {
 	private static final int USB_GAMEPAD = RobotMap.USB_GAMEPAD;
 	private static final int USB_JOY_LEFT = RobotMap.USB_JOYSTICK_LEFT;
 	private static final int USB_JOY_RIGHT = RobotMap.USB_JOYSTICK_RIGHT;
-	private static final double JOYSTICK_DEAD_ZONE = RobotMap.JOYSTICK_DEAD_ZONE;
-	private static final double TRIGGER_SPINNER_SCALE = RobotMap.TRIGGER_SPINNER_SCALE;	
 	private static final int JOYSTICK_X_AXIS = Gamepad.JOY_X_AXIS;
 	private static final int JOYSTICK_Y_AXIS = Gamepad.JOY_Y_AXIS;
 	private static final int JOYSTICK_Z_AXIS = Gamepad.JOY_Z_AXIS;
-	private static final int GAMEPAD_LEFT_TRIGGER = Gamepad.LEFT_TRIGGER;
-	private static final int GAMEPAD_RIGHT_TRIGGER = Gamepad.RIGHT_TRIGGER;
 	private static final double JOYSTICK_DRIVE_SCALE = RobotMap.JOYSTICK_DRIVE_SCALE;
 	private static final double JOYSTICK_DRIVE_SCALE_LOW = RobotMap.JOYSTICK_DRIVE_SCALE_LOW;
 	
@@ -81,6 +78,8 @@ public class OI {
 
 		gamepad.B.whenPressed(new Conveyor_Run(-0.5)); // reverse the converyor
 		gamepad.B.whenReleased(new Conveyor_Run(0)); // stop reversing the converyor
+
+		gamepad.Y.whenPressed(new Conveyor_Advance());
 	}
 	
 	/** Access to the driving axes values *****************************
@@ -101,14 +100,7 @@ public class OI {
 		return 0.6 * joystickValue; // Scale turning to be 60% the speed of driving for better control
 	}	
 	private double scaleJoystick(double joystickValue) {
-		joystickValue = checkDeadZone(joystickValue);
 		joystickValue *= CURRENT_DRIVE_SCALE;
-		return joystickValue;
-	}
-	private double checkDeadZone(double joystickValue) {
-		if (Math.abs(joystickValue) < JOYSTICK_DEAD_ZONE) {
-			joystickValue = 0.0;
-		}
 		return joystickValue;
 	}
 
@@ -133,12 +125,5 @@ public class OI {
 	/** Access the POV value *******************************************/
 	public int getPOV() {
 		return gamepad.getPOV();
-	}
-	
-	/** Access the Trigger Values **************************************/
-	public double getTriggerDifference() {
-		double leftTrigger = gamepad.getRawAxis(GAMEPAD_LEFT_TRIGGER);
-		double rightTrigger = gamepad.getRawAxis(GAMEPAD_RIGHT_TRIGGER);
-		return (rightTrigger - leftTrigger) * TRIGGER_SPINNER_SCALE;
 	}
 }

@@ -30,12 +30,12 @@ public class RobotMap {
 
 	/** PCM channels **********************************************************/
 	public static final int INTAKE_SOLENOID = 1;
-	public static final int CLIMBER_SOLENOID = 2; //TODO Find this value
+	public static final int CLIMBER_SOLENOID = 2; 
 	
 	/** DIO channels **********************************************************/
 	public static final int DIO_LIMITSWITCH_CONVEYOR = 1; //TODO Find this value
-	public static final int DIO_LIMITSWITCH_CLIMBER_RIGHT = 0; //TODO Find this value
-	public static final int DIO_LIMITSWITCH_CLIMBER_LEFT = 0; //TODO Find this value
+	public static final int DIO_LIMITSWITCH_CLIMBER_RIGHT = 5; //TODO Find this value
+	public static final int DIO_LIMITSWITCH_CLIMBER_LEFT = 4; //TODO Find this value
 
 	/** Climber Settings ******************************************************/
 	public static final boolean REVERSE_RIGHT_CLIMBER = true;
@@ -53,6 +53,7 @@ public class RobotMap {
 	/** Drivetrain Settings ***************************************************/
 	public static final IdleMode DRIVETRAIN_BRAKE_MODE = IdleMode.kBrake;
 	public static final double JOYSTICK_DRIVE_SCALE = 1; // Determines the max driving speed of the robot
+	public static final double JOYSTICK_DRIVE_SCALE_LOW = 0.2; // Determines driving speed of the robot when in slow mode
 	public static final boolean REVERSE_LEFT_FRONT_MOTOR = false;
 	public static final boolean REVERSE_RIGHT_FRONT_MOTOR = false;
 	public static final boolean REVERSE_LEFT_BACK_MOTOR = true;
@@ -79,13 +80,7 @@ public class RobotMap {
 	/** Intake Settings *******************************************************/
 	public static final boolean REVERSE_INTAKE = true;
 	public static final NeutralMode INTAKE_BRAKE_MODE = NeutralMode.Brake;
-	public static final double INTAKE_POWER = 0.9; // How much power (as a %) to give the intake
-
-	/** OI Settings ***********************************************************/
-	public static final boolean USE_JOYSTICKS = true;
-	public static final double TRIGGER_SPINNER_SCALE = 0.1;
-	public static final double JOYSTICK_DEAD_ZONE = 0.0;
-	public static final double JOYSTICK_DRIVE_SCALE_LOW = 0.2; // Determines driving speed of the robot when in slow mode
+	public static final double INTAKE_POWER = 0.9; // How much power (as a %) to give the intake	
 	
 	/** USB ports *************************************************************/					
 	public static final int USB_JOYSTICK_LEFT 	= 0;

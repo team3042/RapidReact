@@ -38,12 +38,10 @@ public class Conveyor_Advance extends CommandBase {
 
 	/** execute ***************************************************************
 	 * Called repeatedly when this Command is scheduled to run */
-	public void execute() {}
-	
-	/** isFinished ************************************************************	
-	 * Make this return true when this Command no longer needs to run execute() */
-	public boolean isFinished() {
-		return limit.get();
+	public void execute() {
+		if(limit.get()) {
+			conveyor.stop();
+		}
 	}
 	
 	/** end *******************************************************************
