@@ -7,8 +7,10 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.RobotMap;
 
-import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.util.sendable.SendableRegistry;
 
 /** Climber ********************************************************************
  * Subsystem for Climbing */
@@ -17,6 +19,7 @@ public class Climber extends SubsystemBase {
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CLIMBER;
 	private static final int CAN_RIGHT_CLIMBER = RobotMap.CAN_RIGHT_CLIMBER;
 	private static final int CAN_LEFT_CLIMBER = RobotMap.CAN_LEFT_CLIMBER;
+	private static final int ID = RobotMap.CLIMBER_SOLENOID;
 	private static final boolean REVERSE_RIGHT_MOTOR = RobotMap.REVERSE_RIGHT_CLIMBER;
 	private static final boolean REVERSE_LEFT_MOTOR = RobotMap.REVERSE_LEFT_CLIMBER;
 	private static final NeutralMode BRAKE_MODE = RobotMap.CLIMBER_BRAKE_MODE;
@@ -25,6 +28,7 @@ public class Climber extends SubsystemBase {
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
 	TalonSRX rightMotor = new TalonSRX(CAN_RIGHT_CLIMBER);
 	TalonSRX leftMotor = new TalonSRX(CAN_LEFT_CLIMBER);
+	Solenoid ClimberSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, ID);
 
 	/** Climber ****************************************************************/
 	public Climber() {
@@ -51,6 +55,14 @@ public class Climber extends SubsystemBase {
 		power = Math.min(1.0, power);
 		power = Math.max(-1.0, power);
 		return power;
+	}
+	
+	// Commands for extending/retracting the climber
+	public void extend() {
+		ClimberSolenoid.set(true);
+	}
+	public void retract() {
+		ClimberSolenoid.set(false);
 	}
 	
 	/** initDefaultCommand ****************************************************

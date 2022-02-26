@@ -30,6 +30,8 @@ public class RobotMap {
 
 	/** PCM channels **********************************************************/
 	public static final int INTAKE_SOLENOID = 1;
+	public static final int CLIMBER_SOLENOID = 2;
+
 	
 	/** DIO channels **********************************************************/
 	public static final int DIO_LIMITSWITCH = 0; //TODO Find this value

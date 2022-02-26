@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
+import org.usfirst.frc.team3042.robot.commands.Climber_Ratchet;
 import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
@@ -68,6 +69,8 @@ public class OI {
 		gamepad.POVUp.whenInactive(new Climber_Run(0)); // stop the climber
 		gamepad.POVDown.whenActive(new Climber_Run(-1)); // lower the climber
 		gamepad.POVDown.whenInactive(new Climber_Run(0)); // stop the climber
+
+		gamepad.X.whenPressed(new Climber_Ratchet()); // extend or retract the climber ratchet
 
 		// Conveyor Controls //
 		gamepad.RB.whenPressed(new Conveyor_Run(1)); // run the converyor
