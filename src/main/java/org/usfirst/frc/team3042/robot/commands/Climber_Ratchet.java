@@ -9,7 +9,7 @@ import org.usfirst.frc.team3042.robot.RobotMap;
 import org.usfirst.frc.team3042.robot.subsystems.Climber;
 
 /** Climber_Ratchet *******************************************************************
- * Extends or retracts the climber */
+ * Extends or retracts the climber ratchet*/
 public class Climber_Ratchet extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CLIMBER;

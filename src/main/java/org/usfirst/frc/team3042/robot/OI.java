@@ -111,6 +111,8 @@ public class OI {
 		}
 		return joystickValue;
 	}
+
+	/** Methods for scaling drivetrain speeds *******************************************/
 	public void setNormalScale() {
     	CURRENT_DRIVE_SCALE = JOYSTICK_DRIVE_SCALE;
     	isLowScale = false;

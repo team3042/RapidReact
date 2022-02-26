@@ -15,7 +15,7 @@ public class Conveyor_Advance extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CONVEYOR;
 	private static final double POWER = RobotMap.CONVEYOR_POWER * 0.5;
-	private static final int DIO_LIMITSWITCH = RobotMap.DIO_LIMITSWITCH;
+	private static final int DIO_LIMITSWITCH = RobotMap.DIO_LIMITSWITCH_CONVEYOR;
   
 	/** Instance Variables ****************************************************/
   	Conveyor conveyor = Robot.conveyor;

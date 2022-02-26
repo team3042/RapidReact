@@ -30,11 +30,12 @@ public class RobotMap {
 
 	/** PCM channels **********************************************************/
 	public static final int INTAKE_SOLENOID = 1;
-	public static final int CLIMBER_SOLENOID = 2;
-
+	public static final int CLIMBER_SOLENOID = 2; //TODO Find this value
 	
 	/** DIO channels **********************************************************/
-	public static final int DIO_LIMITSWITCH = 0; //TODO Find this value
+	public static final int DIO_LIMITSWITCH_CONVEYOR = 1; //TODO Find this value
+	public static final int DIO_LIMITSWITCH_CLIMBER_RIGHT = 0; //TODO Find this value
+	public static final int DIO_LIMITSWITCH_CLIMBER_LEFT = 0; //TODO Find this value
 
 	/** Climber Settings ******************************************************/
 	public static final boolean REVERSE_RIGHT_CLIMBER = true;

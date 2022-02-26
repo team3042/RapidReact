@@ -48,6 +48,14 @@ public class Climber extends SubsystemBase {
 		rightMotor.set(ControlMode.PercentOutput, Power);
 		leftMotor.set(ControlMode.PercentOutput, Power);		
 	}
+	public void setLeftPower(double Power) {
+		Power = safetyCheck(Power);
+		leftMotor.set(ControlMode.PercentOutput, Power);		
+	}
+	public void setRightPower(double Power) {
+		Power = safetyCheck(Power);
+		rightMotor.set(ControlMode.PercentOutput, Power);		
+	}
 	public void stop() {
 		setPower(0.0);
 	}
