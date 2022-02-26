@@ -5,6 +5,7 @@ import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 import org.usfirst.frc.team3042.robot.commands.Intake_Toggle;
+import org.usfirst.frc.team3042.robot.commands.autonomous.helperCommands.Drivetrain_Scale_Toggle;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -25,12 +26,15 @@ public class OI {
 	private static final int GAMEPAD_LEFT_TRIGGER = Gamepad.LEFT_TRIGGER;
 	private static final int GAMEPAD_RIGHT_TRIGGER = Gamepad.RIGHT_TRIGGER;
 	private static final double JOYSTICK_DRIVE_SCALE = RobotMap.JOYSTICK_DRIVE_SCALE;
+	private static final double JOYSTICK_DRIVE_SCALE_LOW = RobotMap.JOYSTICK_DRIVE_SCALE_LOW;
 	
 	/** Instance Variables ****************************************************/
 	Log log = new Log(RobotMap.LOG_OI, "OI");
 	public Gamepad gamepad, joyLeft, joyRight;
 	int driveAxisX, driveAxisY, driveAxisZ;
 	Drivetrain drivetrain = Robot.drivetrain;
+	public static double CURRENT_DRIVE_SCALE = JOYSTICK_DRIVE_SCALE;
+	public static boolean isLowScale = false;
 
 	/** OI ********************************************************************
 	 * Assign commands to the buttons and triggers*/
@@ -47,6 +51,8 @@ public class OI {
 		driveAxisZ = JOYSTICK_Z_AXIS;
 
 		joyLeft.button1.whenPressed(new InstantCommand(drivetrain::zeroGyro, drivetrain)); // Zero the gyro, this is helpful for field-oriented driving
+		joyRight.button1.whenPressed(new Drivetrain_Scale_Toggle());
+		joyRight.button1.whenReleased(new Drivetrain_Scale_Toggle());
 		
 		// Intake Controls //
 		gamepad.LB.whenPressed(new Intake_Intake(1)); // run the intake
@@ -90,11 +96,10 @@ public class OI {
 		double joystickValue = joyLeft.getRawAxis(driveAxisX);
 		joystickValue = scaleJoystick(joystickValue);
 		return 0.6 * joystickValue; // Scale turning to be 60% the speed of driving for better control
-	}
-	
+	}	
 	private double scaleJoystick(double joystickValue) {
 		joystickValue = checkDeadZone(joystickValue);
-		joystickValue *= JOYSTICK_DRIVE_SCALE;
+		joystickValue *= CURRENT_DRIVE_SCALE;
 		return joystickValue;
 	}
 	private double checkDeadZone(double joystickValue) {
@@ -103,6 +108,22 @@ public class OI {
 		}
 		return joystickValue;
 	}
+	public void setNormalScale() {
+    	CURRENT_DRIVE_SCALE = JOYSTICK_DRIVE_SCALE;
+    	isLowScale = false;
+    }
+    public void setLowScale() {
+    	CURRENT_DRIVE_SCALE = JOYSTICK_DRIVE_SCALE_LOW;
+    	isLowScale = true;
+    }	
+	public void toggleScale(){
+    	if (isLowScale) {
+    		setNormalScale();
+    	}
+    	else {
+    		setLowScale();
+		}
+	}	
 	
 	/** Access the POV value *******************************************/
 	public int getPOV() {

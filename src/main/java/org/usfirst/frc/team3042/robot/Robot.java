@@ -141,6 +141,7 @@ public class Robot extends TimedRobot {
 		double ySpeed = oi.getYSpeed();
 		double xSpeed = oi.getXSpeed();
 		double zSpeed = oi.getZSpeed();
+		
 
 		if (Math.abs(zSpeed) > 0.01) { // If we are telling the robot to rotate, then let it rotate
 			drivetrain.driveCartesian(ySpeed, xSpeed, zSpeed, drivetrain.getGyroAngle());
