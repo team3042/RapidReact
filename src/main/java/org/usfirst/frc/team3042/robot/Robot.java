@@ -93,6 +93,7 @@ public class Robot extends TimedRobot {
 		drivetrain.resetEncoders();
 		
 		autonomousCommand = chooser.getSelected();
+		climber.retract();
 
 		// schedule the autonomous command
 		if (autonomousCommand != null) {
@@ -125,6 +126,8 @@ public class Robot extends TimedRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
+
+		climber.retract();
 	}
 
 	/** teleopPeriodic ********************************************************

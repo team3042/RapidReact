@@ -1,13 +1,13 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
-import org.usfirst.frc.team3042.robot.commands.Climber_Ratchet;
 import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Advance;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
 import org.usfirst.frc.team3042.robot.commands.Intake_Toggle;
 import org.usfirst.frc.team3042.robot.commands.autonomous.helperCommands.Drivetrain_Scale_Toggle;
+import org.usfirst.frc.team3042.robot.subsystems.Climber;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -31,6 +31,7 @@ public class OI {
 	public Gamepad gamepad, joyLeft, joyRight;
 	int driveAxisX, driveAxisY, driveAxisZ;
 	Drivetrain drivetrain = Robot.drivetrain;
+	Climber climber = Robot.climber;
 	public static double CURRENT_DRIVE_SCALE = JOYSTICK_DRIVE_SCALE;
 	public static boolean isLowScale = false;
 
@@ -67,19 +68,16 @@ public class OI {
 		gamepad.POVDown.whenActive(new Climber_Run(-1)); // lower the climber
 		gamepad.POVDown.whenInactive(new Climber_Run(0)); // stop the climber
 
-		gamepad.X.whenPressed(new Climber_Ratchet()); // extend or retract the climber ratchet
+		gamepad.X.whenPressed(new InstantCommand(climber::toggle, climber)); // extend or retract the climber ratchet
 
 		// Conveyor Controls //
 		gamepad.RB.whenPressed(new Conveyor_Run(1)); // run the converyor
 		gamepad.RB.whenReleased(new Conveyor_Run(0)); // stop running the converyor
 
-		gamepad.RT.whenActive(new Conveyor_Run(0.5)); // run the converyor slowly
-		gamepad.RT.whenInactive(new Conveyor_Run(0)); // stop running the conveyor slowly
+		gamepad.RT.whenActive(new Conveyor_Advance()); // Auto advance the conveyor
 
 		gamepad.B.whenPressed(new Conveyor_Run(-0.5)); // reverse the converyor
 		gamepad.B.whenReleased(new Conveyor_Run(0)); // stop reversing the converyor
-
-		gamepad.Y.whenPressed(new Conveyor_Advance());
 	}
 	
 	/** Access to the driving axes values *****************************

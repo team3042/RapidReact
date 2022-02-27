@@ -23,6 +23,7 @@ public class Climber extends SubsystemBase {
 	private static final boolean REVERSE_RIGHT_MOTOR = RobotMap.REVERSE_RIGHT_CLIMBER;
 	private static final boolean REVERSE_LEFT_MOTOR = RobotMap.REVERSE_LEFT_CLIMBER;
 	private static final NeutralMode BRAKE_MODE = RobotMap.CLIMBER_BRAKE_MODE;
+	boolean isRetracted = true;
 
 	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
@@ -67,10 +68,20 @@ public class Climber extends SubsystemBase {
 	
 	// Commands for extending/retracting the climber
 	public void extend() {
-		ClimberSolenoid.set(true);
+		ClimberSolenoid.set(false);
+		isRetracted = false;
 	}
 	public void retract() {
-		ClimberSolenoid.set(false);
+		ClimberSolenoid.set(true);
+		isRetracted = true;
+	}
+	public void toggle() {
+		if (isRetracted == true) {
+			this.extend();
+		}
+		else {
+			this.retract();
+		}
 	}
 	
 	/** initDefaultCommand ****************************************************
