@@ -36,7 +36,11 @@ public class Climber_Run extends CommandBase {
 	 * Called just before this Command runs the first time */
 	public void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
-		climber.setPower(POWER * direction);
+		if(climber.isRetracted) {
+			climber.setPower(POWER * direction);
+		} else {
+			climber.stop();
+		}
 	}
 
 	/** execute ***************************************************************

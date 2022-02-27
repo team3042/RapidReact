@@ -23,7 +23,7 @@ public class Climber extends SubsystemBase {
 	private static final boolean REVERSE_RIGHT_MOTOR = RobotMap.REVERSE_RIGHT_CLIMBER;
 	private static final boolean REVERSE_LEFT_MOTOR = RobotMap.REVERSE_LEFT_CLIMBER;
 	private static final NeutralMode BRAKE_MODE = RobotMap.CLIMBER_BRAKE_MODE;
-	boolean isRetracted = true;
+	public boolean isRetracted = true;
 
 	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
