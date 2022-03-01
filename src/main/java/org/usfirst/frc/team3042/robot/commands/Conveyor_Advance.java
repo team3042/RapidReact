@@ -1,6 +1,5 @@
 package org.usfirst.frc.team3042.robot.commands;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
@@ -15,12 +14,10 @@ public class Conveyor_Advance extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CONVEYOR;
 	private static final double POWER = RobotMap.CONVEYOR_ADVANCE_POWER;
-	private static final int DIO_LIMITSWITCH = RobotMap.DIO_LIMITSWITCH_CONVEYOR;
   
 	/** Instance Variables ****************************************************/
   	Conveyor conveyor = Robot.conveyor;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(conveyor));
-	DigitalInput limit = new DigitalInput(DIO_LIMITSWITCH);
 
 	/** Conveyor ****************************************************************
 	 * Required subsystems will cancel commands when this command is run. */
@@ -39,7 +36,7 @@ public class Conveyor_Advance extends CommandBase {
 	/** execute ***************************************************************
 	 * Called repeatedly when this Command is scheduled to run */
 	public void execute() {
-		if(limit.get()) {
+		if(conveyor.getLimitStatus()) {
 			conveyor.stop();
 		}
 	}
@@ -47,7 +44,7 @@ public class Conveyor_Advance extends CommandBase {
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
 	public boolean isFinished() {
-		return limit.get();
+		return conveyor.getLimitStatus();
 	}
 
 	// Called once the command ends or is interrupted.

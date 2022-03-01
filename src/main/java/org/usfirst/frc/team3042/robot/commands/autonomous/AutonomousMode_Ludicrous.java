@@ -5,9 +5,10 @@ import org.usfirst.frc.team3042.robot.commands.Conveyor_Advance;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
 import org.usfirst.frc.team3042.robot.commands.Drivetrain_GyroStraight;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
-import org.usfirst.frc.team3042.robot.commands.Intake_Toggle;
 import org.usfirst.frc.team3042.robot.commands.autonomous.helperCommands.Wait;
+import org.usfirst.frc.team3042.robot.subsystems.Intake;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
@@ -15,8 +16,10 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
  * The fanciest autonomous routine concievably possible, this is sure to win us fame and glory! */
 public class AutonomousMode_Ludicrous extends SequentialCommandGroup {
 
+  Intake intake = Robot.intake;
+
   public AutonomousMode_Ludicrous() {
-    addCommands(new Intake_Toggle(), new Intake_Intake(1), // Deploy the intake and start running it
+    addCommands(new InstantCommand(intake::extend, intake), new Intake_Intake(1), // Deploy the intake and start running it
                 Robot.constructTrajectoryCommand("RightTarmac_1Ball"), // Drive our trajectory to intake 1 more cargo
                 new Conveyor_Run(1), new Intake_Intake(0), new Wait(2), new Conveyor_Run(0), new Intake_Intake(1), // Score our first 2 cargo
                 new ParallelCommandGroup(Robot.constructTrajectoryCommand("Ludicrous_Mode"), new Conveyor_Advance()), // Drive our trajectory to intake 2 more cargo

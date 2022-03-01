@@ -8,6 +8,7 @@ import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.RobotMap;
 
 import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /** Conveyor ********************************************************************
@@ -22,12 +23,14 @@ public class Conveyor extends SubsystemBase {
 	private static final boolean REVERSE_LEFT_CONVEYOR = RobotMap.REVERSE_LEFT_CONVEYOR;
 	private static final boolean REVERSE_RIGHT_CONVEYOR = RobotMap.REVERSE_RIGHT_CONVEYOR;
 	private static final NeutralMode BRAKE_MODE = RobotMap.CONVEYOR_BRAKE_MODE;
+	private static final int DIO_LIMITSWITCH = RobotMap.DIO_LIMITSWITCH_CONVEYOR;
 
   	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
 	TalonSRX topMotor = new TalonSRX(CAN_TOP_CONVEYOR);
 	TalonSRX leftMotor = new TalonSRX(CAN_LEFT_CONVEYOR);
 	TalonSRX rightMotor = new TalonSRX(CAN_RIGHT_CONVEYOR);
+	DigitalInput limit = new DigitalInput(DIO_LIMITSWITCH);
 
   	/** Conveyor ****************************************************************/
 	public Conveyor() {
@@ -56,6 +59,9 @@ public class Conveyor extends SubsystemBase {
 		power = Math.min(1.0, power);
 		power = Math.max(-1.0, power);
 		return power;
+	}
+	public boolean getLimitStatus() {
+		return limit.get();
 	}
 	
 	/** initDefaultCommand ****************************************************

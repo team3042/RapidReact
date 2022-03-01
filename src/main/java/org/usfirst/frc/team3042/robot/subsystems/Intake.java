@@ -26,6 +26,7 @@ public class Intake extends SubsystemBase {
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
 	TalonSRX motor = new TalonSRX(CAN_INTAKE);
 	Solenoid IntakeSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, ID);
+	boolean isRetracted = true;
 
 	/** Intake ****************************************************************/
 	public Intake() {
@@ -55,9 +56,19 @@ public class Intake extends SubsystemBase {
 	// Commands for extending/retracting the intake
 	public void extend() {
 		IntakeSolenoid.set(true);
+		isRetracted = false;
 	}
 	public void retract() {
 		IntakeSolenoid.set(false);
+		isRetracted = true;
+	}
+	public void toggle() {
+		if (isRetracted == true) {
+			this.extend();
+		}
+		else {
+			this.retract();
+		}
 	}
 	
 	/** initDefaultCommand ****************************************************

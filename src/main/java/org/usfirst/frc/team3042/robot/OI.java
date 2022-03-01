@@ -5,10 +5,10 @@ import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Advance;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
 import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
-import org.usfirst.frc.team3042.robot.commands.Intake_Toggle;
 import org.usfirst.frc.team3042.robot.commands.autonomous.helperCommands.Drivetrain_Scale_Toggle;
 import org.usfirst.frc.team3042.robot.subsystems.Climber;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team3042.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
@@ -32,6 +32,7 @@ public class OI {
 	int driveAxisX, driveAxisY, driveAxisZ;
 	Drivetrain drivetrain = Robot.drivetrain;
 	Climber climber = Robot.climber;
+	Intake intake = Robot.intake;
 	public static double CURRENT_DRIVE_SCALE = JOYSTICK_DRIVE_SCALE;
 	public static boolean isLowScale = false;
 
@@ -60,7 +61,7 @@ public class OI {
 		gamepad.LT.whenActive(new Intake_Intake(-1)); // reverse the intake
 		gamepad.LT.whenInactive(new Intake_Intake(0)); // stop reversing the intake
 
-		gamepad.A.whenPressed(new Intake_Toggle()); // extend or retract the intake
+		gamepad.A.whenPressed(new InstantCommand(intake::toggle, intake)); // extend or retract the intake
 
 		// Climber Controls //
 		gamepad.POVUp.whenActive(new Climber_Run(1)); // raise the climber

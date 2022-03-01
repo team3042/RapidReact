@@ -58,11 +58,11 @@ public class Robot extends TimedRobot {
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
 		chooser.addOption("Left Tarmac", new AutonomousMode_LeftTarmac());
-		//chooser.addOption("Right Tarmac", new AutonomousMode_RightTarmac());
-		//chooser.addOption("4 Ball Auto", new AutonomousMode_Ludicrous());
+		//chooser.addOption("Right Tarmac", new AutonomousMode_RightTarmac()); //TODO: Make this work
+		//chooser.addOption("4 Ball Auto", new AutonomousMode_Ludicrous()); //TODO: Make this work
 
-		chooser.addOption("Straight TEST", constructTrajectoryCommand("Basic_Straight_Line_Path"));
-		chooser.addOption("Curve TEST", constructTrajectoryCommand("Basic_Curve_Path"));
+		//chooser.addOption("Straight TEST", constructTrajectoryCommand("Basic_Straight_Line_Path"));
+		//chooser.addOption("Curve TEST", constructTrajectoryCommand("Basic_Curve_Path"));
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 
@@ -94,6 +94,7 @@ public class Robot extends TimedRobot {
 		
 		autonomousCommand = chooser.getSelected();
 		climber.retract();
+		intake.retract();
 
 		// schedule the autonomous command
 		if (autonomousCommand != null) {
