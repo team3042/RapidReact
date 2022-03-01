@@ -52,8 +52,8 @@ public class OI {
 		driveAxisZ = JOYSTICK_Z_AXIS;
 
 		joyLeft.button1.whenPressed(new InstantCommand(drivetrain::zeroGyro, drivetrain)); // Zero the gyro, this is helpful for field-oriented driving
-		joyRight.button1.whenPressed(new InstantCommand(this::toggleScale)); // Toggle slow driving mode
-		joyRight.button1.whenPressed(new InstantCommand(this::toggleScale)); // Toggle slow driving mode
+		joyRight.button1.whenPressed(new InstantCommand(this::toggleScale)); // Toggle into slow driving mode
+		joyRight.button1.whenPressed(new InstantCommand(this::toggleScale)); // Toggle out of slow driving mode
 		
 		// Intake Controls //
 		gamepad.LB.whileHeld(new Intake_Run(1)); // run the intake

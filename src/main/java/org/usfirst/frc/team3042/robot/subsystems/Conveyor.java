@@ -67,6 +67,7 @@ public class Conveyor extends SubsystemBase {
 		power = Math.max(-1.0, power);
 		return power;
 	}
+	
 	public boolean getLimitStatus() {
 		return limit.get();
 	}
