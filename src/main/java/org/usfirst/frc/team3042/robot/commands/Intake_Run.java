@@ -10,7 +10,7 @@ import org.usfirst.frc.team3042.robot.subsystems.Intake;
 
 /** Intake_Intake *******************************************************************
  * Sets power to the intake, either forwards or reverse */
-public class Intake_Intake extends CommandBase {
+public class Intake_Run extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_INTAKE;
 	private static final double POWER = RobotMap.INTAKE_POWER;
@@ -22,7 +22,7 @@ public class Intake_Intake extends CommandBase {
 
 	/** Intake ****************************************************************
 	 * Required subsystems will cancel commands when this command is run. */
-	public Intake_Intake(int direction) {
+	public Intake_Run(int direction) {
 		log.add("Constructor", Log.Level.TRACE);
 		this.direction = direction;
 		addRequirements(intake);	
@@ -42,11 +42,12 @@ public class Intake_Intake extends CommandBase {
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
 	public boolean isFinished() {
-		return true;
+		return false;
 	}
 	
 	// Called once the command ends or is interrupted.
 	public void end(boolean interrupted) {
 		log.add("End", Log.Level.TRACE);
+		intake.stop();
 	}
 }

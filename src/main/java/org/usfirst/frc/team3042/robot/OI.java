@@ -4,8 +4,7 @@ import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Advance;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
-import org.usfirst.frc.team3042.robot.commands.Intake_Intake;
-import org.usfirst.frc.team3042.robot.commands.autonomous.helperCommands.Drivetrain_Scale_Toggle;
+import org.usfirst.frc.team3042.robot.commands.Intake_Run;
 import org.usfirst.frc.team3042.robot.subsystems.Climber;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3042.robot.subsystems.Intake;
@@ -28,13 +27,15 @@ public class OI {
 	
 	/** Instance Variables ****************************************************/
 	Log log = new Log(RobotMap.LOG_OI, "OI");
-	public Gamepad gamepad, joyLeft, joyRight;
-	int driveAxisX, driveAxisY, driveAxisZ;
+	public static Gamepad gamepad, joyLeft, joyRight;
+	public static double CURRENT_DRIVE_SCALE = JOYSTICK_DRIVE_SCALE;
+	public static boolean isLowScale = false;
+
 	Drivetrain drivetrain = Robot.drivetrain;
 	Climber climber = Robot.climber;
 	Intake intake = Robot.intake;
-	public static double CURRENT_DRIVE_SCALE = JOYSTICK_DRIVE_SCALE;
-	public static boolean isLowScale = false;
+
+	int driveAxisX, driveAxisY, driveAxisZ;
 
 	/** OI ********************************************************************
 	 * Assign commands to the buttons and triggers*/
@@ -43,7 +44,7 @@ public class OI {
 		
 		gamepad = new Gamepad(USB_GAMEPAD);
 		
-		//Setup Driving Controls ///
+		// Setup Driving Controls //
 		joyLeft = new Gamepad(USB_JOY_LEFT);
 		joyRight = new Gamepad(USB_JOY_RIGHT);
 		driveAxisX = JOYSTICK_X_AXIS;
@@ -51,34 +52,26 @@ public class OI {
 		driveAxisZ = JOYSTICK_Z_AXIS;
 
 		joyLeft.button1.whenPressed(new InstantCommand(drivetrain::zeroGyro, drivetrain)); // Zero the gyro, this is helpful for field-oriented driving
-		joyRight.button1.whenPressed(new Drivetrain_Scale_Toggle());
-		joyRight.button1.whenReleased(new Drivetrain_Scale_Toggle());
+		joyRight.button1.whenPressed(new InstantCommand(this::toggleScale)); // Toggle slow driving mode
+		joyRight.button1.whenPressed(new InstantCommand(this::toggleScale)); // Toggle slow driving mode
 		
 		// Intake Controls //
-		gamepad.LB.whenPressed(new Intake_Intake(1)); // run the intake
-		gamepad.LB.whenReleased(new Intake_Intake(0)); // stop running the intake
-
-		gamepad.LT.whenActive(new Intake_Intake(-1)); // reverse the intake
-		gamepad.LT.whenInactive(new Intake_Intake(0)); // stop reversing the intake
+		gamepad.LB.whileHeld(new Intake_Run(1)); // run the intake
+		gamepad.LT.whileActiveOnce(new Intake_Run(-1)); // reverse the intake
 
 		gamepad.A.whenPressed(new InstantCommand(intake::toggle, intake)); // extend or retract the intake
 
 		// Climber Controls //
-		gamepad.POVUp.whenActive(new Climber_Run(1)); // raise the climber
-		gamepad.POVUp.whenInactive(new Climber_Run(0)); // stop the climber
-		gamepad.POVDown.whenActive(new Climber_Run(-1)); // lower the climber
-		gamepad.POVDown.whenInactive(new Climber_Run(0)); // stop the climber
+		gamepad.POVUp.whileActiveOnce(new Climber_Run(1)); // raise the climber
+		gamepad.POVDown.whileActiveOnce(new Climber_Run(-1)); // lower the climber
 
 		gamepad.X.whenPressed(new InstantCommand(climber::toggle, climber)); // extend or retract the climber ratchet
 
 		// Conveyor Controls //
-		gamepad.RB.whenPressed(new Conveyor_Run(1)); // run the converyor
-		gamepad.RB.whenReleased(new Conveyor_Run(0)); // stop running the converyor
-
+		gamepad.RB.whileHeld(new Conveyor_Run(1)); // run the converyor
 		gamepad.RT.whenActive(new Conveyor_Advance()); // Auto advance the conveyor
 
-		gamepad.B.whenPressed(new Conveyor_Run(-0.5)); // reverse the converyor
-		gamepad.B.whenReleased(new Conveyor_Run(0)); // stop reversing the converyor
+		gamepad.B.whileHeld(new Conveyor_Run(-0.5)); // reverse the converyor
 	}
 	
 	/** Access to the driving axes values *****************************
@@ -120,9 +113,4 @@ public class OI {
     		setLowScale();
 		}
 	}	
-	
-	/** Access the POV value *******************************************/
-	public int getPOV() {
-		return gamepad.getPOV();
-	}
 }

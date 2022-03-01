@@ -21,6 +21,7 @@ public class Intake extends SubsystemBase {
 	private static final int ID = RobotMap.INTAKE_SOLENOID;
 	private static final boolean REVERSE_MOTOR = RobotMap.REVERSE_INTAKE;
 	private static final NeutralMode BRAKE_MODE = RobotMap.INTAKE_BRAKE_MODE;
+	private static final double POWER = RobotMap.INTAKE_POWER;
 
 	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
@@ -42,6 +43,10 @@ public class Intake extends SubsystemBase {
     /** Methods for setting the motor in Percent Vbus mode **********************/
 	public void setPower(double Power) {
 		Power = safetyCheck(Power);
+		motor.set(ControlMode.PercentOutput, Power);		
+	}
+	public void autoSetPower() {
+		double Power = safetyCheck(POWER);
 		motor.set(ControlMode.PercentOutput, Power);		
 	}
 	public void stop() {

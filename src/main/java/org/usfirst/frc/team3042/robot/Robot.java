@@ -22,7 +22,6 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.PowerDistribution;
 
 /** Robot *********************************************************************
  * The VM is configured to automatically run this class, and to call the
@@ -39,11 +38,11 @@ public class Robot extends TimedRobot {
 	public static final Conveyor conveyor  = new Conveyor();
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static final Intake intake = new Intake();
-	public static final PowerDistribution pdp = new PowerDistribution();
-	public static OI oi = new OI();;
+	public static final OI oi = new OI();;
 	
 	CommandBase autonomousCommand;
 	SendableChooser<CommandBase> chooser = new SendableChooser<CommandBase>();
+
 	double goalAngle;
 	UsbCamera camera1;
 
@@ -58,11 +57,11 @@ public class Robot extends TimedRobot {
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
 		chooser.addOption("Left Tarmac", new AutonomousMode_LeftTarmac());
-		//chooser.addOption("Right Tarmac", new AutonomousMode_RightTarmac()); //TODO: Make this work
-		//chooser.addOption("4 Ball Auto", new AutonomousMode_Ludicrous()); //TODO: Make this work
+		//chooser.addOption("Right Tarmac", new AutonomousMode_RightTarmac()); //TODO: Make this work :)
+		//chooser.addOption("4 Ball Auto", new AutonomousMode_Ludicrous()); //TODO: Make this work :)
 
-		//chooser.addOption("Straight TEST", constructTrajectoryCommand("Basic_Straight_Line_Path"));
-		//chooser.addOption("Curve TEST", constructTrajectoryCommand("Basic_Curve_Path"));
+		//chooser.addOption("Straight TEST", constructTrajectoryCommand("Basic_Straight_Line_Path")); // This is only for tuning purposes
+		//chooser.addOption("Curve TEST", constructTrajectoryCommand("Basic_Curve_Path")); // This is only for tuning purposes
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 
@@ -90,12 +89,13 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		log.add("Autonomous Init", Log.Level.TRACE);
 
+		drivetrain.zeroGyro();
 		drivetrain.resetEncoders();
-		
-		autonomousCommand = chooser.getSelected();
 		climber.retract();
 		intake.retract();
-
+		
+		autonomousCommand = chooser.getSelected();
+		
 		// schedule the autonomous command
 		if (autonomousCommand != null) {
 			autonomousCommand.schedule();
@@ -118,17 +118,19 @@ public class Robot extends TimedRobot {
 	 * This function is called when first entering teleop mode. */
 	public void teleopInit() {
 		log.add("Teleop Init", Log.Level.TRACE);
-		
-		drivetrain.resetEncoders();
-		goalAngle = drivetrain.getGyroAngle();
-		
+
 		// This makes sure that the autonomous command stops running when teleop starts. 
 		//If you want the autonomous command to continue until interrupted by another command, remove this line or comment it out.
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
-
+		
+		drivetrain.zeroGyro();
+		drivetrain.resetEncoders();
 		climber.retract();
+		intake.extend();
+
+		goalAngle = drivetrain.getGyroAngle();
 	}
 
 	/** teleopPeriodic ********************************************************
@@ -146,7 +148,6 @@ public class Robot extends TimedRobot {
 		double xSpeed = oi.getXSpeed();
 		double zSpeed = oi.getZSpeed();
 		
-
 		if (Math.abs(zSpeed) > 0.01) { // If we are telling the robot to rotate, then let it rotate
 			drivetrain.driveCartesian(ySpeed, xSpeed, zSpeed, drivetrain.getGyroAngle());
 			goalAngle = drivetrain.getGyroAngle();

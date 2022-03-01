@@ -42,11 +42,12 @@ public class Conveyor_Run extends CommandBase {
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
 	public boolean isFinished() {
-		return true;
+		return false;
 	}
 	
 	// Called once the command ends or is interrupted.
 	public void end(boolean interrupted) {
 		log.add("End", Log.Level.TRACE);
+		conveyor.stop();
 	}
 }

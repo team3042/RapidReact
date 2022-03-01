@@ -24,6 +24,7 @@ public class Conveyor extends SubsystemBase {
 	private static final boolean REVERSE_RIGHT_CONVEYOR = RobotMap.REVERSE_RIGHT_CONVEYOR;
 	private static final NeutralMode BRAKE_MODE = RobotMap.CONVEYOR_BRAKE_MODE;
 	private static final int DIO_LIMITSWITCH = RobotMap.DIO_LIMITSWITCH_CONVEYOR;
+	private static final double POWER = RobotMap.CONVEYOR_POWER;
 
   	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
@@ -48,6 +49,12 @@ public class Conveyor extends SubsystemBase {
  	 /** Methods for setting the motor in Percent Vbus mode **********************/
 	public void setPower(double Power) {
 		Power = safetyCheck(Power);
+		topMotor.set(ControlMode.PercentOutput, Power);
+		leftMotor.set(ControlMode.PercentOutput, Power);
+		rightMotor.set(ControlMode.PercentOutput, Power);		
+	}
+	public void autoSetPower() {
+		double Power = safetyCheck(POWER);
 		topMotor.set(ControlMode.PercentOutput, Power);
 		leftMotor.set(ControlMode.PercentOutput, Power);
 		rightMotor.set(ControlMode.PercentOutput, Power);		
