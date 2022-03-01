@@ -89,7 +89,6 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		log.add("Autonomous Init", Log.Level.TRACE);
 
-		drivetrain.zeroGyro();
 		drivetrain.resetEncoders();
 		climber.retract();
 		intake.retract();
@@ -125,10 +124,8 @@ public class Robot extends TimedRobot {
 			autonomousCommand.cancel();
 		}
 		
-		drivetrain.zeroGyro();
 		drivetrain.resetEncoders();
 		climber.retract();
-		intake.extend();
 
 		goalAngle = drivetrain.getGyroAngle();
 	}
