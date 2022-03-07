@@ -34,6 +34,8 @@ public class RobotMap {
 	
 	/** DIO channels **********************************************************/
 	public static final int DIO_LIMITSWITCH_CONVEYOR = 1;
+	public static final int DIO_LIMITSWITCH_CLIMBER_RIGHT = 3; //TODO: Find the actual value for this after we install the climber limit switches
+	public static final int DIO_LIMITSWITCH_CLIMBER_LEFT = 5; //TODO: Find the actual value for this after we install the climber limit switches
 
 	/** Climber Settings ******************************************************/
 	public static final boolean REVERSE_RIGHT_CLIMBER = true;
