@@ -48,7 +48,7 @@ public class RobotMap {
 	public static final boolean REVERSE_RIGHT_CONVEYOR = true;
 	public static final boolean REVERSE_LEFT_CONVEYOR = true;
 	public static final NeutralMode CONVEYOR_BRAKE_MODE = NeutralMode.Brake;
-	public static final double CONVEYOR_POWER = 0.65; // How much power (as a %) to give the conveyor
+	public static final double CONVEYOR_POWER = 0.8; // How much power (as a %) to give the conveyor
 	public static final double CONVEYOR_ADVANCE_POWER = 0.4; // How much power (as a %) to give the conveyor
 
 	/** Drivetrain Settings ***************************************************/

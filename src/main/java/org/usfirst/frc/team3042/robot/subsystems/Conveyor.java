@@ -69,7 +69,7 @@ public class Conveyor extends SubsystemBase {
 	}
 	
 	public boolean getLimitStatus() {
-		return limit.get();
+		return !limit.get();
 	}
 	
 	/** initDefaultCommand ****************************************************
