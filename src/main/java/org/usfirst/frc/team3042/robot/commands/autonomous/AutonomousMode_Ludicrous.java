@@ -19,8 +19,9 @@ public class AutonomousMode_Ludicrous extends SequentialCommandGroup {
   Conveyor conveyor = Robot.conveyor;
 
   public AutonomousMode_Ludicrous() {
-    addCommands(new InstantCommand(intake::extend, intake), new InstantCommand(intake::autoSetPower, intake), // Deploy the intake and start running it
-                Robot.constructTrajectoryCommand("RightTarmac_1Ball"), // Drive our trajectory to intake 1 more cargo
+    addCommands(new InstantCommand(intake::extend, intake), // Deploy the intake
+                new InstantCommand(intake::autoSetPower, intake), // Start running Intake
+                Robot.constructTrajectoryCommand("RightTarmac_1Ball"), // Drive our trajectory path to intake more cargo
                 new InstantCommand(conveyor::autoSetPower, conveyor), new InstantCommand(intake::stop, intake), new Wait(2), new InstantCommand(conveyor::stop, conveyor), new InstantCommand(intake::autoSetPower, intake), // Score our first 2 cargo
                 new ParallelCommandGroup(Robot.constructTrajectoryCommand("Ludicrous_Mode"), new Conveyor_Advance()), // Drive our trajectory to intake 2 more cargo
                 new InstantCommand(conveyor::autoSetPower, conveyor), new InstantCommand(intake::stop, intake), new Wait(2), new InstantCommand(conveyor::stop, conveyor), // Stop the intake and score our additional cargo

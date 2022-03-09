@@ -41,7 +41,7 @@ public class RobotMap {
 	public static final boolean REVERSE_RIGHT_CLIMBER = true;
 	public static final boolean REVERSE_LEFT_CLIMBER = false;
 	public static final NeutralMode CLIMBER_BRAKE_MODE = NeutralMode.Brake;
-	public static final double CLIMBER_POWER = 0.6; // How much power (as a %) to give the climber
+	public static final double CLIMBER_POWER = 0.7; // How much power (as a %) to give the climber
 	
 	/** Conveyor Settings *****************************************************/
 	public static final boolean REVERSE_TOP_CONVEYOR = false;

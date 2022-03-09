@@ -18,6 +18,6 @@ public class AutonomousMode_Default extends SequentialCommandGroup {
 
   public AutonomousMode_Default() {
     addCommands(new InstantCommand(conveyor::autoSetPower, conveyor), new Wait(2), new InstantCommand(conveyor::stop, conveyor), // Run the conveyor for a specified number of seconds
-                new Drivetrain_GyroStraight(85, 0.5), new InstantCommand(intake::extend, intake)); // Drive out of the tarmac and deploy the intake!
+                new Drivetrain_GyroStraight(85, 0.5)); // Shoots the ball into the lower hub then drive out of the tarmac!
   }
 }

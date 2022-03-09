@@ -19,8 +19,9 @@ public class AutonomousMode_RightTarmac extends SequentialCommandGroup {
   Conveyor conveyor = Robot.conveyor;
 
   public AutonomousMode_RightTarmac() {
-    addCommands(new InstantCommand(conveyor::autoSetPower, conveyor), new Wait(2), new InstantCommand(conveyor::stop, conveyor), // Run the conveyor for a specified number of seconds
-                new InstantCommand(intake::extend, intake), new InstantCommand(intake::autoSetPower, intake), // Deploy the intake and start running it
+    addCommands(new InstantCommand(intake::extend, intake), // Deploy the intake
+                new InstantCommand(conveyor::autoSetPower, conveyor), new Wait(2), new InstantCommand(conveyor::stop, conveyor), // Run the conveyor for a specified number of seconds
+                new InstantCommand(intake::autoSetPower, intake), // Start running Intake
                 new ParallelCommandGroup(Robot.constructTrajectoryCommand("Right_Tarmac"), new Conveyor_Advance()), // Drive our trajectory to intake 2 more cargo
                 new InstantCommand(conveyor::autoSetPower, conveyor), new InstantCommand(intake::stop, intake), new Wait(2), new InstantCommand(conveyor::stop, conveyor), // Stop the intake and score our additional cargo
                 new Drivetrain_GyroStraight(40, 0.5)); // This just makes it easier for the driver to spin and zero the gyro after auto :)
