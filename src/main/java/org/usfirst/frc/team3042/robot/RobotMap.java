@@ -27,6 +27,7 @@ public class RobotMap {
 	public static final int CAN_LEFT_BACK_MOTOR = 5;
 	public static final int CAN_RIGHT_BACK_MOTOR = 2;
 	public static final int CAN_INTAKE = 8;
+	public static final int CAN_TRAVERSAL_MOTOR = 0;
 
 	/** PCM channels **********************************************************/
 	public static final int INTAKE_SOLENOID = 1;
@@ -40,8 +41,13 @@ public class RobotMap {
 	/** Climber Settings ******************************************************/
 	public static final boolean REVERSE_RIGHT_CLIMBER = true;
 	public static final boolean REVERSE_LEFT_CLIMBER = false;
+	public static final boolean REVERSE_TRAVERSAL_CLIMBER = false;
 	public static final NeutralMode CLIMBER_BRAKE_MODE = NeutralMode.Brake;
+	public static final IdleMode TRAVERSAL_CLIMBER_BRAKE_MODE = IdleMode.kBrake;
 	public static final double CLIMBER_POWER = 0.7; // How much power (as a %) to give the climber
+	public static final double TRAVERSAL_POWER_MANUAL = 0.7; // How much power (as a %) to give the climber
+	public static final double GOAL_POSITION = 100; //TODO: Find this
+	public static final double kP_TRAVERSAL = 0.01; //TODO: Tune this
 	
 	/** Conveyor Settings *****************************************************/
 	public static final boolean REVERSE_TOP_CONVEYOR = false;
@@ -103,6 +109,7 @@ public class RobotMap {
 	
 	/** Subsystems ************************************************************/
 	public static final Log.Level	LOG_CLIMBER							= Log.Level.DEBUG;
+	public static final Log.Level	LOG_CLIMBER_TRAVERSAL				= Log.Level.DEBUG;
 	public static final Log.Level	LOG_CONVEYOR						= Log.Level.DEBUG;
 	public static final Log.Level	LOG_DRIVETRAIN						= Log.Level.TRACE;
 	public static final Log.Level	LOG_INTAKE							= Log.Level.DEBUG;

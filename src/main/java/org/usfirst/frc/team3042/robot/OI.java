@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
+import org.usfirst.frc.team3042.robot.commands.ClimberTraversal_Manual;
+import org.usfirst.frc.team3042.robot.commands.ClimberTraversal_Toggle;
 import org.usfirst.frc.team3042.robot.commands.Climber_Run;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Advance;
 import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
@@ -65,8 +67,11 @@ public class OI {
 		gamepad.POVUp.whileActiveOnce(new Climber_Run(1)); // raise the climber
 		gamepad.POVDown.whileActiveOnce(new Climber_Run(-1)); // lower the climber
 
-		gamepad.X.whenPressed(new InstantCommand(climber::toggle, climber)); // extend or retract the climber ratchet
+		gamepad.POVRight.whileActiveOnce(new ClimberTraversal_Manual(1)); // Extends climber hook outwards
+		gamepad.POVLeft.whileActiveOnce(new ClimberTraversal_Manual(-1)); // Retracts climber hook inwards
 
+		gamepad.X.whenPressed(new ClimberTraversal_Toggle()); // extend or retract the climber ratchet
+		
 		// Conveyor Controls //
 		gamepad.RB.whileHeld(new Conveyor_Run(1)); // run the converyor
 		gamepad.RT.whenActive(new Conveyor_Advance()); // Auto advance the conveyor
