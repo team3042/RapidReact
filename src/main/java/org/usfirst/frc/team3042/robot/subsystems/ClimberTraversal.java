@@ -31,8 +31,7 @@ public class ClimberTraversal extends SubsystemBase {
 		winch.restoreFactoryDefaults();
 		initMotor(winch, REVERSE_TRAVERSAL_CLIMBER);
 		
-		resetEncoders();
-		winchPositionZero = this.getWinchPosition();
+		resetEncoder();
 	}
 	private void initMotor(CANSparkMax motor, boolean reverse) {
 		motor.setIdleMode(TRAVERSAL_CLIMBER_BRAKE_MODE);
@@ -69,7 +68,7 @@ public class ClimberTraversal extends SubsystemBase {
 	}
 
 	/** Get the encoder positions or speeds **************************************/
-	public void resetEncoders() {
+	public void resetEncoder() {
 		winchPositionZero = winch.getEncoder().getPosition();
 	}
 	public double getWinchPosition() { // Position is returned in units of revolutions

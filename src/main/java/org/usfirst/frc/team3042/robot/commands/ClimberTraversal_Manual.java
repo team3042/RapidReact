@@ -9,7 +9,7 @@ import org.usfirst.frc.team3042.robot.RobotMap;
 import org.usfirst.frc.team3042.robot.subsystems.ClimberTraversal;
 
 /** ClimberTraversal_Manual *******************************************************************
- * Toggles the traversal climbing hooks */
+ * Manually operate the traversal climbing hooks */
 public class ClimberTraversal_Manual extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CLIMBER_TRAVERSAL;
@@ -18,7 +18,6 @@ public class ClimberTraversal_Manual extends CommandBase {
 	/** Instance Variables ****************************************************/
 	ClimberTraversal traversal = Robot.traversal;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(traversal));
-	boolean goalReached = false;
 	int direction;
 
 	/** ClimberTraversal_Manual ****************************************************************

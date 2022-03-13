@@ -67,10 +67,10 @@ public class OI {
 		gamepad.POVUp.whileActiveOnce(new Climber_Run(1)); // raise the climber
 		gamepad.POVDown.whileActiveOnce(new Climber_Run(-1)); // lower the climber
 
-		gamepad.POVRight.whileActiveOnce(new ClimberTraversal_Manual(1)); // Extends climber hook outwards
-		gamepad.POVLeft.whileActiveOnce(new ClimberTraversal_Manual(-1)); // Retracts climber hook inwards
+		gamepad.POVRight.whileActiveOnce(new ClimberTraversal_Manual(1)); // Extends traversal hooks outwards
+		gamepad.POVLeft.whileActiveOnce(new ClimberTraversal_Manual(-1)); // Retracts traversal hooks inwards
 
-		gamepad.X.whenPressed(new ClimberTraversal_Toggle()); // extend or retract the climber ratchet
+		gamepad.X.whenPressed(new ClimberTraversal_Toggle()); // Extend or retract the traversal hooks
 		
 		// Conveyor Controls //
 		gamepad.RB.whileHeld(new Conveyor_Run(1)); // run the converyor

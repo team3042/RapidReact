@@ -59,6 +59,7 @@ public class Robot extends TimedRobot {
 
 		drivetrain.zeroGyro();
 		drivetrain.resetEncoders();
+		traversal.resetEncoder();
 		
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
@@ -146,6 +147,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Encoder Position (RF)", drivetrain.getRightFrontPosition()); //The current left encoder position
 		SmartDashboard.putNumber("Encoder Position (LB)", drivetrain.getLeftBackPosition()); //The current right encoder position
 		SmartDashboard.putNumber("Encoder Position (RB)", drivetrain.getRightBackPosition()); //The current left encoder position
+		SmartDashboard.putNumber("Winch Position", traversal.getWinchPosition()); // The current traversal winch position
 
 		double ySpeed = oi.getYSpeed();
 		double xSpeed = oi.getXSpeed();
