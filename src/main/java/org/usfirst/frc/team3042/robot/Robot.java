@@ -171,9 +171,9 @@ public class Robot extends TimedRobot {
 		}
 	} 
 
-	public static SequentialCommandGroup constructTrajectoryCommand(String pathName) { // Give this a path name and it will return a PPMecanumControllerCommand for that path :)
+	public static SequentialCommandGroup constructTrajectoryCommand(String pathName, double velocityMax, double accelMax) { // Give this a path name and it will return a PPMecanumControllerCommand for that path :)
 		
-		PathPlannerTrajectory path = PathPlanner.loadPath(pathName, RobotMap.VELOCITY_MAX_MPS, RobotMap.ACCELERATION_MAX_MPS); 
+		PathPlannerTrajectory path = PathPlanner.loadPath(pathName, velocityMax, accelMax); 
 
 		// Add kinematics to ensure max speed is actually obeyed
 		PPMecanumControllerCommand mecanumControllerCommand = new PPMecanumControllerCommand(path, drivetrain::getPose, drivetrain.getkDriveKinematics(),

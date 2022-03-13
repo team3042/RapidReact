@@ -74,8 +74,8 @@ public class RobotMap {
 	public static final double kP_X_CONTROLLER = 9.6421;
     public static final double kP_Y_CONTROLLER = 9.6421;
     public static final double kP_THETA_CONTROLLER = 9.6421;
-	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI;
-	public static final double kMAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = Math.PI;
+	public static final double kMAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 2*Math.PI;
+	public static final double kMAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = 2*Math.PI;
 
 	/** Drivetrain Gyro Drive Settings ****************************************/
 	public static final double kP_GYRO = 0.01;
