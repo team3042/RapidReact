@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /** Autonomous Mode (Ludicrous) - 10 points!!! ******************************************************
- * The fanciest autonomous routine concievably possible, this is sure to win us fame and glory! */
+ * This fancy autonomous routine is sure to win us fame and glory! :) */
 public class AutonomousMode_Ludicrous extends SequentialCommandGroup {
 
   Intake intake = Robot.intake;
@@ -23,9 +23,9 @@ public class AutonomousMode_Ludicrous extends SequentialCommandGroup {
     addCommands(new InstantCommand(intake::extend, intake), new Wait(.1), // Deploy the intake
                 new InstantCommand(intake::autoSetPower, intake), // Start running Intake
                 Robot.constructTrajectoryCommand("RightTarmac_1Ball", 5.5, RobotMap.ACCELERATION_MAX_MPS), // Drive our trajectory path to intake more cargo
-                new InstantCommand(conveyor::autoSetPower, conveyor), new InstantCommand(intake::stop, intake), new Wait(1.5), new InstantCommand(conveyor::stop, conveyor), new InstantCommand(intake::autoSetPower, intake), // Score our first 2 cargo
+                new InstantCommand(conveyor::autoSetPower, conveyor), new InstantCommand(intake::stop, intake), new Wait(1.25), new InstantCommand(conveyor::stop, conveyor), new InstantCommand(intake::autoSetPower, intake), // Score our first 2 cargo
                 new ParallelCommandGroup(Robot.constructTrajectoryCommand("Ludicrous_Mode", 5.5, RobotMap.ACCELERATION_MAX_MPS), new Conveyor_Advance()), // Drive our trajectory to intake 2 more cargo
-                new InstantCommand(conveyor::autoSetPower, conveyor), new InstantCommand(intake::stop, intake), new Wait(1.5), new InstantCommand(conveyor::stop, conveyor), // Stop the intake and score our additional cargo
+                new InstantCommand(conveyor::autoSetPower, conveyor), new InstantCommand(intake::stop, intake), new Wait(1.25), new InstantCommand(conveyor::stop, conveyor), // Stop the intake and score our additional cargo
                 new Drivetrain_GyroStraight(40, 0.5)); // This just makes it easier for the driver to spin and zero the gyro after auto :)
   }
 }
