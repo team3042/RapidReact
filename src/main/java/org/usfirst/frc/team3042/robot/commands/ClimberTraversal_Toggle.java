@@ -13,8 +13,8 @@ import org.usfirst.frc.team3042.robot.subsystems.ClimberTraversal;
 public class ClimberTraversal_Toggle extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CLIMBER_TRAVERSAL;
-	private static final double goalPos = RobotMap.GOAL_POSITION;
-	private static final double kP = RobotMap.kP_TRAVERSAL;
+	private static final double goalPos = RobotMap.TRAVERSAL_GOAL_POSITION;
+	private static final double kP = RobotMap.kP_TRAVERSAL_POWER;
 
 	/** Instance Variables ****************************************************/
 	ClimberTraversal traversal = Robot.traversal;
