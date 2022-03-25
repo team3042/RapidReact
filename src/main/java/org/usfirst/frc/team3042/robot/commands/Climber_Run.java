@@ -41,7 +41,7 @@ public class Climber_Run extends CommandBase {
 
 	/** execute ***************************************************************
 	 * Called repeatedly when this Command is scheduled to run */
-	public void execute() {
+	public void execute() { //TODO: IF we decide to use limit switches on the climber, then we'll want to uncomment the execute() code that is written below
 		/*if (direction == -1) { // Make sure climber does not go down past limit switches
 			if(climber.getLeftLimitStatus() && !climber.getRightLimitStatus()) {
 				climber.setLeftPower(0);

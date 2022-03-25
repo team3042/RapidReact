@@ -64,11 +64,11 @@ public class OI {
 		gamepad.A.whenPressed(new InstantCommand(intake::toggle, intake)); // extend or retract the intake
 
 		// Climber Controls //
-		gamepad.POVUp.whileActiveOnce(new Climber_Run(1)); // raise the climber
-		gamepad.POVDown.whileActiveOnce(new Climber_Run(-1)); // lower the climber
+		gamepad.POVUp.whileActiveOnce(new Climber_Run(1)); // Raise the climber
+		gamepad.POVDown.whileActiveOnce(new Climber_Run(-1)); // Lower the climber
 
-		gamepad.POVRight.whileActiveOnce(new ClimberTraversal_Manual(1)); // Extends traversal hooks outwards
-		gamepad.POVLeft.whileActiveOnce(new ClimberTraversal_Manual(-1)); // Retracts traversal hooks inwards
+		gamepad.LeftJoyUp.whileActiveOnce(new ClimberTraversal_Manual(1)); // Extend the traversal hooks outward
+		gamepad.LeftJoyDown.whileActiveOnce(new ClimberTraversal_Manual(-1)); // Retract the traversal hooks inward
 
 		gamepad.X.whenPressed(new ClimberTraversal_Toggle()); // Extend or retract the traversal hooks
 		
