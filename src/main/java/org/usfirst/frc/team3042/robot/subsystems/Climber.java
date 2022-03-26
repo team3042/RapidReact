@@ -72,10 +72,10 @@ public class Climber extends SubsystemBase {
 	}
 
 	public boolean getLeftLimitStatus() {
-		return limitLeft.get();
+		return !limitLeft.get();
 	}
 	public boolean getRightLimitStatus() {
-		return limitRight.get();
+		return !limitRight.get();
 	}
 	
 	// Commands for extending/retracting the climber
