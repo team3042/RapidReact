@@ -87,7 +87,7 @@ public class RobotMap {
 	/** Intake Settings *******************************************************/
 	public static final boolean REVERSE_INTAKE = true;
 	public static final NeutralMode INTAKE_BRAKE_MODE = NeutralMode.Brake;
-	public static final double INTAKE_POWER = 0.9; // How much power (as a %) to give the intake	
+	public static final double INTAKE_POWER = 0.95; // How much power (as a %) to give the intake	
 	
 	/** USB ports *************************************************************/					
 	public static final int USB_JOYSTICK_LEFT 	= 0;
