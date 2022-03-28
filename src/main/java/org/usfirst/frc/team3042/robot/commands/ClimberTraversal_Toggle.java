@@ -8,7 +8,7 @@ import org.usfirst.frc.team3042.robot.Robot;
 import org.usfirst.frc.team3042.robot.RobotMap;
 import org.usfirst.frc.team3042.robot.subsystems.ClimberTraversal;
 
-/** ClimberTraversal_Climb *******************************************************************
+/** ClimberTraversal_Toggle *******************************************************************
  * Toggles the traversal climbing hooks */
 public class ClimberTraversal_Toggle extends CommandBase {
 	/** Configuration Constants ***********************************************/
@@ -19,6 +19,7 @@ public class ClimberTraversal_Toggle extends CommandBase {
 	/** Instance Variables ****************************************************/
 	ClimberTraversal traversal = Robot.traversal;
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(traversal));
+	private boolean retracting;
 
 	/** ClimberTraversal_Climb ****************************************************************
 	 * Required subsystems will cancel commands when this command is run. */
@@ -31,16 +32,25 @@ public class ClimberTraversal_Toggle extends CommandBase {
 	 * Called just before this Command runs the first time */
 	public void initialize() {
 		log.add("Initialize", Log.Level.TRACE);
+
+		if(traversal.isRetracted() == true) {
+			retracting = false;
+		}
+		else if (traversal.isRetracted() == false) {
+			retracting = true;
+		}
+
+		traversal.toggle();
 	}
 
 	/** execute ***************************************************************
 	 * Called repeatedly when this Command is scheduled to run */
 	public void execute() {		
-		if (traversal.isRetracted()) {
+		if (!retracting) {
 			double error = (traversal.getWinchPositionZero() + goalPos) - traversal.getWinchPosition();
 			traversal.setPower(error * kP);
 		}
-		else if (!traversal.isRetracted()) {
+		else if (retracting) {
 			double error = (traversal.getWinchPositionZero() - traversal.getWinchPosition());
 			traversal.setPower(error * kP);
 		}
@@ -49,7 +59,7 @@ public class ClimberTraversal_Toggle extends CommandBase {
 	/** isFinished ************************************************************	
 	 * Make this return true when this Command no longer needs to run execute() */
 	public boolean isFinished() {
-		if (traversal.isRetracted()) {
+		if (!retracting) {
 			return traversal.getWinchPosition() >= (traversal.getWinchPositionZero() + goalPos);
 		}
 		else {
@@ -61,6 +71,5 @@ public class ClimberTraversal_Toggle extends CommandBase {
 	public void end(boolean interrupted) {
 		log.add("End", Log.Level.TRACE);
 		traversal.stop();
-		traversal.toggle();
 	}
 }

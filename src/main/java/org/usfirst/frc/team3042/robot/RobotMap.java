@@ -27,7 +27,7 @@ public class RobotMap {
 	public static final int CAN_LEFT_BACK_MOTOR = 5;
 	public static final int CAN_RIGHT_BACK_MOTOR = 2;
 	public static final int CAN_INTAKE = 8;
-	public static final int CAN_TRAVERSAL_MOTOR = 10; //TODO: Find the actual value for this
+	public static final int CAN_TRAVERSAL_MOTOR = 10; //TODO: Find the actual value for this after the traversal climber is built
 
 	/** PCM channels **********************************************************/
 	public static final int INTAKE_SOLENOID = 1;
@@ -41,13 +41,13 @@ public class RobotMap {
 	/** Climber Settings ******************************************************/
 	public static final boolean REVERSE_RIGHT_CLIMBER = true;
 	public static final boolean REVERSE_LEFT_CLIMBER = false;
-	public static final boolean REVERSE_TRAVERSAL_CLIMBER = false;
+	public static final boolean REVERSE_TRAVERSAL_CLIMBER = false; //TODO: Determine this setting after the traversal climber is built
 	public static final NeutralMode CLIMBER_BRAKE_MODE = NeutralMode.Brake;
 	public static final IdleMode TRAVERSAL_CLIMBER_BRAKE_MODE = IdleMode.kBrake;
-	public static final double CLIMBER_POWER = 0.7; // How much power (as a %) to give the climber
-	public static final double TRAVERSAL_POWER_MANUAL = 0.7; // How much power (as a %) to give the climber
-	public static final double TRAVERSAL_GOAL_POSITION = 100; //TODO: Find this value
-	public static final double kP_TRAVERSAL_POWER = 0.01; //TODO: Tune this value
+	public static final double CLIMBER_POWER = 0.7; // How much power (as a %) to give the climbing hooks
+	public static final double TRAVERSAL_POWER_MANUAL = 0.7; // How much power (as a %) to give the traversal climber
+	public static final double TRAVERSAL_GOAL_POSITION = 100; //TODO: Find this value after the traversal climber is built
+	public static final double kP_TRAVERSAL_POWER = 0.01; //TODO: Tune this value after the traversal climber is built
 	
 	/** Conveyor Settings *****************************************************/
 	public static final boolean REVERSE_TOP_CONVEYOR = false;
