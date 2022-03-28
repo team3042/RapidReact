@@ -55,14 +55,13 @@ public class ClimberTraversal extends SubsystemBase {
 	}
 
 	public void toggle() {
-		if (isRetracted = true) {
+		if (isRetracted == true) {
 			isRetracted = false;
 		}
-		else {
+		else if (isRetracted == false) {
 			isRetracted = true;
 		}
 	}
-
 	public boolean isRetracted() {
 		return isRetracted;
 	}
