@@ -4,6 +4,7 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
 import org.usfirst.frc.team3042.lib.Log;
+import org.usfirst.frc.team3042.robot.commands.ClimberTraversal_Toggle;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Default;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_LeftTarmac;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Ludicrous;
@@ -15,6 +16,7 @@ import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3042.robot.subsystems.Intake;
 
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -45,6 +47,7 @@ public class Robot extends TimedRobot {
 	public static final OI oi = new OI();;
 
 	static ProfiledPIDController thetaController = new ProfiledPIDController(RobotMap.kP_THETA_CONTROLLER, 0, 0, drivetrain.getkThetaControllerConstraints());
+	public static final PowerDistribution pdp = new PowerDistribution();
 	
 	CommandBase autonomousCommand;
 	SendableChooser<CommandBase> chooser = new SendableChooser<CommandBase>();
@@ -155,6 +158,18 @@ public class Robot extends TimedRobot {
 		double xSpeed = oi.getXSpeed();
 		double zSpeed = oi.getZSpeed();
 		
+		// Displays the current of the left and right climber motors onto SmartDashBoard (shuffleboard)
+		SmartDashboard.putNumber("Right Climber Current", pdp.getCurrent(14));		
+		SmartDashboard.putNumber("Left Climber Current", pdp.getCurrent(2));
+
+		// Creates an instance of the ClimberTraversal_Toggle command
+		ClimberTraversal_Toggle toggleTraversal = new ClimberTraversal_Toggle();
+
+		// Checks whether the climbing arms' current is greater than x and if the traversal climber is already extended then it'll retact
+		if(pdp.getCurrent(14) >= 30 && pdp.getCurrent(2) >= 30 && traversal.isRetracted() == false) {
+			toggleTraversal.schedule();
+		}
+
 		if (Math.abs(zSpeed) > 0.01) { // If we are telling the robot to rotate, then let it rotate
 			drivetrain.driveCartesian(ySpeed, xSpeed, zSpeed, drivetrain.getGyroAngle());
 			goalAngle = drivetrain.getGyroAngle();
