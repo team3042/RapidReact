@@ -67,8 +67,8 @@ public class OI {
 		gamepad.POVUp.whileActiveOnce(new Climber_Run(1)); // Raise the climber
 		gamepad.POVDown.whileActiveOnce(new Climber_Run(-1)); // Lower the climber
 
-		gamepad.LeftJoyUp.whileActiveOnce(new ClimberTraversal_Manual(1)); // Extend the traversal hooks outward
-		gamepad.LeftJoyDown.whileActiveOnce(new ClimberTraversal_Manual(-1)); // Retract the traversal hooks inward
+		gamepad.RightJoyUp.whileActiveOnce(new ClimberTraversal_Manual(1)); // Extend the traversal hooks outward
+		gamepad.RightJoyDown.whileActiveOnce(new ClimberTraversal_Manual(-1)); // Retract the traversal hooks inward
 
 		gamepad.X.whenPressed(new ClimberTraversal_Toggle()); // Extend or retract the traversal hooks
 		
