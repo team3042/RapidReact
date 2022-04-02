@@ -13,8 +13,8 @@ import org.usfirst.frc.team3042.robot.subsystems.ClimberTraversal;
 public class ClimberTraversal_Toggle extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CLIMBER_TRAVERSAL;
-	private static final double goalPos = RobotMap.TRAVERSAL_GOAL_POSITION;
-	private static final double kP = RobotMap.kP_TRAVERSAL_POWER;
+	private static final double goalPos = RobotMap.TRAVERSAL_GOAL_POSITION;	
+	private static final double power = RobotMap.TRAVERSAL_POWER_MANUAL;
 
 	/** Instance Variables ****************************************************/
 	ClimberTraversal traversal = Robot.traversal;
@@ -47,12 +47,10 @@ public class ClimberTraversal_Toggle extends CommandBase {
 	 * Called repeatedly when this Command is scheduled to run */
 	public void execute() {		
 		if (!retracting) {
-			double error = (traversal.getWinchPositionZero() + goalPos) - traversal.getWinchPosition();
-			traversal.setPower(error * kP);
+			traversal.setPower(power);
 		}
 		else if (retracting) {
-			double error = (traversal.getWinchPositionZero() - traversal.getWinchPosition());
-			traversal.setPower(error * kP);
+			traversal.setPower(-1 * power);
 		}
 	}
 	
@@ -60,10 +58,10 @@ public class ClimberTraversal_Toggle extends CommandBase {
 	 * Make this return true when this Command no longer needs to run execute() */
 	public boolean isFinished() {
 		if (!retracting) {
-			return traversal.getWinchPosition() >= (traversal.getWinchPositionZero() + goalPos);
+			return traversal.getWinchPosition() >= goalPos;
 		}
 		else {
-			return traversal.getWinchPosition() <= traversal.getWinchPositionZero();
+			return traversal.getWinchPosition() <= 0;
 		}
 	}
 	

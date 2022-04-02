@@ -22,7 +22,6 @@ public class ClimberTraversal extends SubsystemBase {
 	/** Instance Variables ****************************************************/
 	Log log = new Log(LOG_LEVEL, SendableRegistry.getName(this));
 	CANSparkMax winch = new CANSparkMax(CAN_TRAVERSAL_MOTOR, MotorType.kBrushless);	
-	double winchPositionZero;
 	boolean isRetracted = true;
 
 	/** ClimberTraversal ****************************************************************/
@@ -68,13 +67,10 @@ public class ClimberTraversal extends SubsystemBase {
 
 	/** Get the encoder positions or speeds **************************************/
 	public void resetEncoder() {
-		winchPositionZero = winch.getEncoder().getPosition();
+		winch.getEncoder().setPosition(0);
 	}
 	public double getWinchPosition() { // Position is returned in units of revolutions
-		return winch.getEncoder().getPosition() - winchPositionZero;
-	}
-	public double getWinchPositionZero() { // Position is returned in units of revolutions
-		return winchPositionZero;
+		return winch.getEncoder().getPosition();
 	}
 	
 	/** initDefaultCommand ****************************************************

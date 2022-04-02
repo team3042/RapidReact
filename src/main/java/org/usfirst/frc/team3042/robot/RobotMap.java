@@ -46,8 +46,7 @@ public class RobotMap {
 	public static final IdleMode TRAVERSAL_CLIMBER_BRAKE_MODE = IdleMode.kBrake;
 	public static final double CLIMBER_POWER = 0.7; // How much power (as a %) to give the climbing hooks
 	public static final double TRAVERSAL_POWER_MANUAL = 0.7; // How much power (as a %) to give the traversal climber
-	public static final double TRAVERSAL_GOAL_POSITION = 100; //TODO: Find this value after the traversal climber is built
-	public static final double kP_TRAVERSAL_POWER = 0.01; //TODO: Tune this value after the traversal climber is built
+	public static final double TRAVERSAL_GOAL_POSITION = 120; //TODO: Find this value after the traversal climber is built
 	
 	/** Conveyor Settings *****************************************************/
 	public static final boolean REVERSE_TOP_CONVEYOR = false;

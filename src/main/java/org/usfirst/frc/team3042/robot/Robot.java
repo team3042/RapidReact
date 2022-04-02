@@ -18,6 +18,7 @@ import org.usfirst.frc.team3042.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -54,6 +55,8 @@ public class Robot extends TimedRobot {
 
 	double goalAngle;
 	UsbCamera camera1;
+	int climberCurrentCount = 0;
+	Timer currentTimer = new Timer();
 
 	/** robotInit *************************************************************
 	 * This function is run when the robot is first started up and should be used for any initialization code. */
@@ -161,13 +164,24 @@ public class Robot extends TimedRobot {
 		// Displays the current of the left and right climber motors onto SmartDashBoard (shuffleboard)
 		SmartDashboard.putNumber("Right Climber Current", pdp.getCurrent(14));		
 		SmartDashboard.putNumber("Left Climber Current", pdp.getCurrent(2));
+		SmartDashboard.putNumber("Climber Current Count", climberCurrentCount);	
 
 		// Creates an instance of the ClimberTraversal_Toggle command
 		ClimberTraversal_Toggle toggleTraversal = new ClimberTraversal_Toggle();
 
 		// Checks whether the climbing arms' current is greater than x and if the traversal climber is already extended then it'll retact
-		if(pdp.getCurrent(14) >= 30 && pdp.getCurrent(2) >= 30 && traversal.isRetracted() == false) {
-			toggleTraversal.schedule();
+		if(pdp.getCurrent(14) >= 15 && pdp.getCurrent(2) >= 15 && traversal.isRetracted() == false) {
+			if(currentTimer.get() >= 0.1) {
+				climberCurrentCount = 0;
+			}
+			climberCurrentCount++;
+			currentTimer.stop();
+			currentTimer.reset();
+			currentTimer.start();
+			if(climberCurrentCount >= 5) {
+				toggleTraversal.schedule();
+				climberCurrentCount = 0;
+			}
 		}
 
 		if (Math.abs(zSpeed) > 0.01) { // If we are telling the robot to rotate, then let it rotate
