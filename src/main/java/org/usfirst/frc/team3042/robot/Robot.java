@@ -83,7 +83,7 @@ public class Robot extends TimedRobot {
 		// Start up the webcam and configure its resolution and framerate
 		camera1 = CameraServer.startAutomaticCapture(0);
 		camera1.setResolution(320, 240);
-		camera1.setFPS(20);
+		camera1.setFPS(15);
 	}
 
 	/** disabledInit **********************************************************
