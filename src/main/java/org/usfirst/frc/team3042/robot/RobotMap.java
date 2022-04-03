@@ -27,7 +27,7 @@ public class RobotMap {
 	public static final int CAN_LEFT_BACK_MOTOR = 5;
 	public static final int CAN_RIGHT_BACK_MOTOR = 2;
 	public static final int CAN_INTAKE = 8;
-	public static final int CAN_TRAVERSAL_MOTOR = 10; //TODO: Find the actual value for this after the traversal climber is built
+	public static final int CAN_TRAVERSAL_MOTOR = 10;
 
 	/** PCM channels **********************************************************/
 	public static final int INTAKE_SOLENOID = 1;
@@ -41,17 +41,17 @@ public class RobotMap {
 	/** Climber Settings ******************************************************/
 	public static final boolean REVERSE_RIGHT_CLIMBER = true;
 	public static final boolean REVERSE_LEFT_CLIMBER = false;
-	public static final boolean REVERSE_TRAVERSAL_CLIMBER = false; //TODO: Determine this setting after the traversal climber is built
+	public static final boolean REVERSE_TRAVERSAL_CLIMBER = false;
 	public static final NeutralMode CLIMBER_BRAKE_MODE = NeutralMode.Brake;
 	public static final IdleMode TRAVERSAL_CLIMBER_BRAKE_MODE = IdleMode.kBrake;
 	public static final double CLIMBER_POWER = 0.7; // How much power (as a %) to give the climbing hooks
-	public static final double TRAVERSAL_POWER_MANUAL = 0.7; // How much power (as a %) to give the traversal climber
-	public static final double TRAVERSAL_GOAL_POSITION = 120; //TODO: Find this value after the traversal climber is built
+	public static final double TRAVERSAL_CLIMBER_POWER = 0.7; // How much power (as a %) to give the traversal climber
+	public static final double TRAVERSAL_GOAL_POSITION = 120;
 	
 	/** Conveyor Settings *****************************************************/
 	public static final boolean REVERSE_TOP_CONVEYOR = false;
 	public static final boolean REVERSE_RIGHT_CONVEYOR = true;
-	public static final boolean REVERSE_LEFT_CONVEYOR = true;
+	public static final boolean REVERSE_LEFT_CONVEYOR = true; //TODO: Change this to false after swapping the motor connection to the correct polarity
 	public static final NeutralMode CONVEYOR_BRAKE_MODE = NeutralMode.Brake;
 	public static final double CONVEYOR_POWER = 0.8; // How much power (as a %) to give the conveyor
 	public static final double CONVEYOR_ADVANCE_POWER = 0.4; // How much power (as a %) to give the conveyor

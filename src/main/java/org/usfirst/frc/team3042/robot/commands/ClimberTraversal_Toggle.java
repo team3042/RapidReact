@@ -14,7 +14,7 @@ public class ClimberTraversal_Toggle extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CLIMBER_TRAVERSAL;
 	private static final double goalPos = RobotMap.TRAVERSAL_GOAL_POSITION;	
-	private static final double power = RobotMap.TRAVERSAL_POWER_MANUAL;
+	private static final double POWER = RobotMap.TRAVERSAL_CLIMBER_POWER;
 
 	/** Instance Variables ****************************************************/
 	ClimberTraversal traversal = Robot.traversal;
@@ -47,10 +47,10 @@ public class ClimberTraversal_Toggle extends CommandBase {
 	 * Called repeatedly when this Command is scheduled to run */
 	public void execute() {		
 		if (!retracting) {
-			traversal.setPower(power);
+			traversal.setPower(POWER);
 		}
 		else if (retracting) {
-			traversal.setPower(-1 * power);
+			traversal.setPower(-1 * POWER);
 		}
 	}
 	

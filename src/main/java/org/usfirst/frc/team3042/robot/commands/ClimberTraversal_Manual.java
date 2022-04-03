@@ -13,7 +13,7 @@ import org.usfirst.frc.team3042.robot.subsystems.ClimberTraversal;
 public class ClimberTraversal_Manual extends CommandBase {
 	/** Configuration Constants ***********************************************/
 	private static final Log.Level LOG_LEVEL = RobotMap.LOG_CLIMBER_TRAVERSAL;
-	private static double POWER = RobotMap.TRAVERSAL_POWER_MANUAL;
+	private static double POWER = RobotMap.TRAVERSAL_CLIMBER_POWER;
 
 	/** Instance Variables ****************************************************/
 	ClimberTraversal traversal = Robot.traversal;
