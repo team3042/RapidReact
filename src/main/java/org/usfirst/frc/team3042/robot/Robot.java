@@ -178,7 +178,7 @@ public class Robot extends TimedRobot {
 			currentTimer.stop();
 			currentTimer.reset();
 			currentTimer.start();
-			if(climberCurrentCount >= 5) {
+			if(climberCurrentCount >= 4) {
 				toggleTraversal.schedule();
 				climberCurrentCount = 0;
 			}
