@@ -1,7 +1,16 @@
 package org.usfirst.frc.team3042.robot;
 
 import org.usfirst.frc.team3042.lib.Log;
+import org.usfirst.frc.team3042.robot.commands.ClimberTraversal_Manual;
+import org.usfirst.frc.team3042.robot.commands.ClimberTraversal_Toggle;
+import org.usfirst.frc.team3042.robot.commands.Climber_Run;
+import org.usfirst.frc.team3042.robot.commands.Conveyor_Advance;
+import org.usfirst.frc.team3042.robot.commands.Conveyor_Run;
+import org.usfirst.frc.team3042.robot.commands.Intake_Run;
+import org.usfirst.frc.team3042.robot.subsystems.Climber;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team3042.robot.subsystems.Intake;
+
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /** OI ************************************************************************
@@ -25,6 +34,8 @@ public class OI {
 	public static boolean isLowScale = false;
 
 	Drivetrain drivetrain = Robot.drivetrain;
+	Climber climber = Robot.climber;
+	Intake intake = Robot.intake;
 
 	int driveAxisX, driveAxisY, driveAxisZ;
 
@@ -45,6 +56,27 @@ public class OI {
 		joyLeft.button1.whenPressed(new InstantCommand(drivetrain::zeroGyro, drivetrain)); // Zero the gyro, this is helpful for field-oriented driving
 		joyRight.button1.whenPressed(new InstantCommand(this::toggleScale)); // Toggle into slow driving mode
 		joyRight.button1.whenReleased(new InstantCommand(this::toggleScale)); // Toggle out of slow driving mode
+		
+		// Intake Controls //
+		gamepad.LB.whileHeld(new Intake_Run(1)); // run the intake
+		gamepad.LT.whileActiveOnce(new Intake_Run(-1)); // reverse the intake
+
+		gamepad.A.whenPressed(new InstantCommand(intake::toggle, intake)); // extend or retract the intake
+
+		// Climber Controls //
+		gamepad.POVUp.whileActiveOnce(new Climber_Run(1)); // Raise the climber
+		gamepad.POVDown.whileActiveOnce(new Climber_Run(-1)); // Lower the climber
+
+		gamepad.RightJoyUp.whileActiveOnce(new ClimberTraversal_Manual(1)); // Extend the traversal hooks outward
+		gamepad.RightJoyDown.whileActiveOnce(new ClimberTraversal_Manual(-1)); // Retract the traversal hooks inward
+
+		gamepad.X.whenPressed(new ClimberTraversal_Toggle()); // Extend or retract the traversal hooks
+		
+		// Conveyor Controls //
+		gamepad.RB.whileHeld(new Conveyor_Run(1)); // run the converyor
+		gamepad.RT.whenActive(new Conveyor_Advance()); // Auto advance the conveyor
+
+		gamepad.B.whileHeld(new Conveyor_Run(-0.5)); // reverse the converyor
 	}
 	
 	/** Access to the driving axes values *****************************
