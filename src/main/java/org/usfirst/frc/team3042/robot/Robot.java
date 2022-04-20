@@ -7,7 +7,6 @@ import org.usfirst.frc.team3042.lib.Log;
 import org.usfirst.frc.team3042.robot.commands.ClimberTraversal_Toggle;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Default;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_LeftTarmac;
-import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Ludicrous;
 import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_RightTarmac;
 import org.usfirst.frc.team3042.robot.commands.autonomous.helperCommands.PPMecanumControllerCommand;
 import org.usfirst.frc.team3042.robot.subsystems.Climber;
@@ -71,9 +70,9 @@ public class Robot extends TimedRobot {
 		
 		// Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
-		chooser.addOption("Left Tarmac", new AutonomousMode_LeftTarmac());
-		chooser.addOption("Right Tarmac", new AutonomousMode_RightTarmac());
-		chooser.addOption("4 Ball Auto", new AutonomousMode_Ludicrous());
+		chooser.addOption("2 ball (Left)", new AutonomousMode_LeftTarmac());
+		chooser.addOption("3 ball (Right)", new AutonomousMode_RightTarmac());
+		//chooser.addOption("4 Ball (Right)", new AutonomousMode_Ludicrous());
 
 		//chooser.addOption("Straight TEST", constructTrajectoryCommand("Basic_Straight_Line_Path")); // This is only for tuning purposes
 		//chooser.addOption("Curve TEST", constructTrajectoryCommand("Basic_Curve_Path")); // This is only for tuning purposes
@@ -178,7 +177,7 @@ public class Robot extends TimedRobot {
 			currentTimer.stop();
 			currentTimer.reset();
 			currentTimer.start();
-			if(climberCurrentCount >= 4) {
+			if(climberCurrentCount >= 5) {
 				toggleTraversal.schedule();
 				climberCurrentCount = 0;
 			}
