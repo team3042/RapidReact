@@ -4,17 +4,8 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 
 import org.usfirst.frc.team3042.lib.Log;
-import org.usfirst.frc.team3042.robot.commands.ClimberTraversal_Toggle;
-import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_Default;
-import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_LeftTarmac;
-import org.usfirst.frc.team3042.robot.commands.autonomous.AutonomousMode_RightTarmac;
 import org.usfirst.frc.team3042.robot.commands.autonomous.helperCommands.PPMecanumControllerCommand;
-import org.usfirst.frc.team3042.robot.subsystems.Climber;
-import org.usfirst.frc.team3042.robot.subsystems.ClimberTraversal;
-import org.usfirst.frc.team3042.robot.subsystems.Conveyor;
 import org.usfirst.frc.team3042.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team3042.robot.subsystems.Intake;
-
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -39,11 +30,7 @@ public class Robot extends TimedRobot {
 
 	/** Create Subsystems *****************************************************/
 	private Log log = new Log(LOG_LEVEL, "Robot");
-	public static final Climber climber = new Climber();
-	public static final ClimberTraversal traversal = new ClimberTraversal();
-	public static final Conveyor conveyor  = new Conveyor();
 	public static final Drivetrain drivetrain = new Drivetrain();
-	public static final Intake intake = new Intake();
 	public static final OI oi = new OI();;
 
 	static ProfiledPIDController thetaController = new ProfiledPIDController(RobotMap.kP_THETA_CONTROLLER, 0, 0, drivetrain.getkThetaControllerConstraints());
@@ -66,18 +53,7 @@ public class Robot extends TimedRobot {
 
 		drivetrain.zeroGyro();
 		drivetrain.resetEncoders();
-		traversal.resetEncoder();
 		
-		// Autonomous Routines //
-		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
-		chooser.addOption("2 ball (Left)", new AutonomousMode_LeftTarmac());
-		chooser.addOption("3 ball (Right)", new AutonomousMode_RightTarmac());
-		//chooser.addOption("4 Ball (Right)", new AutonomousMode_Ludicrous());
-
-		//chooser.addOption("Straight TEST", constructTrajectoryCommand("Basic_Straight_Line_Path")); // This is only for tuning purposes
-		//chooser.addOption("Curve TEST", constructTrajectoryCommand("Basic_Curve_Path")); // This is only for tuning purposes
-				
-		SmartDashboard.putData("Auto Mode", chooser);
 
 		// Start up the webcam and configure its resolution and framerate
 		camera1 = CameraServer.startAutomaticCapture(0);
@@ -104,9 +80,6 @@ public class Robot extends TimedRobot {
 		log.add("Autonomous Init", Log.Level.TRACE);
 
 		drivetrain.resetEncoders();
-		climber.retract();
-		intake.retract();
-		
 		autonomousCommand = chooser.getSelected();
 		
 		// schedule the autonomous command
@@ -139,7 +112,6 @@ public class Robot extends TimedRobot {
 		}
 		
 		drivetrain.resetEncoders();
-		climber.retract();
 
 		goalAngle = drivetrain.getGyroAngle();
 	}
@@ -154,7 +126,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Encoder Position (RF)", drivetrain.getRightFrontPosition()); //The current left encoder position
 		SmartDashboard.putNumber("Encoder Position (LB)", drivetrain.getLeftBackPosition()); //The current right encoder position
 		SmartDashboard.putNumber("Encoder Position (RB)", drivetrain.getRightBackPosition()); //The current left encoder position
-		SmartDashboard.putNumber("Traversal Winch Position", traversal.getWinchPosition()); // The current traversal winch position
 
 		double ySpeed = oi.getYSpeed();
 		double xSpeed = oi.getXSpeed();
@@ -163,25 +134,7 @@ public class Robot extends TimedRobot {
 		// Displays the current of the left and right climber motors onto SmartDashBoard (shuffleboard)
 		SmartDashboard.putNumber("Right Climber Current", pdp.getCurrent(14));		
 		SmartDashboard.putNumber("Left Climber Current", pdp.getCurrent(2));
-		SmartDashboard.putNumber("Climber Current Count", climberCurrentCount);	
-
-		// Creates an instance of the ClimberTraversal_Toggle command
-		ClimberTraversal_Toggle toggleTraversal = new ClimberTraversal_Toggle();
-
-		// Checks whether the climbing arms' current is greater than x and if the traversal climber is already extended then it'll retact
-		if(pdp.getCurrent(14) >= 15 && pdp.getCurrent(2) >= 15 && traversal.isRetracted() == false) {
-			if(currentTimer.get() >= 0.1) {
-				climberCurrentCount = 0;
-			}
-			climberCurrentCount++;
-			currentTimer.stop();
-			currentTimer.reset();
-			currentTimer.start();
-			if(climberCurrentCount >= 5) {
-				toggleTraversal.schedule();
-				climberCurrentCount = 0;
-			}
-		}
+		SmartDashboard.putNumber("Climber Current Count", climberCurrentCount);
 
 		if (Math.abs(zSpeed) > 0.01) { // If we are telling the robot to rotate, then let it rotate
 			drivetrain.driveCartesian(ySpeed, xSpeed, zSpeed, drivetrain.getGyroAngle());
