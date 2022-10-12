@@ -52,7 +52,8 @@ public class Climber extends SubsystemBase {
 	public void setPower(double Power) {
 		Power = safetyCheck(Power);
 		rightMotor.set(ControlMode.PercentOutput, Power);
-		leftMotor.set(ControlMode.PercentOutput, Power);		
+		leftMotor.set(ControlMode.PercentOutput, Power*0.90);
+		//power*0.90 to try and even out the climbers		
 	}
 	public void setLeftPower(double Power) {
 		Power = safetyCheck(Power);
@@ -60,7 +61,7 @@ public class Climber extends SubsystemBase {
 	}
 	public void setRightPower(double Power) {
 		Power = safetyCheck(Power);
-		rightMotor.set(ControlMode.PercentOutput, Power);		
+		rightMotor.set(ControlMode.PercentOutput, Power);	
 	}
 	public void stop() {
 		setPower(0.0);
